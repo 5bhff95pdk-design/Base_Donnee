@@ -150,3 +150,5 @@ jobs:
           sha=$(printf '%s' "$resp" | python3 -c "import sys,json;print(json.load(sys.stdin).get('sha',''))" 2>/dev/null)
           if [ -z "$sha" ]; then warn "BLOB_KO pas de sha"; exit 1; fi
           note "BLOB_OK sha=${sha}"
+
+# relance 2026-09-12T23:23:28Z : recupere l archive et la publie sous un tag temporaire
