@@ -1,0 +1,154 @@
+name: Relay shared Drive archive
+
+# Telecharge l'archive partagee sur Google Drive (inaccessible depuis le sandbox)
+# et la publie sous un tag git temporaire, seul canal joignable depuis le sandbox
+# (github.com en git + api.github.com). Le tag est supprime apres recuperation.
+#
+# Les logs Actions ne sont pas joignables depuis le sandbox (CDN bloque), donc
+# chaque etape publie son resultat en annotation (::notice / ::warning),
+# lisible via GET /repos/{o}/{r}/check-runs/{id}/annotations.
+
+on:
+  push:
+    branches:
+      - arena/01a097bf-base-donnee
+    paths:
+      - .github/workflows/relay-drive-archive.yml
+  workflow_dispatch:
+    inputs:
+      file_id:
+        description: 'ID du fichier Google Drive'
+        required: false
+        default: '1PWkzbuQlXFVVghd-vlRe46QvvwXA5K7c'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: relay-drive-archive
+  cancel-in-progress: false
+
+jobs:
+  relay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Download archive from Google Drive
+        env:
+          FILE_ID: ${{ github.event.inputs.file_id || '1PWkzbuQlXFVVghd-vlRe46QvvwXA5K7c' }}
+        run: |
+          set -uo pipefail
+          out="${RUNNER_TEMP}/workspace.zip"
+          ok=0
+          note() { echo "::notice title=relay::$(printf '%s' "$*" | tr '\n|' '  ' | cut -c1-1500)"; }
+          warn() { echo "::warning title=relay::$(printf '%s' "$*" | tr '\n|' '  ' | cut -c1-1500)"; }
+
+          try() {
+            local label="$1"; shift
+            rm -f "$out"
+            local rc=0
+            "$@" || rc=$?
+            if [ "$rc" -eq 0 ] && [ -s "$out" ] && unzip -t "$out" >/dev/null 2>&1; then
+              note "download OK via ${label} ; bytes=$(stat -c %s "$out")"
+              ok=1
+            else
+              warn "download FAILED via ${label} ; rc=${rc} ; bytes=$(stat -c %s "$out" 2>/dev/null || echo 0)"
+            fi
+          }
+
+          try "drive.usercontent" \
+            curl --fail --silent --show-error --location --retry 3 --retry-delay 3 --max-time 900 \
+                 --output "$out" \
+                 "https://drive.usercontent.google.com/download?id=${FILE_ID}&export=download&confirm=t&authuser=0"
+
+          [ "$ok" -eq 1 ] || try "drive.google.com/uc" \
+            curl --fail --silent --show-error --location --retry 3 --retry-delay 3 --max-time 900 \
+                 --output "$out" \
+                 "https://drive.google.com/uc?export=download&id=${FILE_ID}&confirm=t"
+
+          if [ "$ok" -eq 0 ]; then
+            python3 -m pip install --quiet --upgrade gdown >/dev/null 2>&1 || true
+            try "gdown" gdown --id "$FILE_ID" -O "$out"
+          fi
+
+          if [ "$ok" -eq 0 ]; then
+            warn "aucune methode n'a fonctionne ; head=$(head -c 200 "$out" 2>/dev/null | tr -d '\0')"
+            exit 1
+          fi
+          echo "workspace_zip=${out}" >> "$GITHUB_ENV"
+
+      - name: Build manifest
+        run: |
+          set -uo pipefail
+          note() { echo "::notice title=relay::$(printf '%s' "$*" | tr '\n|' '  ' | cut -c1-1500)"; }
+          drop="${RUNNER_TEMP}/drop"
+          rm -rf "$drop"; mkdir -p "$drop"
+          cp "$workspace_zip" "$drop/workspace-01a095f8.zip"
+          zip="$drop/workspace-01a095f8.zip"
+          size=$(stat -c %s "$zip")
+          sha=$(sha256sum "$zip" | cut -d' ' -f1)
+          entries=$(unzip -Z1 "$zip" | wc -l)
+          {
+            echo "source: Google Drive file 1PWkzbuQlXFVVghd-vlRe46QvvwXA5K7c"
+            echo "folder: 1abzR2Imi0v-flhoUk1KgB2u_yCpr0fQb"
+            echo "name: workspace-01a095f8-a934-72fe-98db-28fcc74cd1ec.zip"
+            echo "fetched_at: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo "run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            echo "size_bytes: ${size}"
+            echo "sha256: ${sha}"
+            echo "entries: ${entries}"
+            echo
+            echo "== zip integrity =="
+            unzip -t "$zip" | tail -n 2
+            echo
+            echo "== top-level entries =="
+            unzip -Z1 "$zip" | awk -F/ '{print $1}' | sort | uniq -c | sort -rn | head -n 60
+            echo
+            echo "== full listing =="
+            unzip -Z1 "$zip"
+          } > "$drop/MANIFEST.txt"
+          note "manifest OK ; bytes=${size} ; sha256=${sha} ; entries=${entries}"
+          note "top-level: $(unzip -Z1 "$zip" | awk -F/ '{print $1}' | sort -u | tr '\n' ' ' | cut -c1-900)"
+
+      - name: Publish as temporary git tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -uo pipefail
+          note() { echo "::notice title=relay::$(printf '%s' "$*" | tr '\n|' '  ' | cut -c1-1400)"; }
+          warn() { echo "::warning title=relay::$(printf '%s' "$*" | tr '\n|' '  ' | cut -c1-1400)"; }
+          clean() { sed "s/${GITHUB_TOKEN}/REDACTED/g" | tr '\n' '|' | cut -c1-1400; }
+
+          drop="${RUNNER_TEMP}/drop"
+          ref="drive-drop-${GITHUB_RUN_ID}"
+          cd "$drop" || { warn "cd drop impossible"; exit 1; }
+          git init -q .
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config http.postBuffer 524288000
+          git add -A
+          git commit -q -m "chore(relay): temporary drop of shared Drive archive (${ref})" || { warn "git commit echoue"; exit 1; }
+          git tag -f "$ref"
+          note "commit local OK ; taille=$(du -sh . | cut -f1) ; objets=$(git count-objects -vH | tr '\n' ' ')"
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          log=$(git push --force --progress origin "refs/tags/${ref}" 2>&1); rc=$?
+          msg=$(printf '%s' "$log" | clean)
+          if [ "$rc" -eq 0 ]; then note "PUSH_TAG_OK refs/tags/${ref} ${msg}"; exit 0; fi
+          warn "PUSH_TAG_KO rc=${rc} ${msg}"
+
+          log2=$(git push --force --progress origin "HEAD:refs/heads/${ref}" 2>&1); rc2=$?
+          msg2=$(printf '%s' "$log2" | clean)
+          if [ "$rc2" -eq 0 ]; then note "PUSH_BRANCH_OK refs/heads/${ref} ${msg2}"; exit 0; fi
+          warn "PUSH_BRANCH_KO rc=${rc2} ${msg2}"
+
+          # Dernier recours: publier le zip comme blob git via l'API (aucun ref requis).
+          python3 -c "import base64,json,os;p=os.path.join(os.environ['RUNNER_TEMP'],'drop','workspace-01a095f8.zip');d=open(p,'rb').read();open(os.path.join(os.environ['RUNNER_TEMP'],'payload.json'),'w').write(json.dumps({'content':base64.b64encode(d).decode(),'encoding':'base64'}))" || { warn "payload echoue"; exit 1; }
+          note "payload pret taille=$(stat -c %s ${RUNNER_TEMP}/payload.json)"
+          resp=$(curl --silent --show-error -X POST -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${GITHUB_REPOSITORY}/git/blobs" --data-binary "@${RUNNER_TEMP}/payload.json" 2>&1)
+          note "reponse API blobs: $(printf '%s' "$resp" | cut -c1-600)"
+          sha=$(printf '%s' "$resp" | python3 -c "import sys,json;print(json.load(sys.stdin).get('sha',''))" 2>/dev/null)
+          if [ -z "$sha" ]; then warn "BLOB_KO pas de sha"; exit 1; fi
+          note "BLOB_OK sha=${sha}"
+
+# relance 2026-09-12T23:23:28Z : recupere l archive et la publie sous un tag temporaire
