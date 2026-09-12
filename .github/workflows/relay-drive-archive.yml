@@ -123,11 +123,9 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -q -m "chore(relay): temporary drop of shared Drive archive
-
-Archive Google Drive workspace-01a095f8-a934-72fe-98db-28fcc74cd1ec.zip
-publiee temporairement sous le tag ${tag} pour transfert vers le sandbox.
-Ce tag est supprime apres recuperation."
+          git commit -q \
+            -m "chore(relay): temporary drop of shared Drive archive" \
+            -m "Archive Google Drive workspace-01a095f8-a934-72fe-98db-28fcc74cd1ec.zip publiee temporairement sous le tag ${tag} pour transfert vers le sandbox. Ce tag est supprime apres recuperation."
           git tag -f "$tag"
           git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push -q --force origin "refs/tags/${tag}"
