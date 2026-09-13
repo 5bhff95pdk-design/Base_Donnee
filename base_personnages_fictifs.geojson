@@ -81,6 +81,31 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -70.8774,
+          48.32518
+        ]
+      },
+      "properties": {
+        "nom": "Alexandre Lavoie",
+        "surnom": "Le Cadet",
+        "type": "Humain",
+        "age": 16,
+        "role": "Joueur — hockey juvénile",
+        "secteur": "La Baie",
+        "adresse": "147, Avenue Lavoie",
+        "apparence": "Joue ronde, premier duvet, cheveux sous la tuque",
+        "vetements": "Veston de hockey par-dessus un hoodie",
+        "tic_ou_objet": "Bâton de hockey et patins éraflés",
+        "portrait": "portraits/173-alexandre-lavoie-web.webp",
+        "famille": "Lavoie (JP)",
+        "parente": "Fils cadet de Robert et Diane — petit frère de JP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -70.8785,
           48.3412
         ]
@@ -286,17 +311,17 @@
         ]
       },
       "properties": {
-        "nom": "Bernard « Bunker » Tremblay",
+        "nom": "Bernard Tremblay",
         "surnom": "Bunker",
         "type": "Humain",
         "age": 51,
         "role": "Survivaliste — abri anti-tout",
         "secteur": "La Baie",
-        "adresse": "chemin forestier Petit-Parc",
+        "adresse": "Lieu-dit : chemin forestier du Petit-Parc",
         "apparence": "Masque à gaz artisanal",
         "vetements": "Masque et combinaison",
         "tic_ou_objet": "Conserves 1998",
-        "portrait": "portraits/150-bernard-bunker-tremblay-web.webp",
+        "portrait": "portraits/150-bernard-tremblay-web.webp",
         "famille": "Tremblay (bunker)",
         "parente": "Célibataire — vend des stocks à Dévon"
       }
@@ -867,7 +892,7 @@
         "age": 38,
         "role": "Nageur hivernal obsessionnel",
         "secteur": "La Baie",
-        "adresse": "Baie des Ha! Ha!",
+        "adresse": "Lieu-dit : baie des Ha! Ha!",
         "apparence": "Cheveux mouillés, combinaison",
         "vetements": "Wetsuit à moitié",
         "tic_ou_objet": "Parle à l’eau",
@@ -892,7 +917,7 @@
         "age": 60,
         "role": "Collectionneur — panneaux Cédez",
         "secteur": "La Baie",
-        "adresse": "près Pyramide des Ha! Ha!",
+        "adresse": "Lieu-dit : près de la Pyramide des Ha! Ha!",
         "apparence": "Ciré jaune, sourire maniaque",
         "vetements": "Ciré jaune",
         "tic_ou_objet": "Répliques de Cédez",
@@ -1467,7 +1492,7 @@
         "age": 37,
         "role": "Patrouilleuse — ski Bec-Scie",
         "secteur": "La Baie",
-        "adresse": "Centre Bec-Scie",
+        "adresse": "Lieu-dit : centre de ski Bec-Scie",
         "apparence": "Veste rouge, lunettes de ski",
         "vetements": "Veste de patrouille",
         "tic_ou_objet": "Talkie des pistes",
@@ -1506,6 +1531,31 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -70.8808,
+          48.33985
+        ]
+      },
+      "properties": {
+        "nom": "Karine Desrosiers",
+        "surnom": "Zoom",
+        "type": "Humain",
+        "age": 33,
+        "role": "Archiviste — plaques d’immatriculation",
+        "secteur": "La Baie",
+        "adresse": "340, Boulevard de la Grande-Baie Nord",
+        "apparence": "Objectif énorme, van rouillée",
+        "vetements": "Parka, van",
+        "tic_ou_objet": "Cahier de plaques",
+        "portrait": "portraits/149-karine-desrosiers-web.webp",
+        "famille": "Desrosiers-Simard",
+        "parente": "Cousine d’Anik Desrosiers"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -70.881773,
           48.380184
         ]
@@ -1524,31 +1574,6 @@
         "portrait": "portraits/25-karine-gagnon-web.webp",
         "famille": "Gagnon (motards)",
         "parente": "Fille de Thérèse Gagnon — sœur de Rock"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -70.8808,
-          48.33985
-        ]
-      },
-      "properties": {
-        "nom": "Karine « Zoom » Desrosiers",
-        "surnom": "Zoom",
-        "type": "Humain",
-        "age": 33,
-        "role": "Archiviste — plaques d’immatriculation",
-        "secteur": "La Baie",
-        "adresse": "340, Boulevard de la Grande-Baie Nord",
-        "apparence": "Objectif énorme, van rouillée",
-        "vetements": "Parka, van",
-        "tic_ou_objet": "Cahier de plaques",
-        "portrait": "portraits/149-karine-zoom-desrosiers-web.webp",
-        "famille": "Desrosiers-Simard",
-        "parente": "Cousine d’Anik Desrosiers"
       }
     },
     {
@@ -1692,7 +1717,7 @@
         "age": 49,
         "role": "Guetteur — Base de Bagotville",
         "secteur": "La Baie",
-        "adresse": "Bagotville ouest",
+        "adresse": "Lieu-dit : Base de Bagotville, secteur ouest",
         "apparence": "Squelettique, camouflage",
         "vetements": "Camo",
         "tic_ou_objet": "Jumelles 24h/24",
@@ -1799,6 +1824,31 @@
         "portrait": "portraits/102-lea-pelletier-web.webp",
         "famille": "Pelletier (bar)",
         "parente": "Fille d’Hugo et Sarah Pelletier"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.89788,
+          48.34462
+        ]
+      },
+      "properties": {
+        "nom": "Léo Cloutier",
+        "surnom": "Lio",
+        "type": "Humain",
+        "age": 9,
+        "role": "Livreur de circulaires — porte-à-porte",
+        "secteur": "La Baie",
+        "adresse": "69, Rue des Bouleaux",
+        "apparence": "Taches de rousseur, mèche rousse qui dépasse de la tuque",
+        "vetements": "Parka d’hiver trop grande, tuque bleue, mitaines trouées",
+        "tic_ou_objet": "Sac de toile et liasses de circulaires",
+        "portrait": "portraits/171-leo-cloutier-web.webp",
+        "famille": "Cloutier",
+        "parente": "Fils de Manon Cloutier — petit frère de Dave"
       }
     },
     {
@@ -2192,7 +2242,7 @@
         "age": 42,
         "role": "Guide — parc du Fjord-du-Saguenay",
         "secteur": "La Baie",
-        "adresse": "Sentier Eucher",
+        "adresse": "Lieu-dit : sentier Eucher",
         "apparence": "Innue, tresses, calme",
         "vetements": "Manteau outdoor",
         "tic_ou_objet": "Jumelles",
@@ -2249,6 +2299,31 @@
         "portrait": "portraits/117-normand-boucher-web.webp",
         "famille": "Boucher",
         "parente": "Cousin de Dévon et Éric Boucher"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.87975,
+          48.34545
+        ]
+      },
+      "properties": {
+        "nom": "Nour Benali",
+        "surnom": null,
+        "type": "Humain",
+        "age": 13,
+        "role": "Élève du secondaire — aide au dépanneur",
+        "secteur": "La Baie",
+        "adresse": "1314, Rue Victoria",
+        "apparence": "Hijab beige, cahiers d’école empilés sous le comptoir",
+        "vetements": "Fleece marine et jeans",
+        "tic_ou_objet": "Manuels scolaires ouverts sur le comptoir-caisse",
+        "portrait": "portraits/172-nour-benali-web.webp",
+        "famille": "Benali",
+        "parente": "Fille d’Ahmed et Nadia Benali — sœur d’Hassan"
       }
     },
     {
@@ -2465,7 +2540,7 @@
         "surnom": "Rico",
         "type": "Humain",
         "age": 36,
-        "role": "Homme de main — clan Santini",
+        "role": "Homme de main — recouvrement de dettes",
         "secteur": "La Baie",
         "adresse": "88, Rue Saint-Denis",
         "apparence": "Crâne rasé, jointures marquées",
@@ -3142,7 +3217,7 @@
         "age": 28,
         "role": "Militaires — 3e Escadre Bagotville",
         "secteur": "La Baie",
-        "adresse": "Base de Bagotville",
+        "adresse": "Lieu-dit : Base de Bagotville (3e Escadre)",
         "apparence": "Coupe militaire, anglophone",
         "vetements": "Uniforme CADPAT",
         "tic_ou_objet": "Dog tags",
@@ -3431,8 +3506,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -71.2412,
-          48.4128
+          -71.0535,
+          48.4269
         ]
       },
       "properties": {
@@ -3442,7 +3517,7 @@
         "age": 39,
         "role": "Propriétaire — club Le Néon",
         "secteur": "Chicoutimi",
-        "adresse": "2140, Boulevard Harvey",
+        "adresse": "590, Rue Racine Est",
         "apparence": "Chemise soie, chaîne",
         "vetements": "Chemise de soie",
         "tic_ou_objet": "Néons du bar",
@@ -3490,7 +3565,7 @@
         "surnom": "Le Conseiller",
         "type": "Humain",
         "age": 55,
-        "role": "Conseiller — affaires du clan",
+        "role": "Conseiller en gestion d’entreprise",
         "secteur": "Chicoutimi",
         "adresse": "198, Rue Racine Est",
         "apparence": "Lunettes, complet gris",
@@ -3640,7 +3715,7 @@
         "surnom": "Le Volant",
         "type": "Humain",
         "age": 34,
-        "role": "Chauffeur — clan Santini",
+        "role": "Chauffeur de voiture de ville",
         "secteur": "Chicoutimi",
         "adresse": "1188, Boulevard Talbot",
         "apparence": "Complet noir, oreillette",
@@ -3815,7 +3890,7 @@
         "surnom": "Nico",
         "type": "Humain",
         "age": 28,
-        "role": "Soldat — clan Santini",
+        "role": "Préposé à la sécurité — restaurant",
         "secteur": "Chicoutimi",
         "adresse": "202, Rue Racine Est",
         "apparence": "Cheveux gominés, veste cuir",
@@ -3948,7 +4023,7 @@
         "tic_ou_objet": "Carnet de notes",
         "portrait": "portraits/104-sophie-labbe-web.webp",
         "famille": "Labbé",
-        "parente": "Célibataire — collège de Laurie Lavoie"
+        "parente": "Célibataire — collègue de Laurie Lavoie"
       }
     },
     {
@@ -3965,7 +4040,7 @@
         "surnom": "Don Vittorio",
         "type": "Humain",
         "age": 64,
-        "role": "Parrain — clan Santini",
+        "role": "Homme d’affaires — restauration et bars",
         "secteur": "Chicoutimi",
         "adresse": "200, Rue Racine Est",
         "apparence": "Cheveux argentés gominés, chevalière",

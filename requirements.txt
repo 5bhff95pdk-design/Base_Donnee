@@ -1,0 +1,4 @@
+# Dépendances de construire_base.py et des tests (tests/test_base.py)
+# Installation : python3 -m pip install -r requirements.txt
+openpyxl==3.1.5
+Pillow==12.3.0

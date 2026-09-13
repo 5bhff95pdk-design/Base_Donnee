@@ -7,20 +7,48 @@ Idempotent : peut être relancé autant de fois que voulu.
 Usage :  python3 construire_base.py
 
 Produit :
-  base_personnages_fictifs.xlsx    (+ feuilles « Lisez-moi » et « Narration » si présente)
+  base_personnages_fictifs.xlsx    (+ feuilles « Lisez-moi » et « Narration »)
   base_personnages_fictifs.csv     (; et UTF-8 BOM, compatible Excel FR)
   base_personnages_fictifs.json    (clés minuscules sans accent)
   base_personnages_fictifs.geojson (points WGS84, pour QGIS / geojson.io / uMap)
   carte-la-baie-saguenay.html + carte/index.html (données réinjectées)
+  portraits/planche-contact-generale.webp (vignettes de tous les personnages)
+
+REPRODUCTIBILITÉ : aucune donnée volatile (date système, métadonnées Office)
+n'est écrite : relancer le script deux fois produit des fichiers OCTET POUR
+OCTET identiques (vérifié en CI : git diff doit rester vide). La date « Généré
+le » est figée (DATE_FIGEE) ou surchargée par SOURCE_DATE_EPOCH. Pillow est
+nécessaire pour la planche contact ; s'il manque, un avertissement est émis
+mais les autres livrables sont quand même générés.
 """
-import openpyxl, json, csv, re, datetime, os, shutil, glob as _glob, unicodedata
+import sys, openpyxl, json, csv, re, datetime, os, shutil, glob as _glob, unicodedata
+from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
 from copy import copy
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
+try:
+    from PIL import Image, ImageDraw
+    PIL_OK = True
+except Exception:  # Pillow absent : tout sauf la planche reste fonctionnel
+    PIL_OK = False
+
 XLSX  = 'base_personnages_fictifs.xlsx'
 FEUILLE = 'Personnages'
 ANIMAUX = {'Pisse-Feu'}
+
+# Date figée pour les livrables reproductibles (jamais de date système).
+# Surcharge possible avec la variable d'environnement SOURCE_DATE_EPOCH.
+def _date_livrable():
+    e = os.environ.get('SOURCE_DATE_EPOCH')
+    if e:
+        try:
+            return datetime.datetime.fromtimestamp(int(e), datetime.timezone.utc)
+        except (ValueError, OverflowError):
+            pass
+    return datetime.datetime(2026, 9, 11, 0, 0, tzinfo=datetime.timezone.utc)
+DATE_LIVRABLE = _date_livrable()
+PLANCHE = 'portraits/planche-contact-generale.webp'
 
 COLONNES = ['Nom','Surnom','Type','Age','Rôle','Secteur','Adresse',
             'Latitude','Longitude','Apparence','Vêtements','Tic / Objet','Portrait','Famille','Parenté']
@@ -44,10 +72,16 @@ DICO = [
                  ' (la colonne Vêtements ne se lit pas pareil pour un animal).'),
  ('Age','Entier','Âge réel, en années. Pour un animal : années animales.'),
  ('Rôle','Texte','Métier ou occupation autonome. Format recommandé : « Métier — précision ».'
-                 ' Ne doit référencer ni un autre personnage ni un lieu de l\'intrigue.'),
- ('Secteur','Liste','La Baie | Chicoutimi | Jonquière (arrondissements de la ville de Saguenay).'),
- ('Adresse','Texte','« Numéro, Rue ». Les NUMÉROS SONT FICTIFS, les RUE sont réelles'
-                    ' (extraites d\'OpenStreetMap via l\'API Overpass).'),
+                 ' Ne doit référencer ni un autre personnage, ni un lieu de l\'intrigue,'
+                 ' ni une faction / un clan (ex. interdit : « — clan Santini ») : le clan va'
+                 ' dans la colonne Famille, la faction dans la feuille Narration.'),
+ ('Secteur','Liste','La Baie | Chicoutimi | Jonquière (arrondissements de la ville de Saguenay).'
+                    ' Les coordonnées doivent tomber dans le secteur annoncé.'),
+ ('Adresse','Texte','Par défaut « Numéro, Rue » : les NUMÉROS SONT FICTIFS, les RUES sont'
+                    ' réelles (extraites d\'OpenStreetMap via l\'API Overpass). Pour un lieu'
+                    ' non adressable (plein air, sentier, base militaire), écrire'
+                    ' « Lieu-dit : … » : ce préfixe signale volontairement l\'absence de'
+                    ' numéro civique.'),
  ('Latitude','Décimal','WGS84, 6 décimales. APPROXIMATIVE : centroïde réel de la rue'
                        ' + décalage déterministe de ±400 m. Précision au quartier, pas au bâtiment.'),
  ('Longitude','Décimal','WGS84, 6 décimales. Même précision que Latitude.'),
@@ -55,9 +89,13 @@ DICO = [
  ('Vêtements','Texte','« s.o. » = sans objet (non applicable, p. ex. un animal).'
                      ' Vide = inconnu mais applicable. Ne pas confondre les deux.'),
  ('Tic / Objet','Texte','Manie, accessoire ou objet signature.'),
- ('Portrait','Texte','Chemin relatif du WebP (gabarit « -web », ~80 Ko). Vide = pas encore photographié.'
-               ' Trois gabarits par personnage dans portraits/ : .webp (archive), -web.webp (web),'
-               ' -vignette.webp (400 px, casting/carte). Découvert automatiquement par slug du nom.'),
+ ('Portrait','Texte','Chemin relatif du WebP gabarit « -web » (~80 à 150 Ko). Vide = pas encore photographié.'
+               ' Deux gabarits par personnage dans portraits/ : -web.webp (le référencé ici)'
+               ' et -vignette.webp (400 px, utilisé par la carte et la planche contact).'
+               ' Découverts automatiquement par slug du nom. L’ancien gabarit « archive »'
+               ' (.webp sans suffixe) n’est référencé par rien : il ne doit pas être versionné'
+               ' (voir .gitignore). Toutes les vignettes sont assemblées dans'
+               ' portraits/planche-contact-generale.webp.'),
  ('Famille','Texte','Nom du clan / foyer. Permet de grouper les proches sur la carte.'),
  ('Parenté','Texte','Lien familial explicite (père de, épouse de, etc.).'),
 ]
@@ -81,7 +119,12 @@ def portraits_par_nom():
     return found
 
 def charger():
-    wb = openpyxl.load_workbook(XLSX)
+    if not os.path.exists(XLSX):
+        raise SystemExit(f"✘ Classeur maître introuvable : {XLSX} (à lancer depuis la racine du dépôt)")
+    try:
+        wb = openpyxl.load_workbook(XLSX)
+    except Exception as e:
+        raise SystemExit(f"✘ Impossible de lire {XLSX} : {e}")
     ws = wb[FEUILLE]
     hdr = [c.value for c in ws[1]]
     recs = [dict(zip(hdr,[c.value for c in r])) for r in ws.iter_rows(min_row=2)
@@ -168,10 +211,13 @@ def ecrire_xlsx(recs, narr):
     for txt in [
       '• Cellule VIDE  = information applicable mais absente, ou choix assumé (voir Surnom).',
       '• « s.o. »       = sans objet : la colonne ne s\'applique pas à cette entrée (ex. Vêtements d\'un animal).',
-      '• Unicité        : la colonne Nom est la clé. Aucune entrée en double.',
+      '• Unicité        : la colonne Nom est la clé. Aucune entrée en double ; le surnom ne'
+      ' s’écrit JAMAIS dans Nom (il a sa colonne, sans « »).',
       '• Coordonnées    : WGS84. Fictives au bâtiment près — voir la précision dans la fiche Longitude.',
-      '• Adresses       : numéros inventés, rues réelles issues d\'OpenStreetMap.',
-      '• Narration      : feuille séparée (Faction, Lien Spot, Quote joual, Arc S1) — pas exportée en GeoJSON public.',
+      '• Adresses       : numéros inventés, rues réelles issues d\'OpenStreetMap ; les lieux non'
+      ' adressables s’écrivent « Lieu-dit : … » (pas de numéro civique).',
+      '• Narration      : feuille séparée (Faction, Lien Spot, Quote joual, Arc S1), couverte à'
+      ' 100 % — mais jamais exportée dans les fichiers publics (json / geojson / carte).',
     ]:
         c=d.cell(r,1,txt); c.font=Font(size=10.5); c.alignment=Alignment(vertical='center'); r+=1
     r+=1
@@ -180,9 +226,11 @@ def ecrire_xlsx(recs, narr):
       '• Rues et coordonnées  : OpenStreetMap (ODbL), via les API Overpass et Nominatim.',
       '• Vérifications locales : UQAC (bac en psychologie), Cégep de Jonquière — école ATM',
       '   (cinéma et télévision), aluminerie Rio Tinto à Arvida, boulevard Talbot (Chicoutimi-Sud).',
-      '• Carte interactive    : Leaflet 1.9.4 (BSD-2) + tuiles © OpenStreetMap contributors.',
-      '• Portraits            : images générées par IA ; fiction intégrale.',
-      f'• Généré le            : {datetime.date.today().isoformat()}',
+      '• Carte interactive    : Leaflet 1.9.4 (BSD-2), vendorié dans carte/vendor/'
+      ' (le code de la carte fonctionne hors ligne ; seules les tuiles restent en ligne).',
+      '• Portraits            : images générées par IA ; fiction intégrale. Statut distinct'
+      ' dans LICENSE-DONNEES.md.',
+      f'• Généré le            : {DATE_LIVRABLE.date().isoformat()} (date figée pour la reproductibilité)',
     ]:
         c=d.cell(r,1,txt); c.font=Font(size=10.5); r+=1
     d.freeze_panes='A7'
@@ -204,7 +252,42 @@ def ecrire_xlsx(recs, narr):
         ns.auto_filter.ref=f"A1:{get_column_letter(len(NARR_COLS))}{1+len(narr)}"
         ns.row_dimensions[1].height=30
 
+    # Métadonnées figées : un classeur régénéré à données identiques doit avoir
+    # le même empreinte (pas d'horloge système dans docProps/core.xml).
+    out.properties.creator = 'Luc'
+    out.properties.lastModifiedBy = 'Luc'
+    out.properties.created = DATE_LIVRABLE
+    out.properties.modified = DATE_LIVRABLE
+    out.properties.title = 'Base de données de personnages fictifs — La Baie (Saguenay)'
+    out.properties.keywords = 'fiction; Saguenay; La Baie; OpenStreetMap; ODbL'
     out.save(XLSX)
+    figer_xlsx(XLSX)
+
+def figer_xlsx(path):
+    """Rend le .xlsx octet-pour-octet reproductible : openpyxl écrase
+    « modified » à l'enregistrement et date toutes les entrées zip à l'horloge
+    système. On réécrit l'archive avec une date unique (DATE_LIVRABLE) et un
+    docProps/core.xml aux horodatages figés."""
+    iso = DATE_LIVRABLE.strftime('%Y-%m-%dT%H:%M:%SZ')
+    dt  = (DATE_LIVRABLE.year, DATE_LIVRABLE.month, DATE_LIVRABLE.day, 0, 0, 0)
+    tmp = path + '.tmp'
+    with ZipFile(path) as zin:
+        membres = [(i, zin.read(i.filename)) for i in zin.infolist()]
+    with ZipFile(tmp, 'w', ZIP_DEFLATED, compresslevel=6) as zout:
+        for info, data in membres:
+            if info.filename == 'docProps/core.xml':
+                core = data.decode('utf-8')
+                core = re.sub(r'(<dcterms:created[^>]*>)[^<]*(</dcterms:created>)',
+                              rf'\g<1>{iso}\g<2>', core)
+                core = re.sub(r'(<dcterms:modified[^>]*>)[^<]*(</dcterms:modified>)',
+                              rf'\g<1>{iso}\g<2>', core)
+                data = core.encode('utf-8')
+            ni = ZipInfo(info.filename, date_time=dt)
+            ni.compress_type = info.compress_type
+            ni.external_attr = info.external_attr
+            ni.create_system = info.create_system
+            zout.writestr(ni, data)
+    os.replace(tmp, path)
 
 def ecrire_autres(recs):
     with open('base_personnages_fictifs.csv','w',newline='',encoding='utf-8-sig') as f:
@@ -220,23 +303,86 @@ def ecrire_autres(recs):
 
 def copier_vignettes():
     os.makedirs('carte/portraits',exist_ok=True)
-    for old in _glob.glob('carte/portraits/*'): os.remove(old)
-    for f in _glob.glob('portraits/*-vignette.webp'):
-        shutil.copy(f,'carte/portraits/'+os.path.basename(f))
-    print(f"  ✔ {len(_glob.glob('carte/portraits/*-vignette.webp'))} vignettes synchronisées vers carte/portraits/")
+    try:
+        for old in _glob.glob('carte/portraits/*'):
+            try: os.remove(old)
+            except OSError as e: print(f"  ! suppression impossible {old} : {e}")
+        n = 0
+        for f in _glob.glob('portraits/*-vignette.webp'):
+            shutil.copy(f,'carte/portraits/'+os.path.basename(f)); n += 1
+        print(f"  ✔ {n} vignettes synchronisées vers carte/portraits/")
+    except OSError as e:
+        print(f"  ! synchronisation des vignettes impossible : {e}")
+
+def planche_contact(recs, cols=10, larg=240, haut=160, bandeau=34, marge=10):
+    """Assemble la planche contact de TOUS les personnages (vignette + nom).
+
+    Livrable portraits/planche-contact-generale.webp, reproductible (ordonnancement
+    identique à recs, pas de métadonnée volatile)."""
+    if not PIL_OK:
+        print("  ! Pillow absent : planche-contact-generale.webp non générée"
+              " (pip install -r requirements.txt)")
+        return
+    cases = []
+    for r in recs:
+        if not r.get('Portrait'):
+            continue
+        vig = r['Portrait'].replace('-web.webp', '-vignette.webp')
+        if os.path.exists(vig):
+            cases.append((vig, r['Nom']))
+    if not cases:
+        print("  ! aucune vignette trouvée : planche contact ignorée")
+        return
+    lignes = (len(cases) + cols - 1) // cols
+    police = None
+    for cand in ('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
+                 '/usr/share/fonts/dejavu/DejaVuSans.ttf'):
+        if os.path.exists(cand):
+            try:
+                from PIL import ImageFont
+                police = ImageFont.truetype(cand, 15)
+            except Exception:
+                police = None
+            break
+    W = cols * larg + (cols + 1) * marge
+    H = lignes * (haut + bandeau) + (lignes + 1) * marge
+    planche = Image.new('RGB', (W, H), (18, 32, 44))
+    draw = ImageDraw.Draw(planche)
+    for i, (vig, nom) in enumerate(cases):
+        cl, lg = i % cols, i // cols
+        x = marge + cl * (larg + marge)
+        y = marge + lg * (haut + bandeau + marge)
+        with Image.open(vig) as im:
+            im = im.convert('RGB')
+            # recadrage « couverture » au ratio 3:2 de la case
+            sr = max(larg / im.width, haut / im.height)
+            im = im.resize((round(im.width * sr), round(im.height * sr)), Image.LANCZOS)
+            gx, gy = (im.width - larg) // 2, (im.height - haut) // 2
+            im = im.crop((gx, gy, gx + larg, gy + haut))
+            planche.paste(im, (x, y))
+        draw.rectangle([x, y + haut, x + larg, y + haut + bandeau], fill=(19, 36, 50))
+        lib = nom if len(nom) <= 26 else nom[:25] + '…'
+        draw.text((x + 6, y + haut + 8), lib, fill=(220, 234, 245), font=police)
+    os.makedirs('portraits', exist_ok=True)
+    planche.save(PLANCHE, 'WEBP', quality=82, method=6)
+    print(f"  ✔ {PLANCHE} ({len(cases)} vignettes, {W}×{H} px)")
 
 def reinjecter_carte(js):
     new='const PERSOS='+json.dumps(js,ensure_ascii=False,separators=(',',':'))+';'
     for f in ['carte-la-baie-saguenay.html','carte/index.html']:
         if not os.path.exists(f):
             continue
-        h=open(f,encoding='utf-8').read()
-        h2,ct=re.subn(r'const PERSOS=\[.*?\];',new,h,count=1,flags=re.S)
-        if ct!=1: print(f"  ✘ PERSOS introuvable dans {f}"); continue
-        open(f,'w',encoding='utf-8').write(h2)
-        print(f"  ✔ {f} ({len(h2)} octets)")
+        try:
+            h=open(f,encoding='utf-8').read()
+            h2,ct=re.subn(r'const PERSOS=\[.*?\];',new,h,count=1,flags=re.S)
+            if ct!=1:
+                print(f"  ✘ PERSOS introuvable dans {f}"); continue
+            with open(f,'w',encoding='utf-8') as fh: fh.write(h2)
+            print(f"  ✔ {f} ({len(h2)} octets)")
+        except OSError as e:
+            print(f"  ✘ réinjection impossible dans {f} : {e}")
 
-if __name__=='__main__':
+def main():
     print("Construction de la base…")
     recs, narr=charger()
     ecrire_xlsx(recs, narr)
@@ -245,4 +391,14 @@ if __name__=='__main__':
     if narr: print(f"  ✔ feuille Narration conservée ({len(narr)} lignes)")
     reinjecter_carte(js)
     copier_vignettes()
+    planche_contact(recs)
     print("Terminé.")
+
+if __name__=='__main__':
+    try:
+        main()
+    except SystemExit:
+        raise
+    except Exception as e:
+        print(f"✘ Échec de la construction : {type(e).__name__}: {e}", file=sys.stderr)
+        sys.exit(1)

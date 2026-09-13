@@ -1,0 +1,25 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# --- Système / éditeurs ---
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# --- Portraits : gabarit « archive » non référencé (~140 Ko/personnage) ---
+# Seuls sont versionnés : -web.webp, -vignette.webp et la planche contact.
+# (script de purge de l'historique : scripts/retirer_archives_git.sh)
+/portraits/*.webp
+!/portraits/*-web.webp
+!/portraits/*-vignette.webp
+!/portraits/planche-contact-generale.webp
+
+# --- Feuilles temporaires ---
+*.tmp
+~$*.xlsx
