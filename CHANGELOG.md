@@ -2,6 +2,15 @@
 
 Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
+## [2026-09-13] — Atelier interactif de scènes
+
+- Ajout de `atelier/index.html`, une machine à faire apparaître des tensions à
+  partir des personnages, narrations et relations existants.
+- L’atelier propose plusieurs moteurs de scène, un point de vue, une pression,
+  un témoin, des questions de jeu et une consigne de conséquence.
+- Toutes les situations générées sont explicitement non canoniques ; l’atelier
+  est réinjecté par la construction mais ne modifie aucune source éditoriale.
+
 ## [2026-09-13] — Lisibilité de la carte et IDs retirés
 
 - Ajout d’un regroupement natif des personnages au zoom arrière, sans plugin

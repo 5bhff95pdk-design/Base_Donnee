@@ -48,16 +48,19 @@ les toponymes sont réels (OpenStreetMap).
 | `carte-la-baie-saguenay.html` | Copie de racine **dérivée** de `carte/index.html` (ne jamais l'éditer). |
 | `carte/vendor/leaflet/` | **Leaflet 1.9.4 en copie locale (BSD-2)** : aucun CDN. |
 | `carte/portraits/` | Vignettes 400 px servies par la carte (synchronisées par le script). |
+| `atelier/index.html` | Atelier interactif de génération de scènes, non canonique et réinjecté par le script. |
 | `portraits/` | Deux gabarits WebP par personnage : `-web.webp` et `-vignette.webp`, plus la planche contact. |
 | `construire_base.py` | Générateur **idempotent et reproductible** de tous les livrables. |
 | `scripts/init_source_csv.py` | Migration unique : ancien classeur maître → `data/*.csv`. |
 | `scripts/retirer_archives_git.sh` | Purge optionnelle de l'ancien gabarit « archive » dans l'historique Git. |
 | `scripts/historique/` | Scripts de migration passés, conservés pour mémoire. |
-| `tests/test_base.py` | **61 garde-fous** couvrant les conventions et la documentation, lancés en CI. |
+| `tests/test_base.py` | **62 garde-fous** couvrant les conventions et la documentation, lancés en CI. |
 | `.github/workflows/validation.yml` | CI : lint + régénération + contrôle de reproductibilité + tests. |
 | `docs/relations-personnages.md` | Conventions, périmètre partiel et liens restant à qualifier. |
 | `docs/propositions-personnages-centraux.md` | Atelier narratif : 13 personnages proposés, non canonique, à valider. |
 | `docs/analyse-projet.md` | État actuel, bilan des cinq priorités, vérifications et limites ouvertes. |
+| `docs/geographie-provenance.md` | Méthode, attribution OSM et limites des coordonnées fictionnelles. |
+| `docs/atelier-saison-1.md` | Proposition non canonique de noyau dramatique pour un premier atelier de scènes. |
 | `docs/historique/` | Analyse initiale et suivis intermédiaires archivés ; ne pas utiliser comme état courant. |
 | `LICENSE` / `LICENSE-DONNEES.md` | Trois statuts distincts : code MIT, données ODbL, portraits IA en CC BY 4.0. |
 
@@ -175,11 +178,12 @@ python3 -m http.server 8000 --bind 0.0.0.0
 python3 construire_base.py
 #    régénère le classeur unique (4 feuilles), les exports personnages
 #    csv / json / geojson et relations_personnages.json, réinjecte les données
-#    dans carte/index.html, en dérive carte-la-baie-saguenay.html,
-#    synchronise les vignettes et reconstruit la planche contact.
+#    dans carte/index.html et atelier/index.html, en dérive
+#    carte-la-baie-saguenay.html, synchronise les vignettes et reconstruit
+#    la planche contact.
 
 # 4. contrôler la base
-python3 -m unittest discover -s tests -v   # 61 garde-fous
+python3 -m unittest discover -s tests -v   # 62 garde-fous
 ruff check .                               # lint
 node --test tests/carte.test.cjs            # régressions JS ciblées (Node.js 22)
 ```
@@ -189,7 +193,7 @@ La source se modifie dans un tableur comme n'importe quel CSV (`;` et UTF-8) ;
 
 ### Tests navigateur (Chromium)
 
-Les **14 tests Playwright** complètent les 61 garde-fous Python et les
+Les **14 tests Playwright** complètent les 62 garde-fous Python et les
 6 tests JavaScript ciblés. Sept parcours sont joués sur chacune des deux
 cartes : recherche sans accents et portrait, filtres combinés,
 révélation des humains et de l’animal masqués, coordonnées/zoom,
@@ -241,7 +245,7 @@ La **recherche de personnages**, elle, est locale et fonctionne sans réseau.
   **planche contact WebP** dépend du codec `libwebp` natif : son idempotence
   est garantie sur un même runner, sans comparaison binaire
   inter-environnements (la fonte, elle, est vendoriée dans `assets/fonts/`).
-- Les **61 garde-fous** vérifient notamment : effectifs et cohérence des 4
+- Les **62 garde-fous** vérifient notamment : effectifs et cohérence des 4
   exports, conformité de la source texte, **unicité et absence de `];`** dans
   les valeurs, adresses avec numéro ou `Lieu-dit :`, rôles sans clan,
   **Famille/Branche sans parenthèses**, coordonnées dans une boîte approximative de l’arrondissement,

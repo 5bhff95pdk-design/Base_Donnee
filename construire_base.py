@@ -20,6 +20,7 @@ Produit :
   relations_personnages.json            (relations explicites et provenance)
   carte/index.html                       (carte canonique, données réinjectées)
   carte-la-baie-saguenay.html            (dérivée de carte/index.html)
+  atelier/index.html                     (atelier de scènes, données réinjectées)
   carte/portraits/                       (vignettes synchronisées)
   portraits/planche-contact-generale.webp
 
@@ -62,6 +63,7 @@ XLSX = 'base_personnages_fictifs.xlsx'
 FEUILLE = 'Personnages'
 CARTE_CANONIQUE = 'carte/index.html'
 CARTE_RACINE = 'carte-la-baie-saguenay.html'
+ATELIER = 'atelier/index.html'
 ANIMAUX = {'Pisse-Feu'}
 
 # Date figée pour les livrables reproductibles (jamais de date système).
@@ -540,6 +542,34 @@ def ecrire_cartes(js):
     print(f"  ✔ {CARTE_RACINE} ({len(racine)} octets, dérivé de carte/index.html)")
 
 
+def ecrire_atelier(js, narr, liens, recs):
+    """Réinjecte les données publiques dans l'atelier non canonique de scènes."""
+    if not os.path.exists(ATELIER):
+        raise SystemExit(f"✘ {ATELIER} introuvable")
+    with open(ATELIER, encoding='utf-8') as f:
+        source = f.read()
+    relation_doc = relations.serialiser(liens, recs)
+    remplacements = [
+        (r'const PERSOS=\[.*?\];',
+         'const PERSOS=' + json.dumps(js, ensure_ascii=False, separators=(',', ':')) + ';',
+         'PERSOS'),
+        (r'const NARRATION=\[.*?\];',
+         'const NARRATION=' + json.dumps(narr, ensure_ascii=False, separators=(',', ':')) + ';',
+         'NARRATION'),
+        (r'const RELATIONS=\{.*?\};',
+         'const RELATIONS=' + json.dumps(relation_doc, ensure_ascii=False, separators=(',', ':')) + ';',
+         'RELATIONS'),
+    ]
+    for motif, remplacement, nom in remplacements:
+        source, n = re.subn(motif, lambda _: remplacement, source, count=1, flags=re.S)
+        if n != 1:
+            raise SystemExit(f"✘ {nom} introuvable dans {ATELIER}")
+    with open(ATELIER, 'w', encoding='utf-8') as f:
+        f.write(source)
+    print(f"  ✔ {ATELIER} — atelier réinjecté ({len(js)} personnages, "
+          f"{len(narr)} narrations, {len(liens)} relations)")
+
+
 def copier_vignettes(recs=None):
     """Synchronise uniquement les vignettes référencées par les personnages.
 
@@ -641,6 +671,7 @@ def main():
     js = ecrire_autres(recs)
     print(f"  ✔ csv / json / geojson régénérés ({len(recs)} entrées)")
     ecrire_cartes(js)
+    ecrire_atelier(js, narr, liens, recs)
     copier_vignettes(recs)
     planche_contact(recs)
     print("Terminé.")

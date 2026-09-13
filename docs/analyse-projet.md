@@ -56,7 +56,8 @@ Les nombres de lignes excluent les en-têtes.
   de preuve provenant de Parenté. Extraction partielle, sans inférence de liens.
 - `construire_base.py` et `relations.py` : génération du classeur unique
   (**Personnages, Lisez-moi, Narration, Relations**), des exports personnages,
-  de `relations_personnages.json`, des deux cartes et de la planche contact.
+  de `relations_personnages.json`, des deux cartes, de l’atelier de scènes et
+  de la planche contact.
 - `docs/propositions-personnages-centraux.md` : atelier **non canonique**, non lu
   par le générateur, soumis à validation de l’auteur.
 
@@ -86,7 +87,7 @@ Ces traits ne représentent pas la nouvelle table de relations.
 
 | Suite | Nombre | Portée |
 |---|---|---|
-| Python | 61 | Données, exports, IDs, relations, portraits, conventions et documentation |
+| Python | 62 | Données, exports, IDs, relations, portraits, conventions et documentation |
 | JavaScript ciblé | 6 | Coordonnées Leaflet, révélation des catégories humain/animal et robustesse des repères locaux avec objets simulés |
 | Navigateur Chromium | 14 | Recherche/portrait, filtres, catégories masquées, zoom, repères et menu mobile sur les deux cartes |
 
