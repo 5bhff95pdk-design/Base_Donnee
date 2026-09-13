@@ -210,7 +210,11 @@ def charger_personnages():
     if maj:
         print(f"  + « s.o. » inscrit aux Vêtements de {maj} animal(aux)")
     if manquants:
-        print(f"  ! portraits introuvables : {', '.join(manquants)}")
+        # Échec franc plutôt qu'un simple avertissement : la CI ne lit pas la
+        # sortie standard, et un personnage sans portrait passait inaperçu
+        # jusqu'aux tests (slug du nom ≠ nom de fichier, ex. « abbe-julien- »).
+        raise SystemExit("✘ Portrait introuvable pour : " + ', '.join(manquants)
+                         + "\n  → attendu : portraits/<n°>-<slug-du-nom>-web.webp")
     recs.sort(key=lambda r: (r['Secteur'] != 'La Baie', r['Secteur'] or '', str(r['Nom'])))
     return recs
 

@@ -422,6 +422,32 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -70.8799,
+          48.34205
+        ]
+      },
+      "properties": {
+        "nom": "Camille Desgagné",
+        "surnom": "Cam",
+        "type": "Humain",
+        "age": 27,
+        "role": "Pompière-paramédic — caserne de La Baie",
+        "secteur": "La Baie",
+        "adresse": "54, Rue des Pompiers",
+        "apparence": "Chignon bas, suie sur la joue",
+        "vetements": "Pantalon de combat à bretelles",
+        "tic_ou_objet": "Bouteille d’eau cabossée",
+        "portrait": "portraits/197-camille-desgagne-web.webp",
+        "famille": "Desgagné",
+        "branche": "caserne",
+        "parente": "Fille de Denis et Johanne — collègue d’Émile Brassard"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -70.885,
           48.3418
         ]
@@ -675,6 +701,32 @@
         "famille": "Cloutier",
         "branche": null,
         "parente": "Fils de Manon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.85665,
+          48.3164
+        ]
+      },
+      "properties": {
+        "nom": "Denis Desgagné",
+        "surnom": "Le Capitaine",
+        "type": "Humain",
+        "age": 56,
+        "role": "Capitaine — caserne de La Baie",
+        "secteur": "La Baie",
+        "adresse": "1524, Rue Monseigneur-Dufour",
+        "apparence": "Moustache grise, carrure large",
+        "vetements": "Uniforme marine de caserne",
+        "tic_ou_objet": "Radio sur la poitrine",
+        "portrait": "portraits/195-denis-desgagne-web.webp",
+        "famille": "Desgagné",
+        "branche": null,
+        "parente": "Fils d’Yvette — époux de Johanne Gravel — père de Camille, Samuel et Julien"
       }
     },
     {
@@ -1013,6 +1065,32 @@
         "famille": "Lavoie",
         "branche": "Chantal",
         "parente": "Père de Chantal Lavoie"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.88075,
+          48.3448
+        ]
+      },
+      "properties": {
+        "nom": "Geneviève Bouchard",
+        "surnom": null,
+        "type": "Humain",
+        "age": 44,
+        "role": "Avocate — aide juridique",
+        "secteur": "La Baie",
+        "adresse": "18, Rue Mars",
+        "apparence": "Boucles noires, l’air pressé",
+        "vetements": "Manteau de laine noir",
+        "tic_ou_objet": "Cartable de dossiers",
+        "portrait": "portraits/201-genevieve-bouchard-web.webp",
+        "famille": "Bouchard",
+        "branche": "justice",
+        "parente": "Célibataire — cousine de Sylvain Bouchard"
       }
     },
     {
@@ -1462,6 +1540,32 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -70.85675,
+          48.31635
+        ]
+      },
+      "properties": {
+        "nom": "Johanne Gravel",
+        "surnom": null,
+        "type": "Humain",
+        "age": 54,
+        "role": "Évaluatrice municipale — rôle foncier",
+        "secteur": "La Baie",
+        "adresse": "1524, Rue Monseigneur-Dufour",
+        "apparence": "Cheveux auburn aux épaules, lunettes de lecture",
+        "vetements": "Manteau de laine",
+        "tic_ou_objet": "Ruban à mesurer",
+        "portrait": "portraits/196-johanne-gravel-web.webp",
+        "famille": "Desgagné",
+        "branche": null,
+        "parente": "Épouse de Denis Desgagné — sœur de Réal Gravel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -70.860475,
           48.312001
         ]
@@ -1533,6 +1637,32 @@
         "famille": "Martel",
         "branche": null,
         "parente": "Célibataire"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.8508,
+          48.31645
+        ]
+      },
+      "properties": {
+        "nom": "Julien Desgagné",
+        "surnom": "L’Abbé",
+        "type": "Humain",
+        "age": 33,
+        "role": "Prêtre — paroisse de Grande-Baie",
+        "secteur": "La Baie",
+        "adresse": "1508, Rue Saint-Pascal",
+        "apparence": "Barbe courte, lunettes d’écaille",
+        "vetements": "Col romain sous veste sans manches",
+        "tic_ou_objet": "Tasse isotherme",
+        "portrait": "portraits/203-julien-desgagne-web.webp",
+        "famille": "Desgagné",
+        "branche": "presbytère",
+        "parente": "Fils de Denis et Johanne — aîné de Camille et Samuel"
       }
     },
     {
@@ -2138,6 +2268,84 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -70.8809,
+          48.34475
+        ]
+      },
+      "properties": {
+        "nom": "Mathieu Fortin",
+        "surnom": "Ti-Police",
+        "type": "Humain",
+        "age": 38,
+        "role": "Policier communautaire — poste de La Baie",
+        "secteur": "La Baie",
+        "adresse": "12, Rue Mars",
+        "apparence": "Cheveux ras, visage rasé",
+        "vetements": "Manteau de patrouille bleu",
+        "tic_ou_objet": "Thermos de café",
+        "portrait": "portraits/200-mathieu-fortin-web.webp",
+        "famille": "Fortin",
+        "branche": "police",
+        "parente": "Cousin de Tommy Fortin — collègue de Pierre Samson"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.90805,
+          48.30545
+        ]
+      },
+      "properties": {
+        "nom": "Mathis Truchon",
+        "surnom": "Ti-Pompe",
+        "type": "Humain",
+        "age": 20,
+        "role": "Pompiste — dépanneur de route",
+        "secteur": "La Baie",
+        "adresse": "1456, Route du Petit-Parc",
+        "apparence": "Moustache naissante, casquette camo",
+        "vetements": "Manteau de travail à bandes",
+        "tic_ou_objet": "Cigarette derrière l’oreille",
+        "portrait": "portraits/178-mathis-truchon-web.webp",
+        "famille": "Truchon",
+        "branche": null,
+        "parente": "Fils d’Yvan Truchon et Gisèle"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.89445,
+          48.33045
+        ]
+      },
+      "properties": {
+        "nom": "Maude Pedneault",
+        "surnom": "La Zèbre",
+        "type": "Humain",
+        "age": 17,
+        "role": "Arbitre — hockey mineur",
+        "secteur": "La Baie",
+        "adresse": "24, Avenue du Port",
+        "apparence": "Queue de cheval, regard décidé",
+        "vetements": "Chandail rayé d’arbitre",
+        "tic_ou_objet": "Sifflet au cou",
+        "portrait": "portraits/174-maude-pedneault-web.webp",
+        "famille": "Pedneault",
+        "branche": null,
+        "parente": "Petite-fille de Réjean et Céline Pedneault"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -70.881,
           48.3428
         ]
@@ -2372,6 +2580,58 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -70.8825,
+          48.33685
+        ]
+      },
+      "properties": {
+        "nom": "Nathalie Tremblay",
+        "surnom": "La Directrice",
+        "type": "Humain",
+        "age": 49,
+        "role": "Directrice d’arrondissement — La Baie",
+        "secteur": "La Baie",
+        "adresse": "270, Rue Aimé-Gravel",
+        "apparence": "Cheveux courts poivre et sel, foulard de soie",
+        "vetements": "Blazer sombre",
+        "tic_ou_objet": "Tablette sous le bras",
+        "portrait": "portraits/199-nathalie-tremblay-web.webp",
+        "famille": "Tremblay",
+        "branche": "hôtel de ville",
+        "parente": "Célibataire — supérieure de Jacques Maltais"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.88015,
+          48.34315
+        ]
+      },
+      "properties": {
+        "nom": "Noah Traoré",
+        "surnom": null,
+        "type": "Humain",
+        "age": 14,
+        "role": "Élève du secondaire — planchiste",
+        "secteur": "La Baie",
+        "adresse": "510, Rue Victoria",
+        "apparence": "Grand, écouteurs au cou",
+        "vetements": "Hoodie trop grand, tuque",
+        "tic_ou_objet": "Planche à roulettes usée",
+        "portrait": "portraits/180-noah-traore-web.webp",
+        "famille": "Traoré",
+        "branche": null,
+        "parente": "Neveu d’Amina Traoré"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -70.9328,
           48.33025
         ]
@@ -2417,6 +2677,32 @@
         "famille": "Benali",
         "branche": null,
         "parente": "Fille d’Ahmed et Nadia Benali — sœur d’Hassan"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.87655,
+          48.33955
+        ]
+      },
+      "properties": {
+        "nom": "Océane Lapointe",
+        "surnom": "Zamboni",
+        "type": "Humain",
+        "age": 22,
+        "role": "Préposée à l’aréna — resurfaceuse",
+        "secteur": "La Baie",
+        "adresse": "720, Rue du Docteur-Tanguay",
+        "apparence": "Cheveux courts teints, l’air fière",
+        "vetements": "Manteau de la Ville",
+        "tic_ou_objet": "Thermos cabossé",
+        "portrait": "portraits/179-oceane-lapointe-web.webp",
+        "famille": "Lapointe",
+        "branche": "Marco",
+        "parente": "Fille de Patrick Lapointe — nièce de Marco"
       }
     },
     {
@@ -2762,6 +3048,32 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -70.88535,
+          48.33835
+        ]
+      },
+      "properties": {
+        "nom": "Rosalie Girard",
+        "surnom": null,
+        "type": "Humain",
+        "age": 23,
+        "role": "Étudiante en soins infirmiers (Cégep de Chicoutimi)",
+        "secteur": "La Baie",
+        "adresse": "202, Rue Bagot",
+        "apparence": "Chignon brun, sourire fatigué",
+        "vetements": "Uniforme marine d’étudiante",
+        "tic_ou_objet": "Calepin de stage",
+        "portrait": "portraits/181-rosalie-girard-web.webp",
+        "famille": "Girard",
+        "branche": null,
+        "parente": "Fille d’Anne et Louis Girard"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -70.878451,
           48.342587
         ]
@@ -2781,6 +3093,32 @@
         "famille": "Chicoine",
         "branche": null,
         "parente": "Fils d’Hélène"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.88235,
+          48.3369
+        ]
+      },
+      "properties": {
+        "nom": "Réal Gravel",
+        "surnom": "Le Charrue",
+        "type": "Humain",
+        "age": 61,
+        "role": "Contremaître — travaux publics, déneigement",
+        "secteur": "La Baie",
+        "adresse": "276, Rue Aimé-Gravel",
+        "apparence": "Barbe poivre et sel, casque à oreilles",
+        "vetements": "Parka jaune haute visibilité",
+        "tic_ou_objet": "Walkie-talkie",
+        "portrait": "portraits/202-real-gravel-web.webp",
+        "famille": "Gravel",
+        "branche": null,
+        "parente": "Frère de Johanne Gravel — oncle de Camille, Samuel et Julien"
       }
     },
     {
@@ -2859,6 +3197,32 @@
         "famille": "Santini",
         "branche": null,
         "parente": "Relais portuaire — croise Yvan Truchon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.8565,
+          48.31655
+        ]
+      },
+      "properties": {
+        "nom": "Samuel Desgagné",
+        "surnom": "Sam Soudure",
+        "type": "Humain",
+        "age": 25,
+        "role": "Apprenti soudeur — chantier naval",
+        "secteur": "La Baie",
+        "adresse": "1530, Rue Monseigneur-Dufour",
+        "apparence": "Boucles brunes, barbe clairsemée",
+        "vetements": "Tablier de cuir, masque relevé",
+        "tic_ou_objet": "Gants à la ceinture",
+        "portrait": "portraits/198-samuel-desgagne-web.webp",
+        "famille": "Desgagné",
+        "branche": null,
+        "parente": "Fils de Denis et Johanne — frère de Camille et Julien"
       }
     },
     {
@@ -3152,6 +3516,32 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -70.89545,
+          48.33088
+        ]
+      },
+      "properties": {
+        "nom": "Thomas Bergeron",
+        "surnom": "Tom-Tom",
+        "type": "Humain",
+        "age": 15,
+        "role": "Élève du secondaire — gardien de but",
+        "secteur": "La Baie",
+        "adresse": "604, Avenue du Port",
+        "apparence": "Taches de rousseur, blond ébouriffé",
+        "vetements": "Jambières de gardien",
+        "tic_ou_objet": "Masque relevé",
+        "portrait": "portraits/176-thomas-bergeron-web.webp",
+        "famille": "Bergeron",
+        "branche": null,
+        "parente": "Fils d’Isabelle Bergeron — petit-fils de Gilles"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -70.8817,
           48.3801
         ]
@@ -3438,6 +3828,58 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -70.8568,
+          48.31625
+        ]
+      },
+      "properties": {
+        "nom": "Yvette Desgagné",
+        "surnom": "Mémère Yvette",
+        "type": "Humain",
+        "age": 84,
+        "role": "Retraitée — ex-organiste de paroisse",
+        "secteur": "La Baie",
+        "adresse": "1520, Rue Monseigneur-Dufour",
+        "apparence": "Permanente blanche, regard perçant",
+        "vetements": "Blouse fleurie, cardigan",
+        "tic_ou_objet": "Chapelet au poignet",
+        "portrait": "portraits/194-yvette-desgagne-web.webp",
+        "famille": "Desgagné",
+        "branche": null,
+        "parente": "Mère de Denis Desgagné — grand-mère de Camille, Samuel et Julien"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.92345,
+          48.32615
+        ]
+      },
+      "properties": {
+        "nom": "Zack Bérubé",
+        "surnom": "Ti-Zack",
+        "type": "Humain",
+        "age": 18,
+        "role": "Commis de nuit — beignerie",
+        "secteur": "La Baie",
+        "adresse": "314, Chemin des Chutes",
+        "apparence": "Cernes, casquette brune",
+        "vetements": "Tablier sur hoodie",
+        "tic_ou_objet": "Café en carton",
+        "portrait": "portraits/175-zack-berube-web.webp",
+        "famille": "Bérubé",
+        "branche": null,
+        "parente": "Fils de Lucie Bérubé — cadet de Kevin et Jessy"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -70.854,
           48.3178
         ]
@@ -3698,6 +4140,58 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -71.0804,
+          48.42605
+        ]
+      },
+      "properties": {
+        "nom": "Diane Perron",
+        "surnom": "La Prof",
+        "type": "Humain",
+        "age": 58,
+        "role": "Professeure de sociologie (UQAC)",
+        "secteur": "Chicoutimi",
+        "adresse": "126, Rue Dréan",
+        "apparence": "Longs cheveux gris, boucles d’oreilles en argent",
+        "vetements": "Blazer de lin sur col roulé",
+        "tic_ou_objet": "Pile de copies",
+        "portrait": "portraits/209-diane-perron-web.webp",
+        "famille": "Perron",
+        "branche": null,
+        "parente": "Célibataire — directrice de recherche de Laurie Lavoie"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.0503,
+          48.42635
+        ]
+      },
+      "properties": {
+        "nom": "Emma Boucher",
+        "surnom": "Em",
+        "type": "Humain",
+        "age": 20,
+        "role": "Étudiante en sciences humaines (Cégep de Chicoutimi)",
+        "secteur": "Chicoutimi",
+        "adresse": "318, Rue Saint-Vallier",
+        "apparence": "Cheveux mauves, lunettes",
+        "vetements": "Gros tricot",
+        "tic_ou_objet": "Portable couvert d’autocollants",
+        "portrait": "portraits/204-emma-boucher-web.webp",
+        "famille": "Boucher",
+        "branche": "coloc",
+        "parente": "Nièce de Fernande Boucher — cousine de Dévon — colocataire de Moussa et William"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -71.0542,
           48.428
         ]
@@ -3743,6 +4237,32 @@
         "famille": "Côté",
         "branche": "presse",
         "parente": "Patron d’Olivier Savard — ex-patron de JP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.07605,
+          48.42445
+        ]
+      },
+      "properties": {
+        "nom": "Gaétan Bossé",
+        "surnom": "Le Bouquiniste",
+        "type": "Humain",
+        "age": 58,
+        "role": "Bouquiniste — livres usagés",
+        "secteur": "Chicoutimi",
+        "adresse": "312, Rue Bossé",
+        "apparence": "Barbe grise, lunettes sur le front",
+        "vetements": "Veste de laine sur chemise à carreaux",
+        "tic_ou_objet": "Livre relié sous le bras",
+        "portrait": "portraits/184-gaetan-bosse-web.webp",
+        "famille": "Bossé",
+        "branche": null,
+        "parente": "Frère de Stéphane Bossé"
       }
     },
     {
@@ -3906,6 +4426,32 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -71.06835,
+          48.42915
+        ]
+      },
+      "properties": {
+        "nom": "Jérémie Côté",
+        "surnom": "Ti-Poste",
+        "type": "Humain",
+        "age": 31,
+        "role": "Facteur — Postes Canada",
+        "secteur": "Chicoutimi",
+        "adresse": "145, Rue Sainte-Anne",
+        "apparence": "Barbe taillée, joues rouges",
+        "vetements": "Parka de facteur à bandes",
+        "tic_ou_objet": "Sacoche de courrier",
+        "portrait": "portraits/187-jeremie-cote-web.webp",
+        "famille": "Côté",
+        "branche": "poste",
+        "parente": "Neveu d’Alain Côté"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -71.075662,
           48.421623
         ]
@@ -3925,6 +4471,32 @@
         "famille": "Lavoie",
         "branche": "JP",
         "parente": "Sœur de JP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.05445,
+          48.4293
+        ]
+      },
+      "properties": {
+        "nom": "Lise Gauthier",
+        "surnom": null,
+        "type": "Humain",
+        "age": 62,
+        "role": "Infirmière clinicienne — CLSC",
+        "secteur": "Chicoutimi",
+        "adresse": "222, Rue du Havre",
+        "apparence": "Cheveux blancs courts, lunettes à chaînette",
+        "vetements": "Cardigan bourgogne sur uniforme",
+        "tic_ou_objet": "Tensiomètre",
+        "portrait": "portraits/188-lise-gauthier-web.webp",
+        "famille": "Gauthier",
+        "branche": null,
+        "parente": "Tante de Steve et Chantal Gauthier"
       }
     },
     {
@@ -3958,6 +4530,32 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -71.0502,
+          48.42645
+        ]
+      },
+      "properties": {
+        "nom": "Lucien Gagné",
+        "surnom": "Le Proprio des étudiants",
+        "type": "Humain",
+        "age": 66,
+        "role": "Propriétaire — logements étudiants",
+        "secteur": "Chicoutimi",
+        "adresse": "320, Rue Saint-Vallier",
+        "apparence": "Chauve, lunettes sur le nez",
+        "vetements": "Veste matelassée sur chemise à carreaux",
+        "tic_ou_objet": "Trousseau de clés",
+        "portrait": "portraits/210-lucien-gagne-web.webp",
+        "famille": "Gagné",
+        "branche": "logements",
+        "parente": "Oncle d’Isabelle Gagné — propriétaire d’Emma, Moussa et William"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -71.0543,
           48.42815
         ]
@@ -3977,6 +4575,58 @@
         "famille": "Santini",
         "branche": null,
         "parente": "Épouse de Vittorio"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.0699,
+          48.4268
+        ]
+      },
+      "properties": {
+        "nom": "Marie-Ève Boucher",
+        "surnom": "La Plume",
+        "type": "Humain",
+        "age": 36,
+        "role": "Journaliste — quotidien régional",
+        "secteur": "Chicoutimi",
+        "adresse": "412, Rue Jacques-Cartier Ouest",
+        "apparence": "Cheveux courts noirs, regard vif",
+        "vetements": "Trench, cordon de presse",
+        "tic_ou_objet": "Calepin et téléphone",
+        "portrait": "portraits/185-marie-eve-boucher-web.webp",
+        "famille": "Bossé",
+        "branche": null,
+        "parente": "Conjointe de Stéphane Bossé — cousine de Normand Boucher"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.06075,
+          48.4205
+        ]
+      },
+      "properties": {
+        "nom": "Maïka Gauthier",
+        "surnom": null,
+        "type": "Humain",
+        "age": 19,
+        "role": "Étudiante en soins infirmiers (Cégep de Chicoutimi) — caissière de pharmacie",
+        "secteur": "Chicoutimi",
+        "adresse": "152, Rue LaFontaine",
+        "apparence": "Queue de cheval châtaine, sourire poli",
+        "vetements": "Sarrau blanc de pharmacie",
+        "tic_ou_objet": "Étiquette de nom",
+        "portrait": "portraits/207-maika-gauthier-web.webp",
+        "famille": "Gauthier",
+        "branche": null,
+        "parente": "Nièce de Lise Gauthier — cousine de Steve et Chantal"
       }
     },
     {
@@ -4036,6 +4686,32 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -71.05025,
+          48.4264
+        ]
+      },
+      "properties": {
+        "nom": "Moussa Diallo",
+        "surnom": null,
+        "type": "Humain",
+        "age": 21,
+        "role": "Étudiant en informatique (UQAC)",
+        "secteur": "Chicoutimi",
+        "adresse": "318, Rue Saint-Vallier",
+        "apparence": "Grand, sourire large",
+        "vetements": "Doudoune sur hoodie",
+        "tic_ou_objet": "Écouteurs autour du cou",
+        "portrait": "portraits/205-moussa-diallo-web.webp",
+        "famille": "Diallo",
+        "branche": null,
+        "parente": "Célibataire — colocataire d’Emma Boucher et William Lavoie"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -71.0546,
           48.4282
         ]
@@ -4055,6 +4731,32 @@
         "famille": "Santini",
         "branche": null,
         "parente": "Fils de Vittorio et Maria"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.0803,
+          48.42615
+        ]
+      },
+      "properties": {
+        "nom": "Olivier Brassard",
+        "surnom": "Oli",
+        "type": "Humain",
+        "age": 24,
+        "role": "Coursier à vélo — musicien",
+        "secteur": "Chicoutimi",
+        "adresse": "122, Rue Dréan",
+        "apparence": "Moustache, casquette à l’envers",
+        "vetements": "Veste en denim à écussons",
+        "tic_ou_objet": "Ukulélé sur le sac",
+        "portrait": "portraits/208-olivier-brassard-web.webp",
+        "famille": "Brassard",
+        "branche": null,
+        "parente": "Neveu d’Émile Brassard"
       }
     },
     {
@@ -4166,6 +4868,32 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -71.05475,
+          48.42825
+        ]
+      },
+      "properties": {
+        "nom": "Sofia Santini",
+        "surnom": "Sofi",
+        "type": "Humain",
+        "age": 16,
+        "role": "Élève du secondaire — aide au restaurant familial",
+        "secteur": "Chicoutimi",
+        "adresse": "204, Rue Racine Est",
+        "apparence": "Cheveux noirs ondulés, sourire en coin",
+        "vetements": "Tablier noir de service",
+        "tic_ou_objet": "Cabaret à deux mains",
+        "portrait": "portraits/177-sofia-santini-web.webp",
+        "famille": "Santini",
+        "branche": null,
+        "parente": "Fille de Nico Santini — petite-fille de Vittorio et Maria"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -71.0755,
           48.4215
         ]
@@ -4185,6 +4913,58 @@
         "famille": "Labbé",
         "branche": null,
         "parente": "Célibataire — collègue de Laurie Lavoie"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.07005,
+          48.42675
+        ]
+      },
+      "properties": {
+        "nom": "Stéphane Bossé",
+        "surnom": "Steph Patate",
+        "type": "Humain",
+        "age": 45,
+        "role": "Cuisinier — casse-croûte",
+        "secteur": "Chicoutimi",
+        "adresse": "410, Rue Jacques-Cartier Ouest",
+        "apparence": "Cheveux ras, avant-bras tatoués",
+        "vetements": "Tablier blanc taché",
+        "tic_ou_objet": "Spatule à la main",
+        "portrait": "portraits/186-stephane-bosse-web.webp",
+        "famille": "Bossé",
+        "branche": null,
+        "parente": "Frère de Gaétan Bossé — conjoint de Marie-Ève Boucher"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.07585,
+          48.4245
+        ]
+      },
+      "properties": {
+        "nom": "Valentina Rojas",
+        "surnom": null,
+        "type": "Humain",
+        "age": 40,
+        "role": "Épicière — produits latino-américains",
+        "secteur": "Chicoutimi",
+        "adresse": "318, Rue Bossé",
+        "apparence": "Longs cheveux noirs, anneaux dorés",
+        "vetements": "Tablier vert sur chandail",
+        "tic_ou_objet": "Caisse de plantains",
+        "portrait": "portraits/189-valentina-rojas-web.webp",
+        "famille": "Rojas",
+        "branche": null,
+        "parente": "Célibataire"
       }
     },
     {
@@ -4218,6 +4998,32 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -71.05035,
+          48.4263
+        ]
+      },
+      "properties": {
+        "nom": "William Lavoie",
+        "surnom": "Will",
+        "type": "Humain",
+        "age": 23,
+        "role": "Cuisinier — bistro du centre-ville",
+        "secteur": "Chicoutimi",
+        "adresse": "318, Rue Saint-Vallier",
+        "apparence": "Bandana, bras tatoué",
+        "vetements": "Veste de cuisine ouverte",
+        "tic_ou_objet": "Vapoteuse",
+        "portrait": "portraits/206-william-lavoie-web.webp",
+        "famille": "Lavoie",
+        "branche": "JP",
+        "parente": "Cousin de JP — colocataire d’Emma Boucher et Moussa Diallo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -71.0674,
           48.3984
         ]
@@ -4244,6 +5050,32 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -71.2316,
+          48.42405
+        ]
+      },
+      "properties": {
+        "nom": "Anthony Simard",
+        "surnom": "Tony Steak",
+        "type": "Humain",
+        "age": 22,
+        "role": "Apprenti boucher — boucherie familiale",
+        "secteur": "Jonquière",
+        "adresse": "2216, Rue Saint-Joseph",
+        "apparence": "Cheveux ras, pansement au doigt",
+        "vetements": "Sarrau blanc, tablier rayé",
+        "tic_ou_objet": "Couteau à désosser",
+        "portrait": "portraits/212-anthony-simard-web.webp",
+        "famille": "Simard",
+        "branche": "Kénogami",
+        "parente": "Fils de Karine Simard — frère de Léa — neveu de Nancy Simard"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -71.244586,
           48.421279
         ]
@@ -4263,6 +5095,32 @@
         "famille": "Lefèvre",
         "branche": null,
         "parente": "Frère de Camille"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.1822,
+          48.42455
+        ]
+      },
+      "properties": {
+        "nom": "Audrey Lavoie",
+        "surnom": null,
+        "type": "Humain",
+        "age": 29,
+        "role": "Apprentie électricienne — aluminerie Rio Tinto Arvida",
+        "secteur": "Jonquière",
+        "adresse": "2135, Rue Davis",
+        "apparence": "Tresse blonde, lunettes de sécurité",
+        "vetements": "Manteau orange haute visibilité",
+        "tic_ou_objet": "Glacière à lunch",
+        "portrait": "portraits/191-audrey-lavoie-web.webp",
+        "famille": "Lavoie",
+        "branche": "Arvida",
+        "parente": "Fille de Fernand Lavoie — collègue de Nicolas Gagné"
       }
     },
     {
@@ -4348,6 +5206,32 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -71.18225,
+          48.4244
+        ]
+      },
+      "properties": {
+        "nom": "Fernand Lavoie",
+        "surnom": "Ti-Fer",
+        "type": "Humain",
+        "age": 67,
+        "role": "Retraité — ex-opérateur de cuves à l’aluminerie",
+        "secteur": "Jonquière",
+        "adresse": "2131, Rue Davis",
+        "apparence": "Casquette plate, mains larges",
+        "vetements": "Veste de laine à carreaux",
+        "tic_ou_objet": "Pipe éteinte",
+        "portrait": "portraits/190-fernand-lavoie-web.webp",
+        "famille": "Lavoie",
+        "branche": "Arvida",
+        "parente": "Père d’Audrey Lavoie — cousin éloigné de Mathieu Lavoie"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -71.2404,
           48.4258
         ]
@@ -4374,6 +5258,32 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -71.2348,
+          48.4293
+        ]
+      },
+      "properties": {
+        "nom": "Jade Boivin",
+        "surnom": null,
+        "type": "Humain",
+        "age": 12,
+        "role": "Élève du primaire — patineuse artistique",
+        "secteur": "Jonquière",
+        "adresse": "2350, Rue Sainte-Famille",
+        "apparence": "Chignon serré, sourire édenté",
+        "vetements": "Veston d’entraînement mauve",
+        "tic_ou_objet": "Protège-lames",
+        "portrait": "portraits/183-jade-boivin-web.webp",
+        "famille": "Boivin",
+        "branche": null,
+        "parente": "Nièce de France et Maxime Boivin"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -71.182,
           48.4265
         ]
@@ -4393,6 +5303,110 @@
         "famille": "Fortin",
         "branche": "industrie",
         "parente": "Patron de Mathieu Lavoie et Nicolas Gagné"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.2318,
+          48.42395
+        ]
+      },
+      "properties": {
+        "nom": "Karine Simard",
+        "surnom": "Coach K",
+        "type": "Humain",
+        "age": 41,
+        "role": "Enseignante d’éducation physique — entraîneuse de natation",
+        "secteur": "Jonquière",
+        "adresse": "2216, Rue Saint-Joseph",
+        "apparence": "Athlétique, queue de cheval blonde",
+        "vetements": "Veste de survêtement marine",
+        "tic_ou_objet": "Chronomètre",
+        "portrait": "portraits/213-karine-simard-web.webp",
+        "famille": "Simard",
+        "branche": "Kénogami",
+        "parente": "Mère de Léa et Anthony — sœur de Nancy Simard"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.25285,
+          48.41615
+        ]
+      },
+      "properties": {
+        "nom": "Ludovic Larouche",
+        "surnom": "Ludo",
+        "type": "Humain",
+        "age": 19,
+        "role": "Étudiant en cinéma et télévision (Cégep de Jonquière — ATM)",
+        "secteur": "Jonquière",
+        "adresse": "2507, Rue Saint-Hubert",
+        "apparence": "Boucles, lunettes rondes",
+        "vetements": "Veste en velours côtelé",
+        "tic_ou_objet": "Caméscope à l’épaule",
+        "portrait": "portraits/182-ludovic-larouche-web.webp",
+        "famille": "Larouche",
+        "branche": null,
+        "parente": "Fils de Benoit Larouche"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.2317,
+          48.424
+        ]
+      },
+      "properties": {
+        "nom": "Léa Simard",
+        "surnom": null,
+        "type": "Humain",
+        "age": 16,
+        "role": "Élève du secondaire — nageuse de compétition",
+        "secteur": "Jonquière",
+        "adresse": "2216, Rue Saint-Joseph",
+        "apparence": "Cheveux mouillés, l’air déterminé",
+        "vetements": "Serviette sur les épaules",
+        "tic_ou_objet": "Lunettes de piscine sur le front",
+        "portrait": "portraits/211-lea-simard-web.webp",
+        "famille": "Simard",
+        "branche": "Kénogami",
+        "parente": "Fille de Karine Simard — sœur d’Anthony"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.2679,
+          48.4113
+        ]
+      },
+      "properties": {
+        "nom": "Marc Picard",
+        "surnom": "L’Arpenteur",
+        "type": "Humain",
+        "age": 47,
+        "role": "Arpenteur-géomètre",
+        "secteur": "Jonquière",
+        "adresse": "1220, Rue du Vieux-Pont",
+        "apparence": "Innu de Mashteuiatsh, cheveux longs attachés",
+        "vetements": "Dossard orange sur polar",
+        "tic_ou_objet": "Station totale sur trépied",
+        "portrait": "portraits/193-marc-picard-web.webp",
+        "famille": "Picard",
+        "branche": null,
+        "parente": "Célibataire — croise William McKenzie"
       }
     },
     {
@@ -4445,6 +5459,32 @@
         "famille": "Harvey",
         "branche": null,
         "parente": "Nièce de François Harvey"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.2453,
+          48.41605
+        ]
+      },
+      "properties": {
+        "nom": "Nancy Simard",
+        "surnom": "Nancy Ciseaux",
+        "type": "Humain",
+        "age": 52,
+        "role": "Coiffeuse — propriétaire de salon",
+        "secteur": "Jonquière",
+        "adresse": "3812, Rue Saint-Hubert",
+        "apparence": "Blond platine, grosses boucles d’oreilles",
+        "vetements": "Sarrau noir de coiffeuse",
+        "tic_ou_objet": "Ciseaux et peigne",
+        "portrait": "portraits/192-nancy-simard-web.webp",
+        "famille": "Simard",
+        "branche": "salon",
+        "parente": "Célibataire — voisine de Benoit Larouche"
       }
     },
     {

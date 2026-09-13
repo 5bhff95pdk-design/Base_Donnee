@@ -4,6 +4,105 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 Ce projet n'a pas de version publiée : les entrées datent les bascules
 structurantes.
 
+## [2026-09-13] — Lot « Cégep / UQAC et Kénogami » : 10 personnages (203 → 213)
+
+Lot mixte : la part des moins de 25 ans était retombée à 10,4 %, juste
+au-dessus du garde-fou. Sept jeunes (16-24 ans) et trois adultes qui les
+encadrent, sur quatre rues nouvelles (Saint-Vallier, LaFontaine, Dréan à
+Chicoutimi ; Saint-Joseph à Kénogami).
+
+- **Colocation étudiante du 318 Saint-Vallier (Chicoutimi)** : Emma Boucher
+  (20, sciences humaines, nièce de Fernande), Moussa Diallo (21, informatique
+  UQAC), William Lavoie (23, cuisinier, cousin de JP) ; leur propriétaire
+  Lucien Gagné (66, oncle de la députée).
+- **Autour du cégep** : Maïka Gauthier (19, soins infirmiers et caissière de
+  pharmacie), Olivier Brassard (24, coursier-musicien), Diane Perron (58,
+  professeure de sociologie, directrice de recherche de Laurie Lavoie).
+- **Foyer Simard/Kénogami (Jonquière)** : Karine Simard (41, prof d'éduc et
+  entraîneuse de natation), ses enfants Léa (16, nageuse) et Anthony (22,
+  apprenti boucher) — sœur et neveux de Nancy Simard.
+- Moins de 25 ans : 10,4 % → **13,2 %** ; La Baie 153 / Chicoutimi 41 /
+  Jonquière 19 ; mineurs : 9.
+- Portraits n° 204 à 213 (IA, 3:2), planche contact à 22 rangées ;
+  `N = 213`, `MINEURS` étendu — 41 garde-fous.
+- Narration : 10 lignes privées fournies hors dépôt
+  (`data/narration-cegep-kenogami.a-coller.csv`).
+
+## [2026-09-13] — Lot « Institutions et famille Desgagné » : 10 personnages (193 → 203)
+
+Une famille sur **trois générations** à Grande-Baie et les services publics
+de l'arrondissement (caserne, hôtel de ville, poste de police, aide
+juridique, travaux publics), quatre rues nouvelles vérifiées sur OSM
+(Monseigneur-Dufour, Saint-Pascal, Aimé-Gravel, Mars).
+
+- **Famille Desgagné (6 + 1 allié)** : Yvette (84, ex-organiste), son fils
+  Denis (56, capitaine de la caserne) et sa bru Johanne Gravel (54,
+  évaluatrice municipale), leurs enfants Julien (33, prêtre de Grande-Baie,
+  branche `presbytère`), Camille (27, pompière-paramédic, branche `caserne`)
+  et Samuel (25, apprenti soudeur) ; Réal Gravel (61, contremaître au
+  déneigement), frère de Johanne.
+- **Institutions** : Nathalie Tremblay (49, directrice d'arrondissement,
+  branche `Tremblay/hôtel de ville`), Mathieu Fortin (38, policier
+  communautaire, `Fortin/police`), Geneviève Bouchard (44, avocate à l'aide
+  juridique, `Bouchard/justice`).
+- **Chaîne de construction** : `construire_base.py` **échoue** désormais
+  quand un personnage n'a pas de portrait (auparavant simple avertissement,
+  invisible en CI — rencontré sur ce lot : fichier nommé `abbe-julien-…`
+  pour le nom « Julien Desgagné »). Test dédié
+  `test_la_construction_refuse_un_personnage_sans_portrait` — 41 garde-fous.
+- Portraits n° 194 à 203 (IA, 3:2), planche contact à 21 rangées.
+- Narration : 10 lignes privées fournies hors dépôt
+  (`data/narration-institutions-desgagne.a-coller.csv`).
+
+## [2026-09-13] — Lot « Chicoutimi / Jonquière » : 10 personnages (183 → 193)
+
+Réponse au constat géographique de l'analyse (La Baie 136 / Chicoutimi 27 /
+Jonquière 10, sur 4 et 5 rues) : dix adultes de tous âges dans les deux
+autres arrondissements, sur **six rues nouvelles** vérifiées sur
+OpenStreetMap (Nominatim).
+
+- **Chicoutimi (6)** : Gaétan Bossé (58, bouquiniste, rue Bossé), Stéphane
+  Bossé (45, cuisinier de casse-croûte) et Marie-Ève Boucher (36, journaliste)
+  sur Jacques-Cartier Ouest, Jérémie Côté (31, facteur, rue Sainte-Anne),
+  Lise Gauthier (62, infirmière clinicienne, rue du Havre), Valentina Rojas
+  (40, épicière latino, rue Bossé).
+- **Jonquière (4)** : Fernand (67, retraité de l'aluminerie) et Audrey Lavoie
+  (29, apprentie électricienne) sur la rue Davis à Arvida, Nancy Simard (52,
+  coiffeuse, Saint-Hubert), Marc Picard (47, arpenteur-géomètre innu, rue du
+  Vieux-Pont).
+- Répartition : La Baie 143 / **Chicoutimi 34** / **Jonquière 16** ; 8 rues
+  dans chacun des deux arrondissements (contre 4 et 5).
+- Nouvelles branches : `Lavoie/Arvida`, `Simard/salon`, foyer `Côté/poste`
+  étoffé ; nouvelles familles Bossé, Rojas, Picard.
+- Portraits n° 184 à 193 (IA, 3:2), planche contact à 20 rangées.
+- Tests : `N = 193`, nouveau garde-fou
+  `test_les_deux_autres_arrondissements_restent_peuples` (planchers
+  d'effectif et de nombre de rues) — 40 garde-fous.
+- Narration : 10 lignes privées fournies hors dépôt
+  (`data/narration-chicoutimi-jonquiere.a-coller.csv`).
+
+## [2026-09-13] — Cohorte « jeunes » : 10 personnages (173 → 183)
+
+Réponse au constat démographique de l'analyse (6 % de moins de 25 ans,
+moyenne 46 ans) : dix jeunes rattachés à des familles déjà en place, pour
+que chaque nouveau venu ait un ancrage dans le récit.
+
+- **La Baie (7)** : Maude Pedneault (17, arbitre de hockey mineur), Zack
+  Bérubé (18, commis de nuit), Thomas Bergeron (15, gardien de but), Mathis
+  Truchon (20, pompiste du rang), Océane Lapointe (22, resurfaceuse de
+  l'aréna), Noah Traoré (14, planchiste), Rosalie Girard (23, étudiante en
+  soins infirmiers).
+- **Chicoutimi (1)** : Sofia Santini (16, au restaurant familial).
+- **Jonquière (2)** : Ludovic Larouche (19, ATM), Jade Boivin (12,
+  patineuse artistique — première adresse sur la rue Sainte-Famille, Kénogami).
+- Part des moins de 25 ans : 6,4 % → **11,5 %** ; mineurs : 3 → **8**.
+- Portraits n° 174 à 183 générés par IA au ratio 3:2 (1264 × 848), deux
+  gabarits WebP chacun ; planche contact reconstruite (19 rangées).
+- Tests : `MINEURS` étendu, `N = 183`, nouveau garde-fou
+  `test_cohorte_jeune_maintenue` (≥ 10 % de moins de 25 ans) — 39 garde-fous.
+- Narration : les 10 lignes privées correspondantes sont fournies hors dépôt
+  (à coller dans `data/narration.csv`).
+
 ## [2026-09-13] — Bascule « source texte » et revue qualité
 
 Application de l'analyse du projet (`docs/analyse-projet.md`).
