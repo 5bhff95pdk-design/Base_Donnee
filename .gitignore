@@ -33,3 +33,5 @@ Thumbs.db
 # --- Narration : source privée, non versionnée (voir README « Narration »).
 #     Le vocabulaire des factions, lui, est public : data/factions.txt.
 /data/narration.csv
+# Lots de narration préparés hors dépôt (à fusionner dans data/narration.csv)
+/data/narration-*.csv

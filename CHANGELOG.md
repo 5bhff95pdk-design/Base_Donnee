@@ -4,6 +4,28 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 Ce projet n'a pas de version publiée : les entrées datent les bascules
 structurantes.
 
+## [2026-09-13] — Cohorte « jeunes » : 10 personnages (173 → 183)
+
+Réponse au constat démographique de l'analyse (6 % de moins de 25 ans,
+moyenne 46 ans) : dix jeunes rattachés à des familles déjà en place, pour
+que chaque nouveau venu ait un ancrage dans le récit.
+
+- **La Baie (7)** : Maude Pedneault (17, arbitre de hockey mineur), Zack
+  Bérubé (18, commis de nuit), Thomas Bergeron (15, gardien de but), Mathis
+  Truchon (20, pompiste du rang), Océane Lapointe (22, resurfaceuse de
+  l'aréna), Noah Traoré (14, planchiste), Rosalie Girard (23, étudiante en
+  soins infirmiers).
+- **Chicoutimi (1)** : Sofia Santini (16, au restaurant familial).
+- **Jonquière (2)** : Ludovic Larouche (19, ATM), Jade Boivin (12,
+  patineuse artistique — première adresse sur la rue Sainte-Famille, Kénogami).
+- Part des moins de 25 ans : 6,4 % → **11,5 %** ; mineurs : 3 → **8**.
+- Portraits n° 174 à 183 générés par IA au ratio 3:2 (1264 × 848), deux
+  gabarits WebP chacun ; planche contact reconstruite (19 rangées).
+- Tests : `MINEURS` étendu, `N = 183`, nouveau garde-fou
+  `test_cohorte_jeune_maintenue` (≥ 10 % de moins de 25 ans) — 39 garde-fous.
+- Narration : les 10 lignes privées correspondantes sont fournies hors dépôt
+  (à coller dans `data/narration.csv`).
+
 ## [2026-09-13] — Bascule « source texte » et revue qualité
 
 Application de l'analyse du projet (`docs/analyse-projet.md`).

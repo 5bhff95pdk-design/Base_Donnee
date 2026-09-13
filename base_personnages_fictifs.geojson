@@ -2138,6 +2138,58 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -70.90805,
+          48.30545
+        ]
+      },
+      "properties": {
+        "nom": "Mathis Truchon",
+        "surnom": "Ti-Pompe",
+        "type": "Humain",
+        "age": 20,
+        "role": "Pompiste — dépanneur de route",
+        "secteur": "La Baie",
+        "adresse": "1456, Route du Petit-Parc",
+        "apparence": "Moustache naissante, casquette camo",
+        "vetements": "Manteau de travail à bandes",
+        "tic_ou_objet": "Cigarette derrière l’oreille",
+        "portrait": "portraits/178-mathis-truchon-web.webp",
+        "famille": "Truchon",
+        "branche": null,
+        "parente": "Fils d’Yvan Truchon et Gisèle"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.89445,
+          48.33045
+        ]
+      },
+      "properties": {
+        "nom": "Maude Pedneault",
+        "surnom": "La Zèbre",
+        "type": "Humain",
+        "age": 17,
+        "role": "Arbitre — hockey mineur",
+        "secteur": "La Baie",
+        "adresse": "24, Avenue du Port",
+        "apparence": "Queue de cheval, regard décidé",
+        "vetements": "Chandail rayé d’arbitre",
+        "tic_ou_objet": "Sifflet au cou",
+        "portrait": "portraits/174-maude-pedneault-web.webp",
+        "famille": "Pedneault",
+        "branche": null,
+        "parente": "Petite-fille de Réjean et Céline Pedneault"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -70.881,
           48.3428
         ]
@@ -2372,6 +2424,32 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -70.88015,
+          48.34315
+        ]
+      },
+      "properties": {
+        "nom": "Noah Traoré",
+        "surnom": null,
+        "type": "Humain",
+        "age": 14,
+        "role": "Élève du secondaire — planchiste",
+        "secteur": "La Baie",
+        "adresse": "510, Rue Victoria",
+        "apparence": "Grand, écouteurs au cou",
+        "vetements": "Hoodie trop grand, tuque",
+        "tic_ou_objet": "Planche à roulettes usée",
+        "portrait": "portraits/180-noah-traore-web.webp",
+        "famille": "Traoré",
+        "branche": null,
+        "parente": "Neveu d’Amina Traoré"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -70.9328,
           48.33025
         ]
@@ -2417,6 +2495,32 @@
         "famille": "Benali",
         "branche": null,
         "parente": "Fille d’Ahmed et Nadia Benali — sœur d’Hassan"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.87655,
+          48.33955
+        ]
+      },
+      "properties": {
+        "nom": "Océane Lapointe",
+        "surnom": "Zamboni",
+        "type": "Humain",
+        "age": 22,
+        "role": "Préposée à l’aréna — resurfaceuse",
+        "secteur": "La Baie",
+        "adresse": "720, Rue du Docteur-Tanguay",
+        "apparence": "Cheveux courts teints, l’air fière",
+        "vetements": "Manteau de la Ville",
+        "tic_ou_objet": "Thermos cabossé",
+        "portrait": "portraits/179-oceane-lapointe-web.webp",
+        "famille": "Lapointe",
+        "branche": "Marco",
+        "parente": "Fille de Patrick Lapointe — nièce de Marco"
       }
     },
     {
@@ -2755,6 +2859,32 @@
         "famille": "Bontemps",
         "branche": null,
         "parente": "Époux de Valette"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.88535,
+          48.33835
+        ]
+      },
+      "properties": {
+        "nom": "Rosalie Girard",
+        "surnom": null,
+        "type": "Humain",
+        "age": 23,
+        "role": "Étudiante en soins infirmiers (Cégep de Chicoutimi)",
+        "secteur": "La Baie",
+        "adresse": "202, Rue Bagot",
+        "apparence": "Chignon brun, sourire fatigué",
+        "vetements": "Uniforme marine d’étudiante",
+        "tic_ou_objet": "Calepin de stage",
+        "portrait": "portraits/181-rosalie-girard-web.webp",
+        "famille": "Girard",
+        "branche": null,
+        "parente": "Fille d’Anne et Louis Girard"
       }
     },
     {
@@ -3152,6 +3282,32 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -70.89545,
+          48.33088
+        ]
+      },
+      "properties": {
+        "nom": "Thomas Bergeron",
+        "surnom": "Tom-Tom",
+        "type": "Humain",
+        "age": 15,
+        "role": "Élève du secondaire — gardien de but",
+        "secteur": "La Baie",
+        "adresse": "604, Avenue du Port",
+        "apparence": "Taches de rousseur, blond ébouriffé",
+        "vetements": "Jambières de gardien",
+        "tic_ou_objet": "Masque relevé",
+        "portrait": "portraits/176-thomas-bergeron-web.webp",
+        "famille": "Bergeron",
+        "branche": null,
+        "parente": "Fils d’Isabelle Bergeron — petit-fils de Gilles"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -70.8817,
           48.3801
         ]
@@ -3431,6 +3587,32 @@
         "famille": "Fortin",
         "branche": null,
         "parente": "Époux de Pauline Fortin"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.92345,
+          48.32615
+        ]
+      },
+      "properties": {
+        "nom": "Zack Bérubé",
+        "surnom": "Ti-Zack",
+        "type": "Humain",
+        "age": 18,
+        "role": "Commis de nuit — beignerie",
+        "secteur": "La Baie",
+        "adresse": "314, Chemin des Chutes",
+        "apparence": "Cernes, casquette brune",
+        "vetements": "Tablier sur hoodie",
+        "tic_ou_objet": "Café en carton",
+        "portrait": "portraits/175-zack-berube-web.webp",
+        "famille": "Bérubé",
+        "branche": null,
+        "parente": "Fils de Lucie Bérubé — cadet de Kevin et Jessy"
       }
     },
     {
@@ -4166,6 +4348,32 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -71.05475,
+          48.42825
+        ]
+      },
+      "properties": {
+        "nom": "Sofia Santini",
+        "surnom": "Sofi",
+        "type": "Humain",
+        "age": 16,
+        "role": "Élève du secondaire — aide au restaurant familial",
+        "secteur": "Chicoutimi",
+        "adresse": "204, Rue Racine Est",
+        "apparence": "Cheveux noirs ondulés, sourire en coin",
+        "vetements": "Tablier noir de service",
+        "tic_ou_objet": "Cabaret à deux mains",
+        "portrait": "portraits/177-sofia-santini-web.webp",
+        "famille": "Santini",
+        "branche": null,
+        "parente": "Fille de Nico Santini — petite-fille de Vittorio et Maria"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -71.0755,
           48.4215
         ]
@@ -4374,6 +4582,32 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -71.2348,
+          48.4293
+        ]
+      },
+      "properties": {
+        "nom": "Jade Boivin",
+        "surnom": null,
+        "type": "Humain",
+        "age": 12,
+        "role": "Élève du primaire — patineuse artistique",
+        "secteur": "Jonquière",
+        "adresse": "2350, Rue Sainte-Famille",
+        "apparence": "Chignon serré, sourire édenté",
+        "vetements": "Veston d’entraînement mauve",
+        "tic_ou_objet": "Protège-lames",
+        "portrait": "portraits/183-jade-boivin-web.webp",
+        "famille": "Boivin",
+        "branche": null,
+        "parente": "Nièce de France et Maxime Boivin"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -71.182,
           48.4265
         ]
@@ -4393,6 +4627,32 @@
         "famille": "Fortin",
         "branche": "industrie",
         "parente": "Patron de Mathieu Lavoie et Nicolas Gagné"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.25285,
+          48.41615
+        ]
+      },
+      "properties": {
+        "nom": "Ludovic Larouche",
+        "surnom": "Ludo",
+        "type": "Humain",
+        "age": 19,
+        "role": "Étudiant en cinéma et télévision (Cégep de Jonquière — ATM)",
+        "secteur": "Jonquière",
+        "adresse": "2507, Rue Saint-Hubert",
+        "apparence": "Boucles, lunettes rondes",
+        "vetements": "Veste en velours côtelé",
+        "tic_ou_objet": "Caméscope à l’épaule",
+        "portrait": "portraits/182-ludovic-larouche-web.webp",
+        "famille": "Larouche",
+        "branche": null,
+        "parente": "Fils de Benoit Larouche"
       }
     },
     {

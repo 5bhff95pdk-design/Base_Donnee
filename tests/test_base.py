@@ -31,9 +31,12 @@ sys.path.insert(0, str(RACINE))
 
 import construire_base as cb  # noqa: E402  (date figée, colonnes, source)
 
-N = 173                      # nombre canonique d'entrées
+N = 183                      # nombre canonique d'entrées
 COLONNES = cb.COLONNES       # 16 colonnes (Famille + Branche depuis 2026-09-13)
-MINEURS = {'Léo Cloutier': 9, 'Nour Benali': 13, 'Alexandre Lavoie': 16}
+MINEURS = {'Léo Cloutier': 9, 'Nour Benali': 13, 'Alexandre Lavoie': 16,
+           # cohorte « jeunes » du 2026-09-13 (aréna, école, restaurant familial)
+           'Jade Boivin': 12, 'Noah Traoré': 14, 'Thomas Bergeron': 15,
+           'Sofia Santini': 16, 'Maude Pedneault': 17}
 SRC_PERSOS = cb.SRC_PERSOS
 SRC_NARR = cb.SRC_NARR
 SRC_FACTIONS = cb.SRC_FACTIONS
@@ -67,7 +70,7 @@ class TestEffectifsEtFormats(unittest.TestCase):
         cls.wb, cls.recs = charger_xlsx()
 
     def test_nombre_entrees(self):
-        self.assertEqual(len(self.recs), N, 'le classeur doit contenir 173 entrées')
+        self.assertEqual(len(self.recs), N, f'le classeur doit contenir {N} entrées')
 
     def test_les_quatre_exports_ont_le_meme_effectif(self):
         with open('base_personnages_fictifs.json', encoding='utf-8') as f:
@@ -185,8 +188,8 @@ class TestConventions(unittest.TestCase):
                     self.assertNotIn(')', str(v),
                                      f'{r["Nom"]} : parenthèses dans {champ} → {v}')
         # la paire Famille + Branche regroupe les personnes d'un même foyer :
-        # elle doit être cohérente avec la source, et regrouper (84 foyers
-        # pour 173 personnes) sans être vide.
+        # elle doit être cohérente avec la source, et regrouper (86 foyers
+        # pour 183 personnes) sans être vide.
         foyers = [(r['Famille'], r['Branche'] or '') for r in self.recs]
         avec_la_source = [(r['Famille'], r['Branche'] or '')
                           for r in lire_csv_source(SRC_PERSOS)]
@@ -231,6 +234,17 @@ class TestDemographie(unittest.TestCase):
             self.assertEqual(int(next(r for r in self.recs if r['Nom'] == nom)['Age']), age)
         ages = sorted(int(r['Age']) for r in humains)
         self.assertEqual(ages[0], 9)
+
+    def test_cohorte_jeune_maintenue(self):
+        """La base plafonnait à 6 % de moins de 25 ans (11/172, analyse du
+        2026-09-13) : la cohorte ajoutée porte la part à ≥ 10 %, et on ne
+        redescend plus sous ce seuil sans le décider explicitement."""
+        humains = [r for r in self.recs if r['Type'] == 'Humain']
+        jeunes = [r for r in humains if int(r['Age']) < 25]
+        part = len(jeunes) / len(humains)
+        self.assertGreaterEqual(part, 0.10,
+                                f'{len(jeunes)}/{len(humains)} humains de moins de 25 ans '
+                                f'({part:.1%}) : cohorte jeune érodée')
 
     def test_un_seul_animal(self):
         animaux = [r for r in self.recs if r['Type'] == 'Animal']
@@ -326,7 +340,8 @@ class TestPortraits(unittest.TestCase):
             self.skipTest('Pillow absent')
 
     def test_nouveaux_portraits_numerotes(self):
-        for base in ('171-leo-cloutier', '172-nour-benali', '173-alexandre-lavoie'):
+        for base in ('171-leo-cloutier', '172-nour-benali', '173-alexandre-lavoie',
+                     '174-maude-pedneault', '183-jade-boivin'):
             self.assertTrue(os.path.exists(f'portraits/{base}-web.webp'), base)
             self.assertTrue(os.path.exists(f'portraits/{base}-vignette.webp'), base)
 
@@ -383,7 +398,7 @@ class TestDocumentationEtLicences(unittest.TestCase):
         self.assertFalse(os.path.exists('README.txt'), 'README.txt fait doublon')
         with open('README.md', encoding='utf-8') as fh:
             h = fh.read()
-        for mot in ('173', 'ODbL', 'MIT', 'générées par IA', 'planche-contact-generale',
+        for mot in (str(N), 'ODbL', 'MIT', 'générées par IA', 'planche-contact-generale',
                     'Lieu-dit', 'data/personnages.csv', 'Famille', 'Branche'):
             self.assertIn(mot, h, f'README.md oublie « {mot} »')
 
