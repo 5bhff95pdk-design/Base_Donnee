@@ -1,0 +1,1530 @@
+{
+  "version_schema": 1,
+  "perimetre": "Extraction éditoriale partielle des liens explicites de Parenté ; sans inférence.",
+  "types": {
+    "parent_de": {
+      "inverse": "enfant_de",
+      "symetrique": false
+    },
+    "conjoint_de": {
+      "inverse": "conjoint_de",
+      "symetrique": true
+    },
+    "ex_conjoint_de": {
+      "inverse": "ex_conjoint_de",
+      "symetrique": true
+    },
+    "fratrie": {
+      "inverse": "fratrie",
+      "symetrique": true
+    },
+    "cousin_de": {
+      "inverse": "cousin_de",
+      "symetrique": true
+    },
+    "collegue_de": {
+      "inverse": "collegue_de",
+      "symetrique": true
+    },
+    "colocataire_de": {
+      "inverse": "colocataire_de",
+      "symetrique": true
+    },
+    "superieur_de": {
+      "inverse": "subordonne_de",
+      "symetrique": false
+    },
+    "locataire_de": {
+      "inverse": "bailleur_de",
+      "symetrique": false
+    },
+    "enseignant_de": {
+      "inverse": "eleve_de",
+      "symetrique": false
+    }
+  },
+  "relations": [
+    {
+      "source_id": "P001",
+      "source_nom": "Jean-Philippe Lavoie",
+      "type": "fratrie",
+      "cible_id": "P035",
+      "cible_nom": "Mathieu Lavoie",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P035",
+        "champ": "Parenté",
+        "extrait": "Frère aîné de JP"
+      }
+    },
+    {
+      "source_id": "P001",
+      "source_nom": "Jean-Philippe Lavoie",
+      "type": "fratrie",
+      "cible_id": "P036",
+      "cible_nom": "Laurie Lavoie",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P036",
+        "champ": "Parenté",
+        "extrait": "Sœur de JP"
+      }
+    },
+    {
+      "source_id": "P001",
+      "source_nom": "Jean-Philippe Lavoie",
+      "type": "fratrie",
+      "cible_id": "P173",
+      "cible_nom": "Alexandre Lavoie",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P173",
+        "champ": "Parenté",
+        "extrait": "Fils cadet de Robert et Diane — petit frère de JP"
+      }
+    },
+    {
+      "source_id": "P002",
+      "source_nom": "Marco Lapointe",
+      "type": "fratrie",
+      "cible_id": "P039",
+      "cible_nom": "Patrick Lapointe",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P039",
+        "champ": "Parenté",
+        "extrait": "Frère de Marco"
+      }
+    },
+    {
+      "source_id": "P002",
+      "source_nom": "Marco Lapointe",
+      "type": "fratrie",
+      "cible_id": "P040",
+      "cible_nom": "Stéphanie Lapointe",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P040",
+        "champ": "Parenté",
+        "extrait": "Sœur de Marco"
+      }
+    },
+    {
+      "source_id": "P004",
+      "source_nom": "Gratien Tremblay",
+      "type": "conjoint_de",
+      "cible_id": "P051",
+      "cible_nom": "Linda Tremblay",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P051",
+        "champ": "Parenté",
+        "extrait": "Conjointe de Gratien Tremblay"
+      }
+    },
+    {
+      "source_id": "P005",
+      "source_nom": "Roger Bontemps",
+      "type": "conjoint_de",
+      "cible_id": "P006",
+      "cible_nom": "Valette Bontemps",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P005",
+        "champ": "Parenté",
+        "extrait": "Époux de Valette"
+      }
+    },
+    {
+      "source_id": "P007",
+      "source_nom": "Pierre Samson",
+      "type": "collegue_de",
+      "cible_id": "P200",
+      "cible_nom": "Mathieu Fortin",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P200",
+        "champ": "Parenté",
+        "extrait": "Cousin de Tommy Fortin — collègue de Pierre Samson"
+      }
+    },
+    {
+      "source_id": "P007",
+      "source_nom": "Pierre Samson",
+      "type": "conjoint_de",
+      "cible_id": "P064",
+      "cible_nom": "Catherine Samson",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P064",
+        "champ": "Parenté",
+        "extrait": "Épouse de Pierre Samson"
+      }
+    },
+    {
+      "source_id": "P009",
+      "source_nom": "Dévon Boucher",
+      "type": "fratrie",
+      "cible_id": "P047",
+      "cible_nom": "Éric Boucher",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P047",
+        "champ": "Parenté",
+        "extrait": "Fils de Fernande — frère de Dévon"
+      }
+    },
+    {
+      "source_id": "P010",
+      "source_nom": "Kevin Bérubé",
+      "type": "fratrie",
+      "cible_id": "P053",
+      "cible_nom": "Jessy Bérubé",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P053",
+        "champ": "Parenté",
+        "extrait": "Fils de Lucie Bérubé — frère de Kevin"
+      }
+    },
+    {
+      "source_id": "P011",
+      "source_nom": "Yvan Truchon",
+      "type": "conjoint_de",
+      "cible_id": "P062",
+      "cible_nom": "Gisèle Truchon",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P062",
+        "champ": "Parenté",
+        "extrait": "Conjointe d’Yvan Truchon"
+      }
+    },
+    {
+      "source_id": "P011",
+      "source_nom": "Yvan Truchon",
+      "type": "parent_de",
+      "cible_id": "P178",
+      "cible_nom": "Mathis Truchon",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P178",
+        "champ": "Parenté",
+        "extrait": "Fils d’Yvan Truchon et Gisèle"
+      }
+    },
+    {
+      "source_id": "P013",
+      "source_nom": "Sylvie Gagnon",
+      "type": "ex_conjoint_de",
+      "cible_id": "P061",
+      "cible_nom": "Bertrand Gagnon",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P061",
+        "champ": "Parenté",
+        "extrait": "Ex-mari de Sylvie Gagnon"
+      }
+    },
+    {
+      "source_id": "P014",
+      "source_nom": "Ahmed Benali",
+      "type": "conjoint_de",
+      "cible_id": "P041",
+      "cible_nom": "Nadia Benali",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P041",
+        "champ": "Parenté",
+        "extrait": "Épouse d’Ahmed Benali"
+      }
+    },
+    {
+      "source_id": "P014",
+      "source_nom": "Ahmed Benali",
+      "type": "parent_de",
+      "cible_id": "P103",
+      "cible_nom": "Hassan Benali",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P103",
+        "champ": "Parenté",
+        "extrait": "Fils d’Ahmed et Nadia Benali"
+      }
+    },
+    {
+      "source_id": "P014",
+      "source_nom": "Ahmed Benali",
+      "type": "parent_de",
+      "cible_id": "P172",
+      "cible_nom": "Nour Benali",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P172",
+        "champ": "Parenté",
+        "extrait": "Fille d’Ahmed et Nadia Benali — sœur d’Hassan"
+      }
+    },
+    {
+      "source_id": "P015",
+      "source_nom": "Mélanie Dubé",
+      "type": "collegue_de",
+      "cible_id": "P085",
+      "cible_nom": "Véronique Côté",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P085",
+        "champ": "Parenté",
+        "extrait": "Collègue de Mélanie Dubé"
+      }
+    },
+    {
+      "source_id": "P015",
+      "source_nom": "Mélanie Dubé",
+      "type": "fratrie",
+      "cible_id": "P057",
+      "cible_nom": "Carl Dubé",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P057",
+        "champ": "Parenté",
+        "extrait": "Frère de Mélanie Dubé"
+      }
+    },
+    {
+      "source_id": "P016",
+      "source_nom": "Dave Cloutier",
+      "type": "fratrie",
+      "cible_id": "P171",
+      "cible_nom": "Léo Cloutier",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P171",
+        "champ": "Parenté",
+        "extrait": "Fils de Manon Cloutier — petit frère de Dave"
+      }
+    },
+    {
+      "source_id": "P017",
+      "source_nom": "Ginette Roy",
+      "type": "collegue_de",
+      "cible_id": "P089",
+      "cible_nom": "Lise Blackburn",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P089",
+        "champ": "Parenté",
+        "extrait": "Collègue de Ginette Roy"
+      }
+    },
+    {
+      "source_id": "P017",
+      "source_nom": "Ginette Roy",
+      "type": "conjoint_de",
+      "cible_id": "P050",
+      "cible_nom": "Réjean Roy",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P050",
+        "champ": "Parenté",
+        "extrait": "Mari de Ginette Roy"
+      }
+    },
+    {
+      "source_id": "P018",
+      "source_nom": "Steve Langlois",
+      "type": "conjoint_de",
+      "cible_id": "P060",
+      "cible_nom": "Josée Langlois",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P060",
+        "champ": "Parenté",
+        "extrait": "Épouse de Steve Langlois"
+      }
+    },
+    {
+      "source_id": "P019",
+      "source_nom": "Anik Desrosiers",
+      "type": "conjoint_de",
+      "cible_id": "P043",
+      "cible_nom": "Marc-André Simard",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P043",
+        "champ": "Parenté",
+        "extrait": "Conjoint d’Anik Desrosiers"
+      }
+    },
+    {
+      "source_id": "P020",
+      "source_nom": "Antoine Lefèvre",
+      "type": "fratrie",
+      "cible_id": "P065",
+      "cible_nom": "Camille Lefèvre",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P065",
+        "champ": "Parenté",
+        "extrait": "Sœur d’Antoine Lefèvre"
+      }
+    },
+    {
+      "source_id": "P021",
+      "source_nom": "Johanne Tremblay",
+      "type": "conjoint_de",
+      "cible_id": "P067",
+      "cible_nom": "Sylvain Gagné",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P067",
+        "champ": "Parenté",
+        "extrait": "Conjoint de Johanne Tremblay"
+      }
+    },
+    {
+      "source_id": "P022",
+      "source_nom": "Lucien Lacroix",
+      "type": "fratrie",
+      "cible_id": "P054",
+      "cible_nom": "Thérèse Lacroix",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P054",
+        "champ": "Parenté",
+        "extrait": "Sœur de Lucien Lacroix"
+      }
+    },
+    {
+      "source_id": "P024",
+      "source_nom": "Sam Aubin",
+      "type": "fratrie",
+      "cible_id": "P066",
+      "cible_nom": "Dany Aubin",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P066",
+        "champ": "Parenté",
+        "extrait": "Frère de Sam Aubin"
+      }
+    },
+    {
+      "source_id": "P025",
+      "source_nom": "Karine Gagnon",
+      "type": "fratrie",
+      "cible_id": "P052",
+      "cible_nom": "Rock Gagnon",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P052",
+        "champ": "Parenté",
+        "extrait": "Fils de Thérèse Gagnon — frère de Karine"
+      }
+    },
+    {
+      "source_id": "P026",
+      "source_nom": "Justin Chen",
+      "type": "colocataire_de",
+      "cible_id": "P100",
+      "cible_nom": "Éric Simard",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P100",
+        "champ": "Parenté",
+        "extrait": "Colocataire de Justin Chen"
+      }
+    },
+    {
+      "source_id": "P027",
+      "source_nom": "Mireille Joseph",
+      "type": "parent_de",
+      "cible_id": "P056",
+      "cible_nom": "Samuel Joseph",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P056",
+        "champ": "Parenté",
+        "extrait": "Fils de Mireille Joseph"
+      }
+    },
+    {
+      "source_id": "P029",
+      "source_nom": "Fatima Al-Hassan",
+      "type": "conjoint_de",
+      "cible_id": "P048",
+      "cible_nom": "Karim Al-Hassan",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P048",
+        "champ": "Parenté",
+        "extrait": "Époux de Fatima Al-Hassan"
+      }
+    },
+    {
+      "source_id": "P030",
+      "source_nom": "Patrice Dubois",
+      "type": "fratrie",
+      "cible_id": "P058",
+      "cible_nom": "Nancy Dubois",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P058",
+        "champ": "Parenté",
+        "extrait": "Sœur de Patrice Dubois"
+      }
+    },
+    {
+      "source_id": "P033",
+      "source_nom": "Robert Lavoie",
+      "type": "parent_de",
+      "cible_id": "P001",
+      "cible_nom": "Jean-Philippe Lavoie",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P001",
+        "champ": "Parenté",
+        "extrait": "Fils de Robert et Diane"
+      }
+    },
+    {
+      "source_id": "P033",
+      "source_nom": "Robert Lavoie",
+      "type": "parent_de",
+      "cible_id": "P173",
+      "cible_nom": "Alexandre Lavoie",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P173",
+        "champ": "Parenté",
+        "extrait": "Fils cadet de Robert et Diane — petit frère de JP"
+      }
+    },
+    {
+      "source_id": "P034",
+      "source_nom": "Diane Tremblay",
+      "type": "parent_de",
+      "cible_id": "P001",
+      "cible_nom": "Jean-Philippe Lavoie",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P001",
+        "champ": "Parenté",
+        "extrait": "Fils de Robert et Diane"
+      }
+    },
+    {
+      "source_id": "P034",
+      "source_nom": "Diane Tremblay",
+      "type": "parent_de",
+      "cible_id": "P173",
+      "cible_nom": "Alexandre Lavoie",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P173",
+        "champ": "Parenté",
+        "extrait": "Fils cadet de Robert et Diane — petit frère de JP"
+      }
+    },
+    {
+      "source_id": "P035",
+      "source_nom": "Mathieu Lavoie",
+      "type": "collegue_de",
+      "cible_id": "P094",
+      "cible_nom": "Nicolas Gagné",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P094",
+        "champ": "Parenté",
+        "extrait": "Collègue de Mathieu Lavoie"
+      }
+    },
+    {
+      "source_id": "P035",
+      "source_nom": "Mathieu Lavoie",
+      "type": "collegue_de",
+      "cible_id": "P137",
+      "cible_nom": "Gérald Tremblay",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P137",
+        "champ": "Parenté",
+        "extrait": "Collègue de Mathieu Lavoie"
+      }
+    },
+    {
+      "source_id": "P036",
+      "source_nom": "Laurie Lavoie",
+      "type": "collegue_de",
+      "cible_id": "P104",
+      "cible_nom": "Sophie Labbé",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P104",
+        "champ": "Parenté",
+        "extrait": "Célibataire — collègue de Laurie Lavoie"
+      }
+    },
+    {
+      "source_id": "P037",
+      "source_nom": "Gérard Lapointe",
+      "type": "parent_de",
+      "cible_id": "P002",
+      "cible_nom": "Marco Lapointe",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P002",
+        "champ": "Parenté",
+        "extrait": "Fils de Gérard et Monique"
+      }
+    },
+    {
+      "source_id": "P038",
+      "source_nom": "Monique Bouchard",
+      "type": "parent_de",
+      "cible_id": "P002",
+      "cible_nom": "Marco Lapointe",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P002",
+        "champ": "Parenté",
+        "extrait": "Fils de Gérard et Monique"
+      }
+    },
+    {
+      "source_id": "P039",
+      "source_nom": "Patrick Lapointe",
+      "type": "parent_de",
+      "cible_id": "P179",
+      "cible_nom": "Océane Lapointe",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P179",
+        "champ": "Parenté",
+        "extrait": "Fille de Patrick Lapointe — nièce de Marco"
+      }
+    },
+    {
+      "source_id": "P041",
+      "source_nom": "Nadia Benali",
+      "type": "parent_de",
+      "cible_id": "P103",
+      "cible_nom": "Hassan Benali",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P103",
+        "champ": "Parenté",
+        "extrait": "Fils d’Ahmed et Nadia Benali"
+      }
+    },
+    {
+      "source_id": "P041",
+      "source_nom": "Nadia Benali",
+      "type": "parent_de",
+      "cible_id": "P172",
+      "cible_nom": "Nour Benali",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P172",
+        "champ": "Parenté",
+        "extrait": "Fille d’Ahmed et Nadia Benali — sœur d’Hassan"
+      }
+    },
+    {
+      "source_id": "P042",
+      "source_nom": "Sonia Tremblay",
+      "type": "parent_de",
+      "cible_id": "P028",
+      "cible_nom": "Alex Tremblay",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P028",
+        "champ": "Parenté",
+        "extrait": "Fils de Sonia"
+      }
+    },
+    {
+      "source_id": "P044",
+      "source_nom": "Gaétan Lavoie",
+      "type": "parent_de",
+      "cible_id": "P008",
+      "cible_nom": "Chantal Lavoie",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P008",
+        "champ": "Parenté",
+        "extrait": "Fille de Gaétan"
+      }
+    },
+    {
+      "source_id": "P045",
+      "source_nom": "Nathalie Bouchard",
+      "type": "parent_de",
+      "cible_id": "P031",
+      "cible_nom": "Chloé Bouchard",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P031",
+        "champ": "Parenté",
+        "extrait": "Fille de Nathalie"
+      }
+    },
+    {
+      "source_id": "P046",
+      "source_nom": "Manon Cloutier",
+      "type": "parent_de",
+      "cible_id": "P016",
+      "cible_nom": "Dave Cloutier",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P016",
+        "champ": "Parenté",
+        "extrait": "Fils de Manon"
+      }
+    },
+    {
+      "source_id": "P046",
+      "source_nom": "Manon Cloutier",
+      "type": "parent_de",
+      "cible_id": "P171",
+      "cible_nom": "Léo Cloutier",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P171",
+        "champ": "Parenté",
+        "extrait": "Fils de Manon Cloutier — petit frère de Dave"
+      }
+    },
+    {
+      "source_id": "P049",
+      "source_nom": "Isabelle Bergeron",
+      "type": "parent_de",
+      "cible_id": "P176",
+      "cible_nom": "Thomas Bergeron",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P176",
+        "champ": "Parenté",
+        "extrait": "Fils d’Isabelle Bergeron — petit-fils de Gilles"
+      }
+    },
+    {
+      "source_id": "P055",
+      "source_nom": "Claude Lavoie",
+      "type": "parent_de",
+      "cible_id": "P023",
+      "cible_nom": "Michel Lavoie",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P023",
+        "champ": "Parenté",
+        "extrait": "Fils de Claude"
+      }
+    },
+    {
+      "source_id": "P059",
+      "source_nom": "Hélène Chicoine",
+      "type": "parent_de",
+      "cible_id": "P003",
+      "cible_nom": "Réal Chicoine",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P003",
+        "champ": "Parenté",
+        "extrait": "Fils d’Hélène"
+      }
+    },
+    {
+      "source_id": "P062",
+      "source_nom": "Gisèle Truchon",
+      "type": "parent_de",
+      "cible_id": "P178",
+      "cible_nom": "Mathis Truchon",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P178",
+        "champ": "Parenté",
+        "extrait": "Fils d’Yvan Truchon et Gisèle"
+      }
+    },
+    {
+      "source_id": "P063",
+      "source_nom": "Mei Chen",
+      "type": "parent_de",
+      "cible_id": "P026",
+      "cible_nom": "Justin Chen",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P026",
+        "champ": "Parenté",
+        "extrait": "Fils de Mei"
+      }
+    },
+    {
+      "source_id": "P064",
+      "source_nom": "Catherine Samson",
+      "type": "collegue_de",
+      "cible_id": "P127",
+      "cible_nom": "Louise Villeneuve",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P127",
+        "champ": "Parenté",
+        "extrait": "Collègue de Catherine Samson"
+      }
+    },
+    {
+      "source_id": "P068",
+      "source_nom": "Fernand Côté",
+      "type": "conjoint_de",
+      "cible_id": "P069",
+      "cible_nom": "Lucie Côté",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P068",
+        "champ": "Parenté",
+        "extrait": "Époux de Lucie Côté"
+      }
+    },
+    {
+      "source_id": "P070",
+      "source_nom": "Yves Fortin",
+      "type": "conjoint_de",
+      "cible_id": "P071",
+      "cible_nom": "Pauline Fortin",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P070",
+        "champ": "Parenté",
+        "extrait": "Époux de Pauline Fortin"
+      }
+    },
+    {
+      "source_id": "P070",
+      "source_nom": "Yves Fortin",
+      "type": "parent_de",
+      "cible_id": "P101",
+      "cible_nom": "Tommy Fortin",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P101",
+        "champ": "Parenté",
+        "extrait": "Fils d’Yves et Pauline Fortin"
+      }
+    },
+    {
+      "source_id": "P071",
+      "source_nom": "Pauline Fortin",
+      "type": "parent_de",
+      "cible_id": "P101",
+      "cible_nom": "Tommy Fortin",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P101",
+        "champ": "Parenté",
+        "extrait": "Fils d’Yves et Pauline Fortin"
+      }
+    },
+    {
+      "source_id": "P072",
+      "source_nom": "Hugo Pelletier",
+      "type": "conjoint_de",
+      "cible_id": "P073",
+      "cible_nom": "Sarah Pelletier",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P073",
+        "champ": "Parenté",
+        "extrait": "Épouse d’Hugo Pelletier"
+      }
+    },
+    {
+      "source_id": "P072",
+      "source_nom": "Hugo Pelletier",
+      "type": "parent_de",
+      "cible_id": "P102",
+      "cible_nom": "Léa Pelletier",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P102",
+        "champ": "Parenté",
+        "extrait": "Fille d’Hugo et Sarah Pelletier"
+      }
+    },
+    {
+      "source_id": "P073",
+      "source_nom": "Sarah Pelletier",
+      "type": "parent_de",
+      "cible_id": "P102",
+      "cible_nom": "Léa Pelletier",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P102",
+        "champ": "Parenté",
+        "extrait": "Fille d’Hugo et Sarah Pelletier"
+      }
+    },
+    {
+      "source_id": "P074",
+      "source_nom": "Anne Girard",
+      "type": "conjoint_de",
+      "cible_id": "P075",
+      "cible_nom": "Louis Girard",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P074",
+        "champ": "Parenté",
+        "extrait": "Épouse de Louis Girard"
+      }
+    },
+    {
+      "source_id": "P074",
+      "source_nom": "Anne Girard",
+      "type": "parent_de",
+      "cible_id": "P181",
+      "cible_nom": "Rosalie Girard",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P181",
+        "champ": "Parenté",
+        "extrait": "Fille d’Anne et Louis Girard"
+      }
+    },
+    {
+      "source_id": "P075",
+      "source_nom": "Louis Girard",
+      "type": "parent_de",
+      "cible_id": "P181",
+      "cible_nom": "Rosalie Girard",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P181",
+        "champ": "Parenté",
+        "extrait": "Fille d’Anne et Louis Girard"
+      }
+    },
+    {
+      "source_id": "P076",
+      "source_nom": "Émile Brassard",
+      "type": "collegue_de",
+      "cible_id": "P197",
+      "cible_nom": "Camille Desgagné",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P197",
+        "champ": "Parenté",
+        "extrait": "Fille de Denis et Johanne — collègue d’Émile Brassard"
+      }
+    },
+    {
+      "source_id": "P076",
+      "source_nom": "Émile Brassard",
+      "type": "conjoint_de",
+      "cible_id": "P077",
+      "cible_nom": "Marie-Claude Brassard",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P076",
+        "champ": "Parenté",
+        "extrait": "Époux de Marie-Claude Brassard"
+      }
+    },
+    {
+      "source_id": "P086",
+      "source_nom": "Benoit Larouche",
+      "type": "enseignant_de",
+      "cible_id": "P020",
+      "cible_nom": "Antoine Lefèvre",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P086",
+        "champ": "Parenté",
+        "extrait": "Prof d’Antoine Lefèvre"
+      }
+    },
+    {
+      "source_id": "P086",
+      "source_nom": "Benoit Larouche",
+      "type": "parent_de",
+      "cible_id": "P182",
+      "cible_nom": "Ludovic Larouche",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P182",
+        "champ": "Parenté",
+        "extrait": "Fils de Benoit Larouche"
+      }
+    },
+    {
+      "source_id": "P087",
+      "source_nom": "Émilie Gauthier",
+      "type": "superieur_de",
+      "cible_id": "P040",
+      "cible_nom": "Stéphanie Lapointe",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P087",
+        "champ": "Parenté",
+        "extrait": "Supérieure de Stéphanie Lapointe"
+      }
+    },
+    {
+      "source_id": "P090",
+      "source_nom": "Maxime Boivin",
+      "type": "fratrie",
+      "cible_id": "P108",
+      "cible_nom": "France Boivin",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P108",
+        "champ": "Parenté",
+        "extrait": "Sœur de Maxime Boivin"
+      }
+    },
+    {
+      "source_id": "P093",
+      "source_nom": "Jessica Paradis",
+      "type": "locataire_de",
+      "cible_id": "P013",
+      "cible_nom": "Sylvie Gagnon",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P093",
+        "champ": "Parenté",
+        "extrait": "Locataire de Sylvie Gagnon"
+      }
+    },
+    {
+      "source_id": "P094",
+      "source_nom": "Nicolas Gagné",
+      "type": "collegue_de",
+      "cible_id": "P191",
+      "cible_nom": "Audrey Lavoie",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P191",
+        "champ": "Parenté",
+        "extrait": "Fille de Fernand Lavoie — collègue de Nicolas Gagné"
+      }
+    },
+    {
+      "source_id": "P105",
+      "source_nom": "Réjean Pedneault",
+      "type": "conjoint_de",
+      "cible_id": "P106",
+      "cible_nom": "Céline Pedneault",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P105",
+        "champ": "Parenté",
+        "extrait": "Époux de Céline Pedneault"
+      }
+    },
+    {
+      "source_id": "P123",
+      "source_nom": "André Simard",
+      "type": "superieur_de",
+      "cible_id": "P007",
+      "cible_nom": "Pierre Samson",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P123",
+        "champ": "Parenté",
+        "extrait": "Supérieur de Pierre Samson"
+      }
+    },
+    {
+      "source_id": "P125",
+      "source_nom": "Jean-Marc Fortin",
+      "type": "superieur_de",
+      "cible_id": "P035",
+      "cible_nom": "Mathieu Lavoie",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P125",
+        "champ": "Parenté",
+        "extrait": "Patron de Mathieu Lavoie et Nicolas Gagné"
+      }
+    },
+    {
+      "source_id": "P125",
+      "source_nom": "Jean-Marc Fortin",
+      "type": "superieur_de",
+      "cible_id": "P094",
+      "cible_nom": "Nicolas Gagné",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P125",
+        "champ": "Parenté",
+        "extrait": "Patron de Mathieu Lavoie et Nicolas Gagné"
+      }
+    },
+    {
+      "source_id": "P126",
+      "source_nom": "Mgr Paul Tremblay",
+      "type": "superieur_de",
+      "cible_id": "P022",
+      "cible_nom": "Lucien Lacroix",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P126",
+        "champ": "Parenté",
+        "extrait": "Supérieur de Lucien Lacroix"
+      }
+    },
+    {
+      "source_id": "P134",
+      "source_nom": "François Côté",
+      "type": "superieur_de",
+      "cible_id": "P078",
+      "cible_nom": "Olivier Savard",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P134",
+        "champ": "Parenté",
+        "extrait": "Patron d’Olivier Savard — ex-patron de JP"
+      }
+    },
+    {
+      "source_id": "P151",
+      "source_nom": "Vittorio Santini",
+      "type": "conjoint_de",
+      "cible_id": "P152",
+      "cible_nom": "Maria Santini",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P152",
+        "champ": "Parenté",
+        "extrait": "Épouse de Vittorio"
+      }
+    },
+    {
+      "source_id": "P151",
+      "source_nom": "Vittorio Santini",
+      "type": "parent_de",
+      "cible_id": "P160",
+      "cible_nom": "Nico Santini",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P160",
+        "champ": "Parenté",
+        "extrait": "Fils de Vittorio et Maria"
+      }
+    },
+    {
+      "source_id": "P152",
+      "source_nom": "Maria Santini",
+      "type": "parent_de",
+      "cible_id": "P160",
+      "cible_nom": "Nico Santini",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P160",
+        "champ": "Parenté",
+        "extrait": "Fils de Vittorio et Maria"
+      }
+    },
+    {
+      "source_id": "P160",
+      "source_nom": "Nico Santini",
+      "type": "parent_de",
+      "cible_id": "P177",
+      "cible_nom": "Sofia Santini",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P177",
+        "champ": "Parenté",
+        "extrait": "Fille de Nico Santini — petite-fille de Vittorio et Maria"
+      }
+    },
+    {
+      "source_id": "P161",
+      "source_nom": "Fernande Boucher",
+      "type": "parent_de",
+      "cible_id": "P009",
+      "cible_nom": "Dévon Boucher",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P009",
+        "champ": "Parenté",
+        "extrait": "Fils de Fernande Boucher — frère d’Éric"
+      }
+    },
+    {
+      "source_id": "P161",
+      "source_nom": "Fernande Boucher",
+      "type": "parent_de",
+      "cible_id": "P047",
+      "cible_nom": "Éric Boucher",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P047",
+        "champ": "Parenté",
+        "extrait": "Fils de Fernande — frère de Dévon"
+      }
+    },
+    {
+      "source_id": "P162",
+      "source_nom": "Aline Tremblay",
+      "type": "parent_de",
+      "cible_id": "P004",
+      "cible_nom": "Gratien Tremblay",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P004",
+        "champ": "Parenté",
+        "extrait": "Fils d’Aline Tremblay — conjoint de Linda"
+      }
+    },
+    {
+      "source_id": "P163",
+      "source_nom": "Cécile Truchon",
+      "type": "parent_de",
+      "cible_id": "P011",
+      "cible_nom": "Yvan Truchon",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P011",
+        "champ": "Parenté",
+        "extrait": "Fils de Cécile Truchon — conjoint de Gisèle"
+      }
+    },
+    {
+      "source_id": "P164",
+      "source_nom": "Thérèse Gagnon",
+      "type": "parent_de",
+      "cible_id": "P025",
+      "cible_nom": "Karine Gagnon",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P025",
+        "champ": "Parenté",
+        "extrait": "Fille de Thérèse Gagnon — sœur de Rock"
+      }
+    },
+    {
+      "source_id": "P164",
+      "source_nom": "Thérèse Gagnon",
+      "type": "parent_de",
+      "cible_id": "P052",
+      "cible_nom": "Rock Gagnon",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P052",
+        "champ": "Parenté",
+        "extrait": "Fils de Thérèse Gagnon — frère de Karine"
+      }
+    },
+    {
+      "source_id": "P165",
+      "source_nom": "Lucie Bérubé",
+      "type": "parent_de",
+      "cible_id": "P010",
+      "cible_nom": "Kevin Bérubé",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P010",
+        "champ": "Parenté",
+        "extrait": "Fils de Lucie Bérubé — frère de Jessy"
+      }
+    },
+    {
+      "source_id": "P165",
+      "source_nom": "Lucie Bérubé",
+      "type": "parent_de",
+      "cible_id": "P053",
+      "cible_nom": "Jessy Bérubé",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P053",
+        "champ": "Parenté",
+        "extrait": "Fils de Lucie Bérubé — frère de Kevin"
+      }
+    },
+    {
+      "source_id": "P165",
+      "source_nom": "Lucie Bérubé",
+      "type": "parent_de",
+      "cible_id": "P175",
+      "cible_nom": "Zack Bérubé",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P175",
+        "champ": "Parenté",
+        "extrait": "Fils de Lucie Bérubé — cadet de Kevin et Jessy"
+      }
+    },
+    {
+      "source_id": "P166",
+      "source_nom": "Jeanne Gagnon",
+      "type": "parent_de",
+      "cible_id": "P013",
+      "cible_nom": "Sylvie Gagnon",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P013",
+        "champ": "Parenté",
+        "extrait": "Fille de Jeanne Gagnon — ex-épouse de Bertrand"
+      }
+    },
+    {
+      "source_id": "P167",
+      "source_nom": "Gaston Pelletier",
+      "type": "parent_de",
+      "cible_id": "P072",
+      "cible_nom": "Hugo Pelletier",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P072",
+        "champ": "Parenté",
+        "extrait": "Fils de Gaston Pelletier — époux de Sarah"
+      }
+    },
+    {
+      "source_id": "P168",
+      "source_nom": "Hélène Samson",
+      "type": "parent_de",
+      "cible_id": "P007",
+      "cible_nom": "Pierre Samson",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P007",
+        "champ": "Parenté",
+        "extrait": "Fils d’Hélène Samson — époux de Catherine"
+      }
+    },
+    {
+      "source_id": "P169",
+      "source_nom": "Albert Dufour",
+      "type": "parent_de",
+      "cible_id": "P121",
+      "cible_nom": "Gilles Dufour",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P121",
+        "champ": "Parenté",
+        "extrait": "Fils d’Albert Dufour — maire de Saguenay"
+      }
+    },
+    {
+      "source_id": "P170",
+      "source_nom": "Manon Lavoie",
+      "type": "parent_de",
+      "cible_id": "P116",
+      "cible_nom": "Cindy Lavoie",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P116",
+        "champ": "Parenté",
+        "extrait": "Fille de Manon Lavoie — estafette de Gratien"
+      }
+    },
+    {
+      "source_id": "P185",
+      "source_nom": "Marie-Ève Boucher",
+      "type": "conjoint_de",
+      "cible_id": "P186",
+      "cible_nom": "Stéphane Bossé",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P185",
+        "champ": "Parenté",
+        "extrait": "Conjointe de Stéphane Bossé — cousine de Normand Boucher"
+      }
+    },
+    {
+      "source_id": "P190",
+      "source_nom": "Fernand Lavoie",
+      "type": "parent_de",
+      "cible_id": "P191",
+      "cible_nom": "Audrey Lavoie",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P191",
+        "champ": "Parenté",
+        "extrait": "Fille de Fernand Lavoie — collègue de Nicolas Gagné"
+      }
+    },
+    {
+      "source_id": "P194",
+      "source_nom": "Yvette Desgagné",
+      "type": "parent_de",
+      "cible_id": "P195",
+      "cible_nom": "Denis Desgagné",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P195",
+        "champ": "Parenté",
+        "extrait": "Fils d’Yvette — époux de Johanne Gravel — père de Camille, Samuel et Julien"
+      }
+    },
+    {
+      "source_id": "P195",
+      "source_nom": "Denis Desgagné",
+      "type": "conjoint_de",
+      "cible_id": "P196",
+      "cible_nom": "Johanne Gravel",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P196",
+        "champ": "Parenté",
+        "extrait": "Épouse de Denis Desgagné — sœur de Réal Gravel"
+      }
+    },
+    {
+      "source_id": "P195",
+      "source_nom": "Denis Desgagné",
+      "type": "parent_de",
+      "cible_id": "P197",
+      "cible_nom": "Camille Desgagné",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P197",
+        "champ": "Parenté",
+        "extrait": "Fille de Denis et Johanne — collègue d’Émile Brassard"
+      }
+    },
+    {
+      "source_id": "P195",
+      "source_nom": "Denis Desgagné",
+      "type": "parent_de",
+      "cible_id": "P198",
+      "cible_nom": "Samuel Desgagné",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P198",
+        "champ": "Parenté",
+        "extrait": "Fils de Denis et Johanne — frère de Camille et Julien"
+      }
+    },
+    {
+      "source_id": "P195",
+      "source_nom": "Denis Desgagné",
+      "type": "parent_de",
+      "cible_id": "P203",
+      "cible_nom": "Julien Desgagné",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P203",
+        "champ": "Parenté",
+        "extrait": "Fils de Denis et Johanne — aîné de Camille et Samuel"
+      }
+    },
+    {
+      "source_id": "P196",
+      "source_nom": "Johanne Gravel",
+      "type": "parent_de",
+      "cible_id": "P197",
+      "cible_nom": "Camille Desgagné",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P197",
+        "champ": "Parenté",
+        "extrait": "Fille de Denis et Johanne — collègue d’Émile Brassard"
+      }
+    },
+    {
+      "source_id": "P196",
+      "source_nom": "Johanne Gravel",
+      "type": "parent_de",
+      "cible_id": "P198",
+      "cible_nom": "Samuel Desgagné",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P198",
+        "champ": "Parenté",
+        "extrait": "Fils de Denis et Johanne — frère de Camille et Julien"
+      }
+    },
+    {
+      "source_id": "P196",
+      "source_nom": "Johanne Gravel",
+      "type": "parent_de",
+      "cible_id": "P203",
+      "cible_nom": "Julien Desgagné",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P203",
+        "champ": "Parenté",
+        "extrait": "Fils de Denis et Johanne — aîné de Camille et Samuel"
+      }
+    },
+    {
+      "source_id": "P199",
+      "source_nom": "Nathalie Tremblay",
+      "type": "superieur_de",
+      "cible_id": "P084",
+      "cible_nom": "Jacques Maltais",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P199",
+        "champ": "Parenté",
+        "extrait": "Célibataire — supérieure de Jacques Maltais"
+      }
+    },
+    {
+      "source_id": "P204",
+      "source_nom": "Emma Boucher",
+      "type": "colocataire_de",
+      "cible_id": "P205",
+      "cible_nom": "Moussa Diallo",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P205",
+        "champ": "Parenté",
+        "extrait": "Célibataire — colocataire d’Emma Boucher et William Lavoie"
+      }
+    },
+    {
+      "source_id": "P204",
+      "source_nom": "Emma Boucher",
+      "type": "colocataire_de",
+      "cible_id": "P206",
+      "cible_nom": "William Lavoie",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P206",
+        "champ": "Parenté",
+        "extrait": "Cousin de JP — colocataire d’Emma Boucher et Moussa Diallo"
+      }
+    },
+    {
+      "source_id": "P205",
+      "source_nom": "Moussa Diallo",
+      "type": "colocataire_de",
+      "cible_id": "P206",
+      "cible_nom": "William Lavoie",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P205",
+        "champ": "Parenté",
+        "extrait": "Célibataire — colocataire d’Emma Boucher et William Lavoie"
+      }
+    },
+    {
+      "source_id": "P213",
+      "source_nom": "Karine Simard",
+      "type": "parent_de",
+      "cible_id": "P211",
+      "cible_nom": "Léa Simard",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P211",
+        "champ": "Parenté",
+        "extrait": "Fille de Karine Simard — sœur d’Anthony"
+      }
+    },
+    {
+      "source_id": "P213",
+      "source_nom": "Karine Simard",
+      "type": "parent_de",
+      "cible_id": "P212",
+      "cible_nom": "Anthony Simard",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P212",
+        "champ": "Parenté",
+        "extrait": "Fils de Karine Simard — frère de Léa — neveu de Nancy Simard"
+      }
+    }
+  ]
+}

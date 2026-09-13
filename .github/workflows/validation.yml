@@ -108,3 +108,38 @@ jobs:
 
       - name: Garde-fous (tests)
         run: python -m unittest discover -s tests -v
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Régressions JavaScript de la carte
+        run: node --test tests/carte.test.cjs
+
+  navigateur:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Dépendances des tests navigateur
+        run: npm ci
+      - name: Chromium et bibliothèques système
+        run: npx playwright install --with-deps chromium
+      - name: Parcours navigateur sur les deux cartes
+        run: npm run test:e2e
+      - name: Rapport et traces en cas d'échec
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rapport-navigateur
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

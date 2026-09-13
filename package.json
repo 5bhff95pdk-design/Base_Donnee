@@ -1,0 +1,14 @@
+{
+  "name": "base-donnee-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tests navigateur de la carte de personnages fictifs",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test tests/carte.test.cjs",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0"
+  }
+}
