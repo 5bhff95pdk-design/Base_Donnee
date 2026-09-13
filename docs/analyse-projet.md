@@ -51,6 +51,7 @@ Les nombres de lignes excluent les en-têtes.
 - `data/narration.csv` : source **publique et versionnée**, jointe par ID. Ses
   noms/surnoms servent de repères de lecture ; ceux du classeur suivent la base.
 - `data/factions.txt` : vocabulaire contrôlé des factions.
+- `data/ids-retires.txt` : registre versionné des IDs ne pouvant plus être réutilisés.
 - `data/relations.csv` : liens relus et saisis explicitement, accompagnés du texte
   de preuve provenant de Parenté. Extraction partielle, sans inférence de liens.
 - `construire_base.py` et `relations.py` : génération du classeur unique
@@ -85,8 +86,8 @@ Ces traits ne représentent pas la nouvelle table de relations.
 
 | Suite | Nombre | Portée |
 |---|---|---|
-| Python | 60 | Données, exports, IDs, relations, portraits, conventions et documentation |
-| JavaScript ciblé | 5 | Coordonnées Leaflet, révélation des catégories humain/animal et robustesse des repères locaux avec objets simulés |
+| Python | 61 | Données, exports, IDs, relations, portraits, conventions et documentation |
+| JavaScript ciblé | 6 | Coordonnées Leaflet, révélation des catégories humain/animal et robustesse des repères locaux avec objets simulés |
 | Navigateur Chromium | 14 | Recherche/portrait, filtres, catégories masquées, zoom, repères et menu mobile sur les deux cartes |
 
 Commandes et prérequis : [README — démarrage rapide](../README.md#démarrage-rapide)
@@ -112,7 +113,6 @@ cette analyse ni un indicateur de fraîcheur des données.
 
 ### Fonctionnement et couverture
 
-- Pas de clustering des marqueurs ; leur densité reste forte au zoom arrière.
 - Pas de test Firefox/Safari ou d’appareil tactile réel. Les services de tuiles,
   Nominatim et la géolocalisation ne sont pas validés par les parcours simulés.
 - Le rythme et le déclenchement de la recherche distante restent à revoir au
@@ -129,8 +129,9 @@ cette analyse ni un indicateur de fraîcheur des données.
 - Les coordonnées sont approximatives. Les tests d’arrondissement utilisent des
   boîtes géographiques, pas les limites administratives exactes ni une nouvelle
   vérification des rues auprès d’OpenStreetMap.
-- Les IDs sont permanents par convention et validés dans l’état courant ; aucun
-  registre de suppression ne garantit automatiquement leur non-réutilisation.
+- Les IDs sont permanents et contrôlés par `data/ids-retires.txt`. La garantie
+  dépend encore de l’ajout manuel d’un ID au registre au moment d’un retrait ;
+  l’historique des suppressions anciennes n’est pas reconstruit automatiquement.
 - Les preuves des relations sont comparées au texte source, mais le programme ne
   valide pas leur interprétation sémantique. L’extraction n’est pas exhaustive.
 - Pas encore de temporalité, de statut « rumeur/perception », ni de distinction
@@ -156,7 +157,8 @@ narration est publique dans le dépôt et le classeur.
 Conserver l’architecture actuelle. Avant d’ajouter des personnages ou de changer
 la pile technique, privilégier :
 
-1. La validation éditoriale des [treize propositions](propositions-personnages-centraux.md).
+1. La validation éditoriale des [treize propositions](propositions-personnages-centraux.md)
+   et du [noyau de saison 1 proposé](atelier-saison-1.md).
 2. L’enrichissement progressif des [relations sourcées](relations-personnages.md),
    avec un modèle temporel seulement lorsque les scènes en ont besoin.
 3. Le traitement des erreurs de stockage et de construction signalées plus haut,

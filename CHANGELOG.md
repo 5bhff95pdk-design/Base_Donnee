@@ -2,6 +2,17 @@
 
 Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
+## [2026-09-13] — Lisibilité de la carte et IDs retirés
+
+- Ajout d’un regroupement natif des personnages au zoom arrière, sans plugin
+  externe : les groupes sont cliquables et les traits de familles restent
+  réservés aux niveaux de zoom détaillés.
+- Ajout de `data/ids-retires.txt`, registre versionné empêchant la réutilisation
+  accidentelle d’un identifiant supprimé.
+- Ajout de tests ciblés pour le regroupement et le registre d’identifiants.
+- Ajout de deux documents de travail non générateurs : provenance géographique
+  explicitée et noyau de saison 1 proposé, sans modification du canon.
+
 ## [2026-09-13] — Robustesse de la carte et de la génération
 
 - Le chargement des repères locaux ignore désormais proprement un JSON corrompu,

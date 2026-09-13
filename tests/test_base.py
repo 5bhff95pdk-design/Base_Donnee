@@ -209,6 +209,14 @@ class TestIdentifiants(unittest.TestCase):
             with self.assertRaisesRegex(SystemExit, 'Portrait introuvable'):
                 cb.charger_personnages()
 
+    def test_id_retire_ne_peut_pas_etre_reutilise(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            registre = Path(tmp) / 'ids-retires.txt'
+            registre.write_text('# historique\nP999\n', encoding='utf-8')
+            with patch.object(cb, 'SRC_IDS_RETIRES', str(registre)):
+                with self.assertRaisesRegex(SystemExit, 'définitivement retiré'):
+                    cb.valider_ids([{'ID': 'P999', 'Nom': 'Personnage test'}], 'test')
+
 
 class TestRelations(unittest.TestCase):
     @classmethod

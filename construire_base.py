@@ -57,6 +57,7 @@ except Exception:  # Pillow absent : tout sauf la planche reste fonctionnel
 SRC_PERSOS = 'data/personnages.csv'
 SRC_NARR = 'data/narration.csv'
 SRC_FACTIONS = 'data/factions.txt'
+SRC_IDS_RETIRES = 'data/ids-retires.txt'
 XLSX = 'base_personnages_fictifs.xlsx'
 FEUILLE = 'Personnages'
 CARTE_CANONIQUE = 'carte/index.html'
@@ -168,8 +169,27 @@ def lire_factions():
         return [lg.strip() for lg in f if lg.strip() and not lg.lstrip().startswith('#')]
 
 
+def lire_ids_retires():
+    """Lit le registre des identifiants définitivement indisponibles."""
+    if not os.path.exists(SRC_IDS_RETIRES):
+        raise SystemExit(f"✘ Registre des IDs retirés introuvable : {SRC_IDS_RETIRES}")
+    ids = []
+    with open(SRC_IDS_RETIRES, encoding='utf-8') as f:
+        for numero, ligne in enumerate(f, 1):
+            valeur = ligne.split('#', 1)[0].strip()
+            if not valeur:
+                continue
+            if not re.fullmatch(r'P[0-9]{3,}', valeur) or valeur != f"P{int(valeur[1:]):03d}":
+                raise SystemExit(f"✘ {SRC_IDS_RETIRES} ligne {numero} : ID invalide ({valeur!r})")
+            ids.append(valeur)
+    if len(ids) != len(set(ids)):
+        raise SystemExit(f"✘ {SRC_IDS_RETIRES} : ID retiré en double")
+    return set(ids)
+
+
 def valider_ids(recs, source):
     """Les clés sont attribuées dans la source, jamais calculées à la construction."""
+    retires = lire_ids_retires()
     vus = set()
     for r in recs:
         identifiant = r.get('ID')
@@ -177,6 +197,8 @@ def valider_ids(recs, source):
             raise SystemExit(f"✘ {source} : ID invalide pour {r.get('Nom')} ({identifiant!r})")
         if int(identifiant[1:]) == 0 or identifiant != f"P{int(identifiant[1:]):03d}":
             raise SystemExit(f"✘ {source} : ID non canonique ({identifiant!r})")
+        if identifiant in retires:
+            raise SystemExit(f"✘ {source} : ID définitivement retiré ({identifiant})")
         if identifiant in vus:
             raise SystemExit(f"✘ {source} : ID en double ({identifiant})")
         vus.add(identifiant)

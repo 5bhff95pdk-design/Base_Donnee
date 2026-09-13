@@ -13,6 +13,14 @@ function extrait(debut, fin) {
   return html.slice(a, b);
 }
 
+test('Le zoom arrière regroupe les personnages sans dépendance externe', () => {
+  assert.match(html, /const CLUSTER_ZOOM=13, CLUSTER_CELL=64;/);
+  assert.match(html, /const clusterLayer=L\.layerGroup\(\)\.addTo\(map\);/);
+  assert.match(html, /function actualiserClusters\(\)/);
+  assert.match(html, /groupe\.length<2/);
+  assert.match(html, /map\.flyToBounds\(/);
+});
+
 test('Les événements Leaflet affichent latitude et longitude sans erreur', () => {
   const handlers = {};
   const coords = {textContent: ''};
@@ -23,6 +31,8 @@ test('Les événements Leaflet affichent latitude et longitude sans erreur', () 
       getZoom: () => 15,
       getCenter: () => ({lat: 48.34, lng: -70.88}),
     },
+    actualiserClusters: () => {},
+    dessinerLiens: () => {},
   });
   vm.runInContext(extrait("map.on('mousemove',e=>{", "document.getElementById('home')"), contexte);
   handlers.mousemove({latlng: {lat: 48.33, lng: -70.89}});
@@ -82,6 +92,7 @@ for (const categorie of ['p', 'a']) {
     let applications = 0;
     const contexte = vm.createContext({
       PERSOS: [p], FILTRES, catOn, sel,
+      visible: () => true,
       grp: Object.fromEntries(['p', 'a'].map(k => [k, {
         hasLayer: m => couches[k].has(m),
         removeLayer: m => couches[k].delete(m),
