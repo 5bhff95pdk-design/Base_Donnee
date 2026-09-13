@@ -2,6 +2,35 @@
 
 Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
+## [2026-09-13] — Corrections issues d’une revue externe
+
+- **Planche contact** : les 12 vignettes verticales (400 × 600) sont désormais
+  affichées entières au lieu d’être recadrées au ratio 3:2 ; le recadrage
+  « couverture » coupait le visage de cinq d’entre elles et annulait la seule
+  fonction de la planche. Les vignettes paysage gardent le plein cadre.
+- **Relations** : 41 liens de famille déjà écrits en prose dans `Parenté`
+  (fratries, cousinages, oncles/tantes, grands-parents, un filleul) sont entrés
+  dans `data/relations.csv` : 155 relations, 176 personnages reliés (contre 114
+  et 141). Trois types documentés s’ajoutent — `oncle_de`, `grand_parent_de`,
+  `parrain_de` — avec leurs inverses ; aucune relation n’est déduite du clan,
+  de l’adresse ou du prénom seul.
+- **Atelier** : les mineurs ne peuvent plus être la « pression » des moteurs
+  « dette » et « limite » (règle de `docs/atelier-saison-1.md`, désormais
+  outillée et testée) ; ils restent point de vue ou témoin, avec un repère
+  visible dans la distribution et les faits de scène.
+- **Mentions de fiction** : clause de non-ressemblance pour les personnes, les
+  entreprises et les organisations réelles citées comme contexte
+  (`LICENSE-DONNEES.md`, README) ; la fiche de chaque personnage porte
+  « Personnage de fiction — adresse inventée » et les coordonnées y sont
+  affichées à quatre décimales au lieu de six (précision au mètre sous une
+  adresse fictive).
+- **Tests** : quatre garde-fous Python (66 au total) et quatre tests JavaScript
+  dédiés à l’atelier (10 au total, `tests/atelier.test.cjs`) ; la suite JS de la
+  CI couvre désormais `tests/*.test.cjs`.
+- Nouveau document [docs/revue-externe-2026-09-13.md](docs/revue-externe-2026-09-13.md)
+  : revue externe, non canonique et hors génération, avec les recommandations
+  encore ouvertes.
+
 ## [2026-09-13] — Atelier interactif de scènes
 
 - Ajout de `atelier/index.html`, une machine à faire apparaître des tensions à

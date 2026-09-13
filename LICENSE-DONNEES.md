@@ -30,6 +30,15 @@ base composite. Les coordonnées sont approximatives (centroïde de rue réel +
 décalage déterministe de ± 400 m) et les numéros civiques inventés : **rien
 ici ne doit être utilisé comme adresse postale réelle**.
 
+**Personnes, entreprises et organisations.** Les personnages, surnoms,
+situations et adresses sont imaginaires : **toute ressemblance avec des
+personnes réelles serait fortuite**. Des **noms d'entreprises, de marques et
+d'établissements réels** (transport, commerce, industrie, enseignement,
+médias) apparaissent comme contexte géographique et social du Saguenay. Ils
+sont cités à titre descriptif : **aucune affiliation, aucun partenariat,
+aucun mandat et aucune mise en cause** ne sont suggérés, et ces mentions ne
+constituent pas une source d'information sur ces organisations.
+
 ### Mention de paternité minimale à reprendre en cas de réutilisation
 
 > Base de personnages fictifs — La Baie (Saguenay), © Luc, sous ODbL.

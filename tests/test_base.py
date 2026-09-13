@@ -300,6 +300,16 @@ class TestRelations(unittest.TestCase):
                 with self.assertRaisesRegex(SystemExit, 'source vide'):
                     cb.relations.charger(self.persos)
 
+    def test_types_de_relations_documentes(self):
+        """Le vocabulaire s'est élargi (oncle/tante, grand-parent, parrain) :
+        chaque type et son inverse de lecture doivent rester documentés, sinon
+        la table redevient du texte libre."""
+        doc = Path('docs/relations-personnages.md').read_text(encoding='utf-8')
+        for type_lien, (inverse, _) in cb.relations.TYPES.items():
+            with self.subTest(type=type_lien):
+                self.assertIn(f'| {type_lien} |', doc, f'{type_lien} non documenté')
+                self.assertIn(inverse, doc, f'inverse {inverse} non documenté')
+
     def test_propositions_separees_des_livrables(self):
         texte = Path('docs/propositions-personnages-centraux.md').read_text(encoding='utf-8')
         self.assertIn('non canonique', texte)
@@ -605,6 +615,31 @@ class TestPortraits(unittest.TestCase):
         self.assertTrue(os.path.exists('assets/fonts/DejaVuSans.ttf'))
         self.assertTrue(os.path.exists('assets/fonts/LICENSE.txt'))
 
+    def test_planche_affiche_les_vignettes_verticales_entieres(self):
+        """Le recadrage « couverture » coupait le visage des vignettes
+        verticales (400 × 600) : la planche contact ne permettait plus de
+        reconnaître ces personnages, sa seule fonction. Elles sont désormais
+        réduites en entier ; les vignettes paysage gardent le plein cadre."""
+        try:
+            from PIL import Image
+        except ImportError:
+            self.skipTest('Pillow absent')
+        verticale = Image.new('RGB', (400, 600), (0, 0, 255))
+        verticale.paste((255, 0, 0), (0, 0, 400, 40))       # bandeau du haut
+        verticale.paste((0, 255, 0), (0, 560, 400, 600))    # bandeau du bas
+        case, dx, dy = cb.ajuster_vignette_planche(verticale, 240, 160)
+        self.assertLessEqual(case.width, 240)
+        self.assertLessEqual(case.height, 160)
+        self.assertGreaterEqual(dx, 0)
+        self.assertGreaterEqual(dy, 0)
+        # Haut ET bas de l'image source survivent : aucune coupe du visage.
+        self.assertEqual(case.getpixel((case.width // 2, 0)), (255, 0, 0))
+        self.assertEqual(case.getpixel((case.width // 2, case.height - 1)), (0, 255, 0))
+        # Une vignette paysage garde le recadrage couverture, plein cadre.
+        paysage = Image.new('RGB', (1200, 654), (10, 20, 30))
+        pleine, dx2, dy2 = cb.ajuster_vignette_planche(paysage, 240, 160)
+        self.assertEqual((pleine.size, dx2, dy2), ((240, 160), 0, 0))
+
 
 class TestCarte(unittest.TestCase):
     @classmethod
@@ -630,6 +665,17 @@ class TestCarte(unittest.TestCase):
             self.assertIsNotNone(m, 'PERSOS introuvable')
             self.assertEqual(len(json.loads(m.group(1))), N, 'effectif PERSOS')
 
+    def test_atelier_protege_les_mineurs(self):
+        """La règle « les mineurs ne portent pas seuls les problèmes des
+        adultes » était écrite dans docs/atelier-saison-1.md mais pas outillée :
+        le tirage pouvait confier à un enfant de 9 ans le rôle de « pression »
+        d'une dette. La règle est désormais dans le code de l'atelier."""
+        h = Path('atelier/index.html').read_text(encoding='utf-8')
+        self.assertIn("const MODES_SANS_MINEUR=['dette','limite'];", h)
+        self.assertIn("estMineur=p=>p.type==='Humain'&&p.age<18;", h)
+        self.assertIn('pressionAutorisee', h)
+        self.assertIn('— mineur, à protéger', h)
+
     def test_atelier_de_scenes_recoit_les_donnees_sans_devenir_un_export(self):
         h = Path('atelier/index.html').read_text(encoding='utf-8')
         persos = re.search(r'const PERSOS=(\[.*?\]);', h, flags=re.S)
@@ -640,7 +686,10 @@ class TestCarte(unittest.TestCase):
         self.assertIsNotNone(relations)
         self.assertEqual(len(json.loads(persos.group(1))), N)
         self.assertEqual(len(json.loads(narr.group(1))), N)
-        self.assertEqual(len(json.loads(relations.group(1))['relations']), 114)
+        # Effectif calculé depuis la source : la table de relations a déjà
+        # grandi une fois, le test ne doit pas figer un nombre.
+        self.assertEqual(len(json.loads(relations.group(1))['relations']),
+                         len(cb.relations.charger(cb.charger_personnages())))
         self.assertIn('Exercice non canonique', h)
         self.assertNotIn('atelier/index.html', Path('base_personnages_fictifs.json').read_text(encoding='utf-8'))
 
@@ -785,6 +834,29 @@ class TestDocumentationEtLicences(unittest.TestCase):
         annonces = {int(n) for n in re.findall(r'(\d{2,3})\s+(?:tests|garde-fous)', h)}
         self.assertTrue(annonces, 'le README doit annoncer un nombre de tests')
         self.assertIn(total, annonces, f'README annonce {annonces} ; {total} réellement exécutés')
+
+    def test_mentions_de_non_ressemblance(self):
+        """Les portraits portaient une clause de non-ressemblance, mais pas les
+        personnes ni les organisations réelles citées (commerce, industrie,
+        enseignement, médias) : un lecteur d'une fiche isolée, qui n'ouvre ni le
+        README ni la licence, ne voyait aucune réserve. L'avertissement est
+        désormais dans la fiche elle-même, et la précision affichée reste
+        honnête (quatre décimales, pas six, sous une adresse inventée)."""
+        licences = Path('LICENSE-DONNEES.md').read_text(encoding='utf-8')
+        readme = Path('README.md').read_text(encoding='utf-8')
+        carte = Path(cb.CARTE_CANONIQUE).read_text(encoding='utf-8')
+        for document, nom in ((licences, 'LICENSE-DONNEES.md'), (readme, 'README.md')):
+            # Casse et retours de ligne indifférents : la phrase se lit sur deux lignes.
+            self.assertIn('ressemblance avec des personnes', ' '.join(document.split()).lower(),
+                          f'{nom} : clause de non-ressemblance absente')
+        debut = carte.index('function popup(o){')
+        popup = carte[debut:carte.index('LIEUX.forEach', debut)]
+        self.assertIn('Personnage de fiction — adresse inventée', popup)
+        # Les coordonnées d'un personnage fictif ne s'affichent plus au mètre
+        # (six décimales) ; celles des lieux réels gardent leur précision.
+        self.assertIn('p.latitude.toFixed(4)', popup)
+        self.assertNotIn('p.latitude.toFixed(6)', popup,
+                         'précision au mètre sous une adresse fictive')
 
     def test_trois_statuts_de_licence_distincts(self):
         self.assertTrue(os.path.exists('LICENSE-DONNEES.md'))

@@ -84,6 +84,8 @@
   .leaflet-popup-content{font-size:12.5px;line-height:1.5;margin:11px 13px}
   .leaflet-popup-content b{color:#8ec5ea;font-size:13px}
   .leaflet-popup-content .lat{font-family:ui-monospace,monospace;font-size:10.5px;color:#7e9bb2;display:block;margin-top:4px}
+  .leaflet-popup-content .fiction{display:block;margin-top:7px;padding-top:6px;border-top:1px solid #2c4459;
+                                  font-size:10.5px;line-height:1.35;color:#c9b27a}
   .leaflet-bar a{background:#132432;color:#cfe3f2;border-bottom-color:#2c4459}
   .leaflet-bar a:hover{background:#1d3547}
   .leaflet-control-attribution{background:rgba(19,36,50,.85)!important;color:#8fa9bd!important;font-size:10px!important}
@@ -301,7 +303,8 @@ function popup(o){
     ${row('Famille',p.famille)}${row('Branche',p.branche)}${row('Parenté',p.parente)}
     ${row('Physique',p.apparence)}${row('Vêtements',p.vetements)}${row('Tic / objet',p.tic_ou_objet)}</table>
     <span class="tag">${esc(p.secteur)}</span>${foyer?`<span class="tag">${esc(foyer)}</span>`:''}${p.surnom?'':`<span class="tag">sans surnom</span>`}${p.type==='Animal'?`<span class="tag">animal</span>`:''}
-    <span class="lat">${p.latitude.toFixed(6)}, ${p.longitude.toFixed(6)}</span></div>`;
+    <span class="lat">${p.latitude.toFixed(4)}, ${p.longitude.toFixed(4)} · coordonnées approximatives</span>
+    <span class="fiction">Personnage de fiction — adresse inventée (rue réelle). Ne pas utiliser comme adresse postale.</span></div>`;
 }
 LIEUX.forEach(o=>{
   o.m=L.marker([o.la,o.lo],{icon:icon(o.ic||o.c),title:o.n}).addTo(grp[o.c]).bindPopup(popup(o));

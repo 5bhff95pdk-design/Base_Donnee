@@ -114,7 +114,7 @@ jobs:
           node-version: '22'
 
       - name: Régressions JavaScript de la carte
-        run: node --test tests/carte.test.cjs
+        run: node --test tests/*.test.cjs
 
   navigateur:
     runs-on: ubuntu-latest

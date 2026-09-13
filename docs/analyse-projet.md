@@ -20,6 +20,15 @@ La consolidation sécurise les renommages, les interactions essentielles et les
 premiers liens entre personnages. **Elle ne transforme pas la base en outil
 collaboratif, ni les propositions narratives en canon validé.**
 
+Une passe de correction (2026-09-13) a traité quatre points issus d’une revue
+externe : affichage entier des vignettes verticales sur la planche contact,
+structuration de 41 liens de famille déjà écrits en prose, protection des
+mineurs dans les moteurs de l’atelier, et mentions de non-ressemblance dans la
+fiche du personnage et les licences. Les recommandations encore ouvertes
+(étiquetage IA dans les fichiers d’image, élargissement aux liens d’intrigue,
+décisions sur les factions `Sous-sol` / `Neutre` / `Propre` et sur la colonne
+`Branche`) sont consignées dans [la revue](revue-externe-2026-09-13.md).
+
 ## 2. État des données
 
 Les effectifs sont calculables depuis les sources ; un test contrôle ce tableau.
@@ -40,8 +49,8 @@ Les nombres de lignes excluent les en-têtes.
 | Fiches Narration | 213 |
 | Colonnes Narration | 9 |
 | Factions autorisées | 17 |
-| Relations explicites structurées | 114 |
-| Personnages reliés dans cette tranche | 141 |
+| Relations explicites structurées | 155 |
+| Personnages reliés dans cette tranche | 176 |
 | Propositions de personnages centraux | 13 |
 
 ### Sources et livrables
@@ -53,7 +62,9 @@ Les nombres de lignes excluent les en-têtes.
 - `data/factions.txt` : vocabulaire contrôlé des factions.
 - `data/ids-retires.txt` : registre versionné des IDs ne pouvant plus être réutilisés.
 - `data/relations.csv` : liens relus et saisis explicitement, accompagnés du texte
-  de preuve provenant de Parenté. Extraction partielle, sans inférence de liens.
+  de preuve provenant de Parenté. Extraction partielle, sans inférence : les
+  41 liens déclarés en prose dans Parenté mais absents de la table y ont été
+  ajoutés après résolution des prénoms ambigus par Famille, Branche et secteur.
 - `construire_base.py` et `relations.py` : génération du classeur unique
   (**Personnages, Lisez-moi, Narration, Relations**), des exports personnages,
   de `relations_personnages.json`, des deux cartes, de l’atelier de scènes et
@@ -80,15 +91,15 @@ Ces traits ne représentent pas la nouvelle table de relations.
 | 1 — Interactions de la carte | Correction Leaflet `lon` → `lng` ; recherche réactivant la catégorie du résultat et sa case | Pas une revue exhaustive du JavaScript |
 | 2 — Tests navigateur | Sept parcours sur chacune des deux cartes, exécutés dans Chromium | Services externes simulés ; mobile = petite fenêtre, pas appareil tactile |
 | 3 — Identifiants stables | P001–P213, jointure de narration par ID, portraits explicites, propagation aux exports | Ne pas réutiliser les IDs ; les mentions en prose ne se renomment pas seules |
-| 4 — Relations et écriture | Table sourcée, validations, feuille Excel et JSON autonome ; treize fiches proposées à part | Relations partielles et propositions non approuvées |
+| 4 — Relations et écriture | Table sourcée, validations, feuille Excel et JSON autonome ; treize fiches proposées à part | Relations encore partielles et propositions non approuvées |
 | 5 — Documentation | État actuel séparé des archives, guide corrigé, contrôles des chiffres et liens | L’archive conserve volontairement les anciens constats |
 
 ## 4. Vérifications et portée
 
 | Suite | Nombre | Portée |
 |---|---|---|
-| Python | 62 | Données, exports, IDs, relations, portraits, conventions et documentation |
-| JavaScript ciblé | 6 | Coordonnées Leaflet, révélation des catégories humain/animal et robustesse des repères locaux avec objets simulés |
+| Python | 66 | Données, exports, IDs, relations, portraits, protection des mineurs, conventions et documentation |
+| JavaScript ciblé | 10 | Coordonnées Leaflet, révélation des catégories humain/animal, robustesse des repères locaux et protection des mineurs dans l’atelier, avec objets simulés |
 | Navigateur Chromium | 14 | Recherche/portrait, filtres, catégories masquées, zoom, repères et menu mobile sur les deux cartes |
 
 Commandes et prérequis : [README — démarrage rapide](../README.md#démarrage-rapide)
@@ -137,7 +148,9 @@ cette analyse ni un indicateur de fraîcheur des données.
   valide pas leur interprétation sémantique. L’extraction n’est pas exhaustive.
 - Pas encore de temporalité, de statut « rumeur/perception », ni de distinction
   filiation biologique/adoptive. Une absence de lien n’est pas un fait narratif.
-- Les ratios des portraits ne sont pas tous uniformes.
+- Les ratios des vignettes ne sont pas tous uniformes (12 verticales sur 213).
+  La planche contact les affiche désormais entières au lieu de les recadrer :
+  un recadrage « couverture » coupait le visage de cinq d’entre elles.
 - Les treize personnages centraux et leurs nouveaux arcs restent à sélectionner
   et à valider ; ils ne sont pas incorporés aux données canoniques.
 
@@ -150,7 +163,10 @@ la police vendoriée. Voir [LICENSE-DONNEES.md](../LICENSE-DONNEES.md).
 La présente revue vérifie la cohérence de la documentation, **pas la validité
 juridique de tous les droits ni la conformité actuelle de chaque service de
 cartographie**. Les avertissements fiction, adresses inventées et portraits IA
-restent nécessaires. L’ancien choix de narration privée est abandonné : la
+restent nécessaires. Une clause de non-ressemblance couvre désormais les
+personnes, entreprises et organisations réelles citées comme contexte, et la
+fiche de chaque personnage porte elle-même la mention « personnage de fiction —
+adresse inventée ». L’ancien choix de narration privée est abandonné : la
 narration est publique dans le dépôt et le classeur.
 
 ## 7. Orientation proposée

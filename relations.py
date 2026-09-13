@@ -22,6 +22,12 @@ TYPES = {
     'superieur_de': ('subordonne_de', False),
     'locataire_de': ('bailleur_de', False),
     'enseignant_de': ('eleve_de', False),
+    # Liens de famille que le champ Parenté énonce explicitement sans les
+    # réduire à une filiation : oncle/tante, grand-parent, parrain/marraine.
+    # Sans ces types, ces liens restaient en prose et absents de la table.
+    'oncle_de': ('neveu_de', False),
+    'grand_parent_de': ('petit_enfant_de', False),
+    'parrain_de': ('filleul_de', False),
 }
 
 

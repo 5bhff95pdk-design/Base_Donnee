@@ -15,6 +15,9 @@ les toponymes sont réels (OpenStreetMap).
 > ⚠️ **Avertissement** : numéros civiques fictifs (ne pas utiliser comme
 > adresses postales), coordonnées à l'échelle du quartier (± 400 m),
 > **portraits générés par IA** — aucune personne réelle photographiée.
+> **Toute ressemblance avec des personnes, entreprises ou organisations
+> réelles serait fortuite** : les marques et établissements cités le sont comme
+> contexte du Saguenay, sans affiliation ni mise en cause.
 
 ---
 
@@ -34,7 +37,7 @@ les toponymes sont réels (OpenStreetMap).
 | Fichier / dossier | Rôle |
 |---|---|
 | `data/personnages.csv` | **Source de vérité** : 213 lignes × 17 colonnes, UTF-8 `;`. Identités et descriptions à éditer ici. |
-| `data/relations.csv` | 114 liens explicites entre 141 personnages, avec IDs et preuve textuelle. |
+| `data/relations.csv` | 155 liens explicites entre 176 personnages, avec IDs et preuve textuelle. |
 | `relations_personnages.json` | Export autonome des relations ; régénéré, ne pas éditer. |
 | `relations.py` | Validation des relations, export JSON et feuille Excel. |
 | `data/factions.txt` | Vocabulaire contrôlé des **17 factions** (narration). |
@@ -48,13 +51,14 @@ les toponymes sont réels (OpenStreetMap).
 | `carte-la-baie-saguenay.html` | Copie de racine **dérivée** de `carte/index.html` (ne jamais l'éditer). |
 | `carte/vendor/leaflet/` | **Leaflet 1.9.4 en copie locale (BSD-2)** : aucun CDN. |
 | `carte/portraits/` | Vignettes 400 px servies par la carte (synchronisées par le script). |
-| `atelier/index.html` | Atelier interactif de génération de scènes, non canonique et réinjecté par le script. |
+| `atelier/index.html` | Atelier interactif de génération de scènes, non canonique et réinjecté par le script. Les mineurs n’y occupent jamais la « pression » des moteurs de dette et de refus. |
 | `portraits/` | Deux gabarits WebP par personnage : `-web.webp` et `-vignette.webp`, plus la planche contact. |
 | `construire_base.py` | Générateur **idempotent et reproductible** de tous les livrables. |
 | `scripts/init_source_csv.py` | Migration unique : ancien classeur maître → `data/*.csv`. |
 | `scripts/retirer_archives_git.sh` | Purge optionnelle de l'ancien gabarit « archive » dans l'historique Git. |
 | `scripts/historique/` | Scripts de migration passés, conservés pour mémoire. |
-| `tests/test_base.py` | **62 garde-fous** couvrant les conventions et la documentation, lancés en CI. |
+| `tests/test_base.py` | **66 garde-fous** couvrant les conventions et la documentation, lancés en CI. |
+| `tests/carte.test.cjs` · `tests/atelier.test.cjs` | **10 régressions JavaScript** ciblées (carte et règles de l'atelier), sans dépendance npm. |
 | `.github/workflows/validation.yml` | CI : lint + régénération + contrôle de reproductibilité + tests. |
 | `docs/relations-personnages.md` | Conventions, périmètre partiel et liens restant à qualifier. |
 | `docs/propositions-personnages-centraux.md` | Atelier narratif : 13 personnages proposés, non canonique, à valider. |
@@ -126,9 +130,9 @@ Une première extraction de relations explicites est désormais disponible ci-de
 
 ## Relations et atelier narratif
 
-**114 liens explicites entre 141 personnages** sont structurés dans
-`data/relations.csv` : parenté, couples, fratries, liens professionnels et
-colocations. Chaque ligne contient les deux IDs, le type de relation et une
+**155 liens explicites entre 176 personnages** sont structurés dans
+`data/relations.csv` : parenté, couples, fratries, cousinages, liens
+oncle/tante, grand-parentaux, de parrainage, professionnels et colocations. Chaque ligne contient les deux IDs, le type de relation et une
 preuve issue du champ Parenté. Cette première extraction est **partielle** ;
 un lien absent n’est pas une absence de relation dans l’univers.
 
@@ -183,9 +187,9 @@ python3 construire_base.py
 #    la planche contact.
 
 # 4. contrôler la base
-python3 -m unittest discover -s tests -v   # 62 garde-fous
+python3 -m unittest discover -s tests -v   # 66 garde-fous
 ruff check .                               # lint
-node --test tests/carte.test.cjs            # régressions JS ciblées (Node.js 22)
+node --test tests/*.test.cjs               # régressions JS ciblées (Node.js 22)
 ```
 
 La source se modifie dans un tableur comme n'importe quel CSV (`;` et UTF-8) ;
@@ -193,8 +197,8 @@ La source se modifie dans un tableur comme n'importe quel CSV (`;` et UTF-8) ;
 
 ### Tests navigateur (Chromium)
 
-Les **14 tests Playwright** complètent les 62 garde-fous Python et les
-6 tests JavaScript ciblés. Sept parcours sont joués sur chacune des deux
+Les **14 tests Playwright** complètent les 66 garde-fous Python et les
+10 tests JavaScript ciblés. Sept parcours sont joués sur chacune des deux
 cartes : recherche sans accents et portrait, filtres combinés,
 révélation des humains et de l’animal masqués, coordonnées/zoom,
 création–persistance–export GeoJSON–suppression des repères, et menu
@@ -245,7 +249,7 @@ La **recherche de personnages**, elle, est locale et fonctionne sans réseau.
   **planche contact WebP** dépend du codec `libwebp` natif : son idempotence
   est garantie sur un même runner, sans comparaison binaire
   inter-environnements (la fonte, elle, est vendoriée dans `assets/fonts/`).
-- Les **62 garde-fous** vérifient notamment : effectifs et cohérence des 4
+- Les **66 garde-fous** vérifient notamment : effectifs et cohérence des 4
   exports, conformité de la source texte, **unicité et absence de `];`** dans
   les valeurs, adresses avec numéro ou `Lieu-dit :`, rôles sans clan,
   **Famille/Branche sans parenthèses**, coordonnées dans une boîte approximative de l’arrondissement,

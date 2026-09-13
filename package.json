@@ -5,7 +5,7 @@
   "description": "Tests navigateur de la carte de personnages fictifs",
   "license": "MIT",
   "scripts": {
-    "test": "node --test tests/carte.test.cjs",
+    "test": "node --test tests/*.test.cjs",
     "test:e2e": "playwright test"
   },
   "devDependencies": {
