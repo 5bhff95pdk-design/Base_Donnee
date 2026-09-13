@@ -236,6 +236,11 @@ class TestPortraits(unittest.TestCase):
             self.assertTrue(os.path.exists(f'portraits/{base}-web.webp'), base)
             self.assertTrue(os.path.exists(f'portraits/{base}-vignette.webp'), base)
 
+    def test_police_vendoriee_pour_la_planche(self):
+        # La planche doit être rendue avec une fonte figée (reproductibilité CI).
+        self.assertTrue(os.path.exists('assets/fonts/DejaVuSans.ttf'))
+        self.assertTrue(os.path.exists('assets/fonts/LICENSE.txt'))
+
 
 class TestCarte(unittest.TestCase):
     def test_leaflet_vendore_en_local(self):

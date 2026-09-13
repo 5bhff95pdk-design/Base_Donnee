@@ -70,6 +70,10 @@ Voir le fichier [`LICENSE`](LICENSE). Le code intègre **Leaflet 1.9.4** en
 copie locale (`carte/vendor/leaflet/`) sous licence **BSD 2-Clause**, ©
 Volodymyr Agafonkin et contributeurs.
 
+La planche contact est composée avec la police **DejaVu Sans**, vendoriée dans
+`assets/fonts/` sous licence **Bitstream Vera** (les modifications DejaVu sont
+dans le domaine public) — voir `assets/fonts/LICENSE.txt`.
+
 ## 4. Fonds de carte et services en ligne
 
 Le code de la carte fonctionne **hors ligne** (Leaflet est vendorié), mais les

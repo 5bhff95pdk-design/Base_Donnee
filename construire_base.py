@@ -334,16 +334,22 @@ def planche_contact(recs, cols=10, larg=240, haut=160, bandeau=34, marge=10):
         print("  ! aucune vignette trouvée : planche contact ignorée")
         return
     lignes = (len(cases) + cols - 1) // cols
+    # Fonte VENDORIÉE (assets/fonts) : une police système différente d'une
+    # machine à l'autre changerait le rendu des étiquettes → planche non
+    # reproductible. Repli système uniquement si la fonte vendoriée manque.
     police = None
-    for cand in ('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
-                 '/usr/share/fonts/dejavu/DejaVuSans.ttf'):
+    racine = os.path.dirname(os.path.abspath(__file__))
+    candidats = [os.path.join(racine, 'assets', 'fonts', 'DejaVuSans.ttf'),
+                 '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
+                 '/usr/share/fonts/dejavu/DejaVuSans.ttf']
+    for cand in candidats:
         if os.path.exists(cand):
             try:
                 from PIL import ImageFont
                 police = ImageFont.truetype(cand, 15)
+                break
             except Exception:
                 police = None
-            break
     W = cols * larg + (cols + 1) * marge
     H = lignes * (haut + bandeau) + (lignes + 1) * marge
     planche = Image.new('RGB', (W, H), (18, 32, 44))
