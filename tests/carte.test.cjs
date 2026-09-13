@@ -31,6 +31,44 @@ test('Les événements Leaflet affichent latitude et longitude sans erreur', () 
   assert.equal(coords.textContent, '48.34000, -70.88000  ·  z15');
 });
 
+test('Les repères locaux corrompus sont ignorés sans exception', () => {
+  const bloc = extrait("const KEY='mes_reperes_labaie';", 'function saveMine');
+  const contexte = vm.createContext({
+    localStorage: {getItem: () => JSON.stringify([
+      {n: '  Point conservé  ', la: '48.33', lo: '-70.89'},
+      {n: '', la: 48.3, lo: -70.8},
+      {n: 'Coordonnée invalide', la: 999, lo: -70.8},
+    ])},
+    console: {warn: () => {}},
+  });
+  vm.runInContext(bloc, contexte);
+  assert.equal(vm.runInContext('mine.length', contexte), 1);
+  assert.equal(vm.runInContext('mine[0].n', contexte), 'Point conservé');
+  assert.equal(vm.runInContext('mine[0].la', contexte), 48.33);
+
+  const corrompu = vm.createContext({
+    localStorage: {getItem: () => '{pas du JSON'},
+    console: {warn: () => {}},
+  });
+  vm.runInContext(bloc, corrompu);
+  assert.equal(vm.runInContext('mine.length', corrompu), 0);
+});
+
+test('Un échec de stockage des repères ne fait pas planter la carte', () => {
+  const bloc = extrait('function saveMine(){', 'function renderCount(){');
+  let alertes = 0;
+  const contexte = vm.createContext({
+    localStorage: {setItem: () => { throw new Error('quota'); }},
+    console: {warn: () => {}},
+    alert: () => { alertes++; },
+    renderCount: () => {},
+    mine: [{n: 'Point', la: 48.3, lo: -70.8}],
+  });
+  vm.runInContext(bloc, contexte);
+  assert.equal(vm.runInContext('saveMine()', contexte), false);
+  assert.equal(alertes, 1);
+});
+
 for (const categorie of ['p', 'a']) {
   test(`La recherche révèle un résultat masqué (${categorie}) et synchronise les cases`, () => {
     const p = {secteur: 'La Baie', type: categorie === 'p' ? 'Humain' : 'Animal'};

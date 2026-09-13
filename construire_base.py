@@ -494,8 +494,7 @@ def ecrire_cartes(js):
     racine (plus aucune duplication à maintenir : une seule source HTML)."""
     new = 'const PERSOS=' + json.dumps(js, ensure_ascii=False, separators=(',', ':')) + ';'
     if not os.path.exists(CARTE_CANONIQUE):
-        print(f"  ✘ {CARTE_CANONIQUE} introuvable")
-        return
+        raise SystemExit(f"✘ {CARTE_CANONIQUE} introuvable")
     with open(CARTE_CANONIQUE, encoding='utf-8') as f:
         source = f.read()
     # Le remplacement est une FONCTION : re.subn interpréterait les séquences
@@ -504,37 +503,47 @@ def ecrire_cartes(js):
     remplace, n = re.subn(r'const PERSOS=\[.*?\];', lambda _: new, source, count=1,
                           flags=re.S)
     if n != 1:
-        print(f"  ✘ PERSOS introuvable dans {CARTE_CANONIQUE}")
-        return
-    with open(CARTE_CANONIQUE, 'w', encoding='utf-8') as f:
-        f.write(remplace)
-    print(f"  ✔ {CARTE_CANONIQUE} ({len(remplace)} octets)")
-
+        raise SystemExit(f"✘ PERSOS introuvable dans {CARTE_CANONIQUE}")
     racine = remplace.replace('"vendor/leaflet/', '"carte/vendor/leaflet/')
     racine = racine.replace("const RACINE='../';", "const RACINE='';")
     if racine == remplace:
-        print(f"  ✘ dérivation de {CARTE_RACINE} impossible (motifs absents)")
-        return
+        raise SystemExit(f"✘ dérivation de {CARTE_RACINE} impossible (motifs absents)")
+    # Valider les deux transformations avant d'écrire : une erreur de dérivation
+    # ne doit jamais laisser la carte canonique à moitié mise à jour.
+    with open(CARTE_CANONIQUE, 'w', encoding='utf-8') as f:
+        f.write(remplace)
+    print(f"  ✔ {CARTE_CANONIQUE} ({len(remplace)} octets)")
     with open(CARTE_RACINE, 'w', encoding='utf-8') as f:
         f.write(racine)
     print(f"  ✔ {CARTE_RACINE} ({len(racine)} octets, dérivé de carte/index.html)")
 
 
-def copier_vignettes():
+def copier_vignettes(recs=None):
+    """Synchronise uniquement les vignettes référencées par les personnages.
+
+    Une erreur de suppression ou de copie est bloquante : une carte livrée sans
+    image est un livrable incomplet et ne doit pas être annoncé comme réussi.
+    """
     os.makedirs('carte/portraits', exist_ok=True)
+    attendues = None
+    if recs is not None:
+        attendues = {r['Portrait'].replace('-web.webp', '-vignette.webp')
+                     for r in recs}
+    sources = set(_glob.glob('portraits/*-vignette.webp'))
+    if attendues is not None:
+        manquantes = sorted(attendues - sources)
+        if manquantes:
+            raise SystemExit("✘ Vignette(s) référencée(s) introuvable(s) : "
+                             + ', '.join(manquantes))
+        sources = attendues
     try:
         for old in _glob.glob('carte/portraits/*'):
-            try:
-                os.remove(old)
-            except OSError as e:
-                print(f"  ! suppression impossible {old} : {e}")
-        n = 0
-        for f in _glob.glob('portraits/*-vignette.webp'):
-            shutil.copy(f, 'carte/portraits/' + os.path.basename(f))
-            n += 1
-        print(f"  ✔ {n} vignettes synchronisées vers carte/portraits/")
+            os.remove(old)
+        for source in sorted(sources):
+            shutil.copy(source, 'carte/portraits/' + os.path.basename(source))
     except OSError as e:
-        print(f"  ! synchronisation des vignettes impossible : {e}")
+        raise SystemExit(f"✘ Synchronisation des vignettes impossible : {e}") from e
+    print(f"  ✔ {len(sources)} vignettes synchronisées vers carte/portraits/")
 
 
 def planche_contact(recs, cols=10, larg=240, haut=160, bandeau=34, marge=10):
@@ -610,7 +619,7 @@ def main():
     js = ecrire_autres(recs)
     print(f"  ✔ csv / json / geojson régénérés ({len(recs)} entrées)")
     ecrire_cartes(js)
-    copier_vignettes()
+    copier_vignettes(recs)
     planche_contact(recs)
     print("Terminé.")
 

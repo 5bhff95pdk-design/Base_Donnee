@@ -184,7 +184,7 @@ La source se modifie dans un tableur comme n'importe quel CSV (`;` et UTF-8) ;
 ### Tests navigateur (Chromium)
 
 Les **14 tests Playwright** complètent les 60 garde-fous Python et les
-3 tests JavaScript ciblés. Sept parcours sont joués sur chacune des deux
+5 tests JavaScript ciblés. Sept parcours sont joués sur chacune des deux
 cartes : recherche sans accents et portrait, filtres combinés,
 révélation des humains et de l’animal masqués, coordonnées/zoom,
 création–persistance–export GeoJSON–suppression des repères, et menu

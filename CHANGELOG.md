@@ -1,6 +1,20 @@
 # Journal des changements
 
 Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
+
+## [2026-09-13] — Robustesse de la carte et de la génération
+
+- Le chargement des repères locaux ignore désormais proprement un JSON corrompu,
+  les coordonnées invalides et les noms vides ; les erreurs de quota de
+  `localStorage` sont signalées sans faire planter la carte et les modifications
+  non persistées sont annulées.
+- La construction échoue explicitement si l’injection des personnages dans la
+  carte échoue ou si une vignette référencée ne peut pas être synchronisée.
+  Les vignettes copiées sont limitées à celles réellement référencées par la
+  source personnages.
+- Deux tests JavaScript ciblés portent le total à cinq ; l’analyse actuelle et
+  le README décrivent désormais la nouvelle couverture.
+
 Ce projet n'a pas de version publiée : les entrées datent les bascules
 structurantes.
 

@@ -429,8 +429,34 @@ appliquerFiltres();
 
 /* ================= MES REPÈRES (persistés localement) ================= */
 const KEY='mes_reperes_labaie';
-let mine=JSON.parse(localStorage.getItem(KEY)||'[]');
-function saveMine(){localStorage.setItem(KEY,JSON.stringify(mine));renderCount();}
+const repereValide=o=>o&&typeof o.n==='string'&&o.n.trim().length>0&&o.n.length<=200
+  &&Number.isFinite(Number(o.la))&&Number(o.la)>=-90&&Number(o.la)<=90
+  &&Number.isFinite(Number(o.lo))&&Number(o.lo)>=-180&&Number(o.lo)<=180;
+function chargerMesReperes(){
+  try{
+    const brut=localStorage.getItem(KEY);
+    if(!brut)return [];
+    const valeurs=JSON.parse(brut);
+    if(!Array.isArray(valeurs))throw new TypeError('format inattendu');
+    return valeurs.filter(repereValide).map(o=>({n:o.n.trim(),la:Number(o.la),lo:Number(o.lo)}));
+  }catch(e){
+    console.warn('Repères locaux illisibles : réinitialisation en mémoire.',e);
+    return [];
+  }
+}
+let mine=chargerMesReperes();
+function saveMine(){
+  try{
+    localStorage.setItem(KEY,JSON.stringify(mine));
+    renderCount();
+    return true;
+  }catch(e){
+    console.warn('Impossible d’enregistrer les repères dans ce navigateur.',e);
+    renderCount();
+    alert('Les repères restent visibles pour cette session, mais ne peuvent pas être enregistrés dans ce navigateur.');
+    return false;
+  }
+}
 function renderCount(){
   const n=mine.length;
   document.getElementById('count').textContent=n?`${n} repère${n>1?'s':''} enregistré${n>1?'s':''} dans ce navigateur.`:'';
@@ -442,17 +468,28 @@ function drawMine(){
      .addTo(grp.u)
      .bindPopup(`<b>${esc(o.n)}</b><span class="lat">${o.la.toFixed(6)}, ${o.lo.toFixed(6)}</span>
        <br><button class="btn warn" style="margin-top:8px" onclick="delMine(${i})">Supprimer</button>`)
-     .on('dragend',e=>{const p=e.target.getLatLng();o.la=p.lat;o.lo=p.lng;saveMine();});
+     .on('dragend',e=>{
+       const avant={la:o.la,lo:o.lo}, p=e.target.getLatLng();
+       o.la=p.lat;o.lo=p.lng;
+       if(!saveMine()){o.la=avant.la;o.lo=avant.lo;e.target.setLatLng([o.la,o.lo]);}
+     });
   });
   renderCount();
 }
-window.delMine=i=>{mine.splice(i,1);saveMine();drawMine();};
+window.delMine=i=>{
+  const supprime=mine.splice(i,1)[0];
+  if(!saveMine())mine.splice(i,0,supprime);
+  drawMine();
+};
 drawMine();
 
 function addMine(la,lo){
   const n=prompt('Nom de ce repère :','Repère '+(mine.length+1));
   if(n===null)return;
-  mine.push({n:n||'Sans nom',la,lo});saveMine();drawMine();
+  const repere={n:n.trim()||'Sans nom',la:Number(la),lo:Number(lo)};
+  mine.push(repere);
+  if(!saveMine())mine.pop();
+  drawMine();
 }
 map.on('contextmenu',e=>addMine(e.latlng.lat,e.latlng.lng));
 let lpT;map.on('mousedown',e=>{lpT=setTimeout(()=>addMine(e.latlng.lat,e.latlng.lng),600);});
@@ -475,7 +512,10 @@ function dl(name,txt,mime){
   a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),3000);
 }
 document.getElementById('clr').onclick=()=>{
-  if(mine.length&&confirm('Effacer vos '+mine.length+' repère(s) ?')){mine=[];saveMine();drawMine();}
+  if(!mine.length||!confirm('Effacer vos '+mine.length+' repère(s) ?'))return;
+  const anciens=mine; mine=[];
+  if(!saveMine())mine=anciens;
+  drawMine();
 };
 
 /* ============ RECHERCHE : personnages (locale) + lieux (Nominatim) ============ */

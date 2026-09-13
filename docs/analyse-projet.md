@@ -1,7 +1,7 @@
 # Analyse du projet — état actuel
 
 **Mise à jour : 2026-09-13.** Cette synthèse décrit les fichiers de la branche
-`arena/01a09c0e-base-donnee`, après les cinq priorités de consolidation.
+`arena/01a09c22-base-donnee`, après les cinq priorités de consolidation.
 Les modifications de cette session ne constituent pas une version publiée.
 
 L’[analyse initiale à 173 personnages et ses suivis](historique/analyse-173-personnages.md)
@@ -86,7 +86,7 @@ Ces traits ne représentent pas la nouvelle table de relations.
 | Suite | Nombre | Portée |
 |---|---|---|
 | Python | 60 | Données, exports, IDs, relations, portraits, conventions et documentation |
-| JavaScript ciblé | 3 | Coordonnées Leaflet et révélation des catégories humain/animal avec objets simulés |
+| JavaScript ciblé | 5 | Coordonnées Leaflet, révélation des catégories humain/animal et robustesse des repères locaux avec objets simulés |
 | Navigateur Chromium | 14 | Recherche/portrait, filtres, catégories masquées, zoom, repères et menu mobile sur les deux cartes |
 
 Commandes et prérequis : [README — démarrage rapide](../README.md#démarrage-rapide)
@@ -115,12 +115,13 @@ cette analyse ni un indicateur de fraîcheur des données.
 - Pas de clustering des marqueurs ; leur densité reste forte au zoom arrière.
 - Pas de test Firefox/Safari ou d’appareil tactile réel. Les services de tuiles,
   Nominatim et la géolocalisation ne sont pas validés par les parcours simulés.
-- Le chargement de repères par `JSON.parse(localStorage…)` n’est pas protégé
-  contre un stockage corrompu. Les tests couvrent le cycle normal, pas ce défaut.
-- Certaines erreurs de génération des cartes sont encore signalées par un
-  message et un retour de fonction plutôt que par un échec explicite du processus.
 - Le rythme et le déclenchement de la recherche distante restent à revoir au
   regard des politiques d’usage du fournisseur avant un déploiement public large.
+- Le stockage local est maintenant validé et protégé contre le JSON corrompu et
+  les quotas d’écriture ; il reste propre à chaque navigateur et n’est pas une
+  sauvegarde distante.
+- La construction échoue maintenant explicitement si l’injection de la carte ou
+  la synchronisation des vignettes ne peut pas produire les livrables attendus.
 - Pas d’interface d’édition multiutilisateur, d’authentification ou de serveur API.
 
 ### Données et narration
