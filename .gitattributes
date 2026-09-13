@@ -1,0 +1,30 @@
+# Détection texte/binaire et fins de ligne pour le dépôt
+* text=auto eol=lf
+
+# Texte
+*.py   text eol=lf
+*.md   text eol=lf
+*.txt  text eol=lf
+# CSV Excel FR : généré par Python avec des fins de ligne CRLF (convention Excel)
+*.csv  text eol=crlf
+*.json text eol=lf
+*.geojson text eol=lf
+*.html text eol=lf
+*.css  text eol=lf
+*.js   text eol=lf
+*.yml  text eol=lf
+*.sh   text eol=lf
+
+# Binaire (jamais de normalisation EOL/diff texte)
+*.xlsx binary
+*.webp binary
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.zip  binary
+*.tgz  binary
+
+# Polices vendoriées (assets/fonts, licence Bitstream Vera — voir assets/fonts/LICENSE.txt)
+*.ttf  binary

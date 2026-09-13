@@ -1,4 +1,11 @@
-MIT License
+MIT License — CODE UNIQUEMENT
+
+Cette licence couvre le code du dépôt (construire_base.py, scripts/, tests/,
+carte-la-baie-saguenay.html et carte/index.html pour leur partie code, ainsi
+que la bibliothèque Leaflet vendoriée dans carte/vendor/, sous sa propre
+licence BSD-2). Les DONNÉES et les PORTRAITS ont des statuts distincts,
+exposés dans LICENSE-DONNEES.md : ODbL pour les données dérivées
+d'OpenStreetMap et CC BY 4.0 (images générées par IA) pour les portraits.
 
 Copyright (c) 2026 Luc
 
