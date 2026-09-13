@@ -19,6 +19,7 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 import unittest
 import zipfile
 from pathlib import Path
@@ -31,7 +32,7 @@ sys.path.insert(0, str(RACINE))
 
 import construire_base as cb  # noqa: E402  (date figée, colonnes, source)
 
-N = 193                      # nombre canonique d'entrées
+N = 203                      # nombre canonique d'entrées
 COLONNES = cb.COLONNES       # 16 colonnes (Famille + Branche depuis 2026-09-13)
 MINEURS = {'Léo Cloutier': 9, 'Nour Benali': 13, 'Alexandre Lavoie': 16,
            # cohorte « jeunes » du 2026-09-13 (aréna, école, restaurant familial)
@@ -188,8 +189,8 @@ class TestConventions(unittest.TestCase):
                     self.assertNotIn(')', str(v),
                                      f'{r["Nom"]} : parenthèses dans {champ} → {v}')
         # la paire Famille + Branche regroupe les personnes d'un même foyer :
-        # elle doit être cohérente avec la source, et regrouper (~90 foyers
-        # pour 193 personnes) sans être vide.
+        # elle doit être cohérente avec la source, et regrouper (~95 foyers
+        # pour 203 personnes) sans être vide.
         foyers = [(r['Famille'], r['Branche'] or '') for r in self.recs]
         avec_la_source = [(r['Famille'], r['Branche'] or '')
                           for r in lire_csv_source(SRC_PERSOS)]
@@ -357,9 +358,34 @@ class TestPortraits(unittest.TestCase):
     def test_nouveaux_portraits_numerotes(self):
         for base in ('171-leo-cloutier', '172-nour-benali', '173-alexandre-lavoie',
                      '174-maude-pedneault', '183-jade-boivin',
-                     '184-gaetan-bosse', '193-marc-picard'):
+                     '184-gaetan-bosse', '193-marc-picard',
+                     '194-yvette-desgagne', '203-julien-desgagne'):
             self.assertTrue(os.path.exists(f'portraits/{base}-web.webp'), base)
             self.assertTrue(os.path.exists(f'portraits/{base}-vignette.webp'), base)
+
+    def test_la_construction_refuse_un_personnage_sans_portrait(self):
+        """Le script se contentait d'un avertissement « portraits introuvables »
+        (invisible en CI) : un slug de fichier différent du nom laissait un
+        personnage sans photo. Désormais, échec franc."""
+        import importlib
+        cb = importlib.import_module('construire_base')
+        with tempfile.TemporaryDirectory() as tmp:
+            src = os.path.join(tmp, 'p.csv')
+            with open(SRC_PERSOS, encoding='utf-8') as fh:
+                lignes = fh.read().splitlines()
+            fantome = lignes[1].split(';')
+            fantome[0] = 'Personne Inexistante'
+            fantome[12] = ''
+            with open(src, 'w', encoding='utf-8') as fh:
+                fh.write('\n'.join([lignes[0], ';'.join(fantome)]) + '\n')
+            ancien = cb.SRC_PERSOS
+            cb.SRC_PERSOS = src
+            try:
+                with self.assertRaises(SystemExit) as cm:
+                    cb.charger_personnages()
+                self.assertIn('Personne Inexistante', str(cm.exception))
+            finally:
+                cb.SRC_PERSOS = ancien
 
     def test_police_vendoriee_pour_la_planche(self):
         self.assertTrue(os.path.exists('assets/fonts/DejaVuSans.ttf'))

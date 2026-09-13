@@ -288,6 +288,24 @@
     "parente": "Cousin de Karine et Rock Gagnon"
   },
   {
+    "nom": "Camille Desgagné",
+    "surnom": "Cam",
+    "type": "Humain",
+    "age": 27,
+    "role": "Pompière-paramédic — caserne de La Baie",
+    "secteur": "La Baie",
+    "adresse": "54, Rue des Pompiers",
+    "latitude": 48.34205,
+    "longitude": -70.8799,
+    "apparence": "Chignon bas, suie sur la joue",
+    "vetements": "Pantalon de combat à bretelles",
+    "tic_ou_objet": "Bouteille d’eau cabossée",
+    "portrait": "portraits/197-camille-desgagne-web.webp",
+    "famille": "Desgagné",
+    "branche": "caserne",
+    "parente": "Fille de Denis et Johanne — collègue d’Émile Brassard"
+  },
+  {
     "nom": "Carl Dubé",
     "surnom": null,
     "type": "Humain",
@@ -466,6 +484,24 @@
     "famille": "Cloutier",
     "branche": null,
     "parente": "Fils de Manon"
+  },
+  {
+    "nom": "Denis Desgagné",
+    "surnom": "Le Capitaine",
+    "type": "Humain",
+    "age": 56,
+    "role": "Capitaine — caserne de La Baie",
+    "secteur": "La Baie",
+    "adresse": "1524, Rue Monseigneur-Dufour",
+    "latitude": 48.3164,
+    "longitude": -70.85665,
+    "apparence": "Moustache grise, carrure large",
+    "vetements": "Uniforme marine de caserne",
+    "tic_ou_objet": "Radio sur la poitrine",
+    "portrait": "portraits/195-denis-desgagne-web.webp",
+    "famille": "Desgagné",
+    "branche": null,
+    "parente": "Fils d’Yvette — époux de Johanne Gravel — père de Camille, Samuel et Julien"
   },
   {
     "nom": "Diane Tremblay",
@@ -700,6 +736,24 @@
     "famille": "Lavoie",
     "branche": "Chantal",
     "parente": "Père de Chantal Lavoie"
+  },
+  {
+    "nom": "Geneviève Bouchard",
+    "surnom": null,
+    "type": "Humain",
+    "age": 44,
+    "role": "Avocate — aide juridique",
+    "secteur": "La Baie",
+    "adresse": "18, Rue Mars",
+    "latitude": 48.3448,
+    "longitude": -70.88075,
+    "apparence": "Boucles noires, l’air pressé",
+    "vetements": "Manteau de laine noir",
+    "tic_ou_objet": "Cartable de dossiers",
+    "portrait": "portraits/201-genevieve-bouchard-web.webp",
+    "famille": "Bouchard",
+    "branche": "justice",
+    "parente": "Célibataire — cousine de Sylvain Bouchard"
   },
   {
     "nom": "Gilles Bergeron",
@@ -1008,6 +1062,24 @@
     "parente": "Fils de Lucie Bérubé — frère de Kevin"
   },
   {
+    "nom": "Johanne Gravel",
+    "surnom": null,
+    "type": "Humain",
+    "age": 54,
+    "role": "Évaluatrice municipale — rôle foncier",
+    "secteur": "La Baie",
+    "adresse": "1524, Rue Monseigneur-Dufour",
+    "latitude": 48.31635,
+    "longitude": -70.85675,
+    "apparence": "Cheveux auburn aux épaules, lunettes de lecture",
+    "vetements": "Manteau de laine",
+    "tic_ou_objet": "Ruban à mesurer",
+    "portrait": "portraits/196-johanne-gravel-web.webp",
+    "famille": "Desgagné",
+    "branche": null,
+    "parente": "Épouse de Denis Desgagné — sœur de Réal Gravel"
+  },
+  {
     "nom": "Johanne Tremblay",
     "surnom": "Jo",
     "type": "Humain",
@@ -1060,6 +1132,24 @@
     "famille": "Martel",
     "branche": null,
     "parente": "Célibataire"
+  },
+  {
+    "nom": "Julien Desgagné",
+    "surnom": "L’Abbé",
+    "type": "Humain",
+    "age": 33,
+    "role": "Prêtre — paroisse de Grande-Baie",
+    "secteur": "La Baie",
+    "adresse": "1508, Rue Saint-Pascal",
+    "latitude": 48.31645,
+    "longitude": -70.8508,
+    "apparence": "Barbe courte, lunettes d’écaille",
+    "vetements": "Col romain sous veste sans manches",
+    "tic_ou_objet": "Tasse isotherme",
+    "portrait": "portraits/203-julien-desgagne-web.webp",
+    "famille": "Desgagné",
+    "branche": "presbytère",
+    "parente": "Fils de Denis et Johanne — aîné de Camille et Samuel"
   },
   {
     "nom": "Justine Fortin",
@@ -1476,6 +1566,24 @@
     "parente": "Célibataire"
   },
   {
+    "nom": "Mathieu Fortin",
+    "surnom": "Ti-Police",
+    "type": "Humain",
+    "age": 38,
+    "role": "Policier communautaire — poste de La Baie",
+    "secteur": "La Baie",
+    "adresse": "12, Rue Mars",
+    "latitude": 48.34475,
+    "longitude": -70.8809,
+    "apparence": "Cheveux ras, visage rasé",
+    "vetements": "Manteau de patrouille bleu",
+    "tic_ou_objet": "Thermos de café",
+    "portrait": "portraits/200-mathieu-fortin-web.webp",
+    "famille": "Fortin",
+    "branche": "police",
+    "parente": "Cousin de Tommy Fortin — collègue de Pierre Samson"
+  },
+  {
     "nom": "Mathis Truchon",
     "surnom": "Ti-Pompe",
     "type": "Humain",
@@ -1672,6 +1780,24 @@
     "famille": "Bouchard",
     "branche": "Chloé",
     "parente": "Mère de Chloé Bouchard"
+  },
+  {
+    "nom": "Nathalie Tremblay",
+    "surnom": "La Directrice",
+    "type": "Humain",
+    "age": 49,
+    "role": "Directrice d’arrondissement — La Baie",
+    "secteur": "La Baie",
+    "adresse": "270, Rue Aimé-Gravel",
+    "latitude": 48.33685,
+    "longitude": -70.8825,
+    "apparence": "Cheveux courts poivre et sel, foulard de soie",
+    "vetements": "Blazer sombre",
+    "tic_ou_objet": "Tablette sous le bras",
+    "portrait": "portraits/199-nathalie-tremblay-web.webp",
+    "famille": "Tremblay",
+    "branche": "hôtel de ville",
+    "parente": "Célibataire — supérieure de Jacques Maltais"
   },
   {
     "nom": "Noah Traoré",
@@ -2016,6 +2142,24 @@
     "parente": "Fils d’Hélène"
   },
   {
+    "nom": "Réal Gravel",
+    "surnom": "Le Charrue",
+    "type": "Humain",
+    "age": 61,
+    "role": "Contremaître — travaux publics, déneigement",
+    "secteur": "La Baie",
+    "adresse": "276, Rue Aimé-Gravel",
+    "latitude": 48.3369,
+    "longitude": -70.88235,
+    "apparence": "Barbe poivre et sel, casque à oreilles",
+    "vetements": "Parka jaune haute visibilité",
+    "tic_ou_objet": "Walkie-talkie",
+    "portrait": "portraits/202-real-gravel-web.webp",
+    "famille": "Gravel",
+    "branche": null,
+    "parente": "Frère de Johanne Gravel — oncle de Camille, Samuel et Julien"
+  },
+  {
     "nom": "Réjean Pedneault",
     "surnom": "Ti-Peche",
     "type": "Humain",
@@ -2068,6 +2212,24 @@
     "famille": "Santini",
     "branche": null,
     "parente": "Relais portuaire — croise Yvan Truchon"
+  },
+  {
+    "nom": "Samuel Desgagné",
+    "surnom": "Sam Soudure",
+    "type": "Humain",
+    "age": 25,
+    "role": "Apprenti soudeur — chantier naval",
+    "secteur": "La Baie",
+    "adresse": "1530, Rue Monseigneur-Dufour",
+    "latitude": 48.31655,
+    "longitude": -70.8565,
+    "apparence": "Boucles brunes, barbe clairsemée",
+    "vetements": "Tablier de cuir, masque relevé",
+    "tic_ou_objet": "Gants à la ceinture",
+    "portrait": "portraits/198-samuel-desgagne-web.webp",
+    "famille": "Desgagné",
+    "branche": null,
+    "parente": "Fils de Denis et Johanne — frère de Camille et Julien"
   },
   {
     "nom": "Samuel Joseph",
@@ -2482,6 +2644,24 @@
     "famille": "Fortin",
     "branche": null,
     "parente": "Époux de Pauline Fortin"
+  },
+  {
+    "nom": "Yvette Desgagné",
+    "surnom": "Mémère Yvette",
+    "type": "Humain",
+    "age": 84,
+    "role": "Retraitée — ex-organiste de paroisse",
+    "secteur": "La Baie",
+    "adresse": "1520, Rue Monseigneur-Dufour",
+    "latitude": 48.31625,
+    "longitude": -70.8568,
+    "apparence": "Permanente blanche, regard perçant",
+    "vetements": "Blouse fleurie, cardigan",
+    "tic_ou_objet": "Chapelet au poignet",
+    "portrait": "portraits/194-yvette-desgagne-web.webp",
+    "famille": "Desgagné",
+    "branche": null,
+    "parente": "Mère de Denis Desgagné — grand-mère de Camille, Samuel et Julien"
   },
   {
     "nom": "Zack Bérubé",

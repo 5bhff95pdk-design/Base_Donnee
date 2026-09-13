@@ -4,6 +4,32 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 Ce projet n'a pas de version publiée : les entrées datent les bascules
 structurantes.
 
+## [2026-09-13] — Lot « Institutions et famille Desgagné » : 10 personnages (193 → 203)
+
+Une famille sur **trois générations** à Grande-Baie et les services publics
+de l'arrondissement (caserne, hôtel de ville, poste de police, aide
+juridique, travaux publics), quatre rues nouvelles vérifiées sur OSM
+(Monseigneur-Dufour, Saint-Pascal, Aimé-Gravel, Mars).
+
+- **Famille Desgagné (6 + 1 allié)** : Yvette (84, ex-organiste), son fils
+  Denis (56, capitaine de la caserne) et sa bru Johanne Gravel (54,
+  évaluatrice municipale), leurs enfants Julien (33, prêtre de Grande-Baie,
+  branche `presbytère`), Camille (27, pompière-paramédic, branche `caserne`)
+  et Samuel (25, apprenti soudeur) ; Réal Gravel (61, contremaître au
+  déneigement), frère de Johanne.
+- **Institutions** : Nathalie Tremblay (49, directrice d'arrondissement,
+  branche `Tremblay/hôtel de ville`), Mathieu Fortin (38, policier
+  communautaire, `Fortin/police`), Geneviève Bouchard (44, avocate à l'aide
+  juridique, `Bouchard/justice`).
+- **Chaîne de construction** : `construire_base.py` **échoue** désormais
+  quand un personnage n'a pas de portrait (auparavant simple avertissement,
+  invisible en CI — rencontré sur ce lot : fichier nommé `abbe-julien-…`
+  pour le nom « Julien Desgagné »). Test dédié
+  `test_la_construction_refuse_un_personnage_sans_portrait` — 41 garde-fous.
+- Portraits n° 194 à 203 (IA, 3:2), planche contact à 21 rangées.
+- Narration : 10 lignes privées fournies hors dépôt
+  (`data/narration-institutions-desgagne.a-coller.csv`).
+
 ## [2026-09-13] — Lot « Chicoutimi / Jonquière » : 10 personnages (183 → 193)
 
 Réponse au constat géographique de l'analyse (La Baie 136 / Chicoutimi 27 /
