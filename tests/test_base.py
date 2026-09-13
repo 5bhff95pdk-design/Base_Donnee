@@ -300,6 +300,16 @@ class TestRelations(unittest.TestCase):
                 with self.assertRaisesRegex(SystemExit, 'source vide'):
                     cb.relations.charger(self.persos)
 
+    def test_types_de_relations_documentes(self):
+        """Le vocabulaire s'est élargi (oncle/tante, grand-parent, parrain) :
+        chaque type et son inverse de lecture doivent rester documentés, sinon
+        la table redevient du texte libre."""
+        doc = Path('docs/relations-personnages.md').read_text(encoding='utf-8')
+        for type_lien, (inverse, _) in cb.relations.TYPES.items():
+            with self.subTest(type=type_lien):
+                self.assertIn(f'| {type_lien} |', doc, f'{type_lien} non documenté')
+                self.assertIn(inverse, doc, f'inverse {inverse} non documenté')
+
     def test_propositions_separees_des_livrables(self):
         texte = Path('docs/propositions-personnages-centraux.md').read_text(encoding='utf-8')
         self.assertIn('non canonique', texte)
@@ -605,6 +615,92 @@ class TestPortraits(unittest.TestCase):
         self.assertTrue(os.path.exists('assets/fonts/DejaVuSans.ttf'))
         self.assertTrue(os.path.exists('assets/fonts/LICENSE.txt'))
 
+    def test_portraits_etiquetes_ia_dans_le_fichier(self):
+        """L'étiquetage « image générée par IA » vivait uniquement dans le
+        README, la licence et l'interface : une vignette sortie du dépôt perdait
+        sa mention. Chaque portrait porte désormais un paquet XMP avec
+        `trainedAlgorithmicMedia` (valeur IPTC normalisée), le titre du
+        personnage, la licence CC BY 4.0 et l'attribution."""
+        etq = cb.ETIQUETTES
+        noms = {r['Portrait']: (r['Nom'], r['ID']) for r in self.recs}
+        fichiers = (sorted(glob.glob('portraits/*-web.webp'))
+                    + sorted(glob.glob('portraits/*-vignette.webp'))
+                    + sorted(glob.glob('carte/portraits/*.webp')))
+        self.assertGreaterEqual(len(fichiers), 3 * N)
+        for chemin in fichiers:
+            with self.subTest(image=chemin), open(chemin, 'rb') as f:
+                paquet = etq.paquet_present(f.read())
+            self.assertIsNotNone(paquet, f'{chemin} : aucune étiquette XMP')
+            texte = paquet.decode('utf-8')
+            self.assertIn(etq.MARQUEUR, texte)
+            self.assertIn('creativecommons.org/licenses/by/4.0', texte)
+            self.assertIn('intelligence artificielle', texte)
+            # Le titre nomme le personnage : l'étiquette n'est pas générique.
+            source = chemin.replace('carte/', '').replace('-vignette.webp', '-web.webp')
+            if source in noms:
+                nom, identifiant = noms[source]
+                self.assertIn(f'{nom} ({identifiant})', texte)
+
+    def test_etiquetage_ia_sans_reencodage_et_idempotent(self):
+        """L'étiquette est insérée au niveau du conteneur RIFF : la donnée image
+        doit rester octet pour octet identique, et un second passage ne rien
+        changer. Réécrire les portraits avec Pillow les aurait réencodés."""
+        etq = cb.ETIQUETTES
+        source = sorted(glob.glob('portraits/*-web.webp'))[0]
+        with open(source, 'rb') as f:
+            original = f.read()
+        paquet = etq.paquet_xmp('Test', 'P000')
+        etiquete = etq.inserer_xmp(original, paquet)
+        self.assertEqual(etq.paquet_present(etiquete), paquet)
+        self.assertEqual(etq.inserer_xmp(etiquete, paquet), etiquete, 'non idempotent')
+        # La donnée image est recopiée telle quelle (aucun réencodage).
+        avant = {c: d for c, d in etq.lire_chunks(original)}
+        apres = {c: d for c, d in etq.lire_chunks(etiquete)}
+        for chunk in (b'VP8 ', b'VP8L', b'ALPH'):
+            if chunk in avant:
+                self.assertEqual(avant[chunk], apres[chunk], f'{chunk!r} réencodé')
+        self.assertEqual(etq.dimensions(etq.lire_chunks(etiquete)),
+                         etq.dimensions(etq.lire_chunks(original)))
+        # Le format étendu VP8X est bien celui qu'attend la spécification WebP.
+        self.assertEqual(etq.lire_chunks(etiquete)[0][0], b'VP8X')
+        self.assertEqual(etq.lire_chunks(etiquete)[-1][0], b'XMP ')
+        self.assertTrue(etq.lire_chunks(etiquete)[0][1][0] & etq.BIT_XMP)
+
+    def test_planche_contact_etiquetee_ia(self):
+        try:
+            from PIL import Image
+        except ImportError:
+            self.skipTest('Pillow absent')
+        with Image.open('portraits/planche-contact-generale.webp') as im:
+            xmp = (im.info.get('xmp') or b'').decode('utf-8')
+        self.assertIn(cb.ETIQUETTES.MARQUEUR, xmp)
+        self.assertIn('Planche contact', xmp)
+
+    def test_planche_affiche_les_vignettes_verticales_entieres(self):
+        """Le recadrage « couverture » coupait le visage des vignettes
+        verticales (400 × 600) : la planche contact ne permettait plus de
+        reconnaître ces personnages, sa seule fonction. Elles sont désormais
+        réduites en entier ; les vignettes paysage gardent le plein cadre."""
+        try:
+            from PIL import Image
+        except ImportError:
+            self.skipTest('Pillow absent')
+        verticale = Image.new('RGB', (400, 600), (0, 0, 255))
+        verticale.paste((255, 0, 0), (0, 0, 400, 40))       # bandeau du haut
+        verticale.paste((0, 255, 0), (0, 560, 400, 600))    # bandeau du bas
+        case, dx, dy = cb.ajuster_vignette_planche(verticale, 240, 160)
+        self.assertLessEqual(case.width, 240)
+        self.assertLessEqual(case.height, 160)
+        self.assertGreaterEqual(dx, 0)
+        self.assertGreaterEqual(dy, 0)
+        # Haut ET bas de l'image source survivent : aucune coupe du visage.
+        self.assertEqual(case.getpixel((case.width // 2, 0)), (255, 0, 0))
+        self.assertEqual(case.getpixel((case.width // 2, case.height - 1)), (0, 255, 0))
+        # Une vignette paysage garde le recadrage couverture, plein cadre.
+        paysage = Image.new('RGB', (1200, 654), (10, 20, 30))
+        pleine, dx2, dy2 = cb.ajuster_vignette_planche(paysage, 240, 160)
+        self.assertEqual((pleine.size, dx2, dy2), ((240, 160), 0, 0))
+
 
 class TestCarte(unittest.TestCase):
     @classmethod
@@ -630,6 +726,17 @@ class TestCarte(unittest.TestCase):
             self.assertIsNotNone(m, 'PERSOS introuvable')
             self.assertEqual(len(json.loads(m.group(1))), N, 'effectif PERSOS')
 
+    def test_atelier_protege_les_mineurs(self):
+        """La règle « les mineurs ne portent pas seuls les problèmes des
+        adultes » était écrite dans docs/atelier-saison-1.md mais pas outillée :
+        le tirage pouvait confier à un enfant de 9 ans le rôle de « pression »
+        d'une dette. La règle est désormais dans le code de l'atelier."""
+        h = Path('atelier/index.html').read_text(encoding='utf-8')
+        self.assertIn("const MODES_SANS_MINEUR=['dette','limite'];", h)
+        self.assertIn("estMineur=p=>p.type==='Humain'&&p.age<18;", h)
+        self.assertIn('pressionAutorisee', h)
+        self.assertIn('— mineur, à protéger', h)
+
     def test_atelier_de_scenes_recoit_les_donnees_sans_devenir_un_export(self):
         h = Path('atelier/index.html').read_text(encoding='utf-8')
         persos = re.search(r'const PERSOS=(\[.*?\]);', h, flags=re.S)
@@ -640,7 +747,10 @@ class TestCarte(unittest.TestCase):
         self.assertIsNotNone(relations)
         self.assertEqual(len(json.loads(persos.group(1))), N)
         self.assertEqual(len(json.loads(narr.group(1))), N)
-        self.assertEqual(len(json.loads(relations.group(1))['relations']), 114)
+        # Effectif calculé depuis la source : la table de relations a déjà
+        # grandi une fois, le test ne doit pas figer un nombre.
+        self.assertEqual(len(json.loads(relations.group(1))['relations']),
+                         len(cb.relations.charger(cb.charger_personnages())))
         self.assertIn('Exercice non canonique', h)
         self.assertNotIn('atelier/index.html', Path('base_personnages_fictifs.json').read_text(encoding='utf-8'))
 
@@ -786,6 +896,29 @@ class TestDocumentationEtLicences(unittest.TestCase):
         self.assertTrue(annonces, 'le README doit annoncer un nombre de tests')
         self.assertIn(total, annonces, f'README annonce {annonces} ; {total} réellement exécutés')
 
+    def test_mentions_de_non_ressemblance(self):
+        """Les portraits portaient une clause de non-ressemblance, mais pas les
+        personnes ni les organisations réelles citées (commerce, industrie,
+        enseignement, médias) : un lecteur d'une fiche isolée, qui n'ouvre ni le
+        README ni la licence, ne voyait aucune réserve. L'avertissement est
+        désormais dans la fiche elle-même, et la précision affichée reste
+        honnête (quatre décimales, pas six, sous une adresse inventée)."""
+        licences = Path('LICENSE-DONNEES.md').read_text(encoding='utf-8')
+        readme = Path('README.md').read_text(encoding='utf-8')
+        carte = Path(cb.CARTE_CANONIQUE).read_text(encoding='utf-8')
+        for document, nom in ((licences, 'LICENSE-DONNEES.md'), (readme, 'README.md')):
+            # Casse et retours de ligne indifférents : la phrase se lit sur deux lignes.
+            self.assertIn('ressemblance avec des personnes', ' '.join(document.split()).lower(),
+                          f'{nom} : clause de non-ressemblance absente')
+        debut = carte.index('function popup(o){')
+        popup = carte[debut:carte.index('LIEUX.forEach', debut)]
+        self.assertIn('Personnage de fiction — adresse inventée', popup)
+        # Les coordonnées d'un personnage fictif ne s'affichent plus au mètre
+        # (six décimales) ; celles des lieux réels gardent leur précision.
+        self.assertIn('p.latitude.toFixed(4)', popup)
+        self.assertNotIn('p.latitude.toFixed(6)', popup,
+                         'précision au mètre sous une adresse fictive')
+
     def test_trois_statuts_de_licence_distincts(self):
         self.assertTrue(os.path.exists('LICENSE-DONNEES.md'))
         with open('LICENSE-DONNEES.md', encoding='utf-8') as fh:
@@ -807,8 +940,23 @@ class TestDocumentationEtLicences(unittest.TestCase):
     def test_outillage_present(self):
         for f in ('requirements.txt', 'requirements-dev.txt', '.gitignore', '.gitattributes',
                   '.pre-commit-config.yaml', 'CHANGELOG.md', 'ruff.toml',
-                  '.github/workflows/validation.yml', 'scripts/retirer_archives_git.sh'):
+                  '.github/workflows/validation.yml', 'scripts/retirer_archives_git.sh',
+                  'scripts/etiqueter_portraits_ia.py'):
             self.assertTrue(os.path.exists(f), f'{f} absent')
+
+    def test_classeur_porte_sa_mention_dans_ses_proprietes(self):
+        """Le classeur circulait sans mention de fiction ni d'IA dans ses
+        propriétés : un lecteur qui ne reçoit que le .xlsx ne voyait aucune
+        réserve. La description voyage désormais avec le fichier."""
+        with zipfile.ZipFile('base_personnages_fictifs.xlsx') as z:
+            core = z.read('docProps/core.xml').decode('utf-8')
+        self.assertRegex(core, r'<dc:description>.+</dc:description>')
+        description = ' '.join(re.search(r'<dc:description>(.*?)</dc:description>',
+                                         core, re.S).group(1).split())
+        for attendu in ('inventés', 'intelligence artificielle', 'ressemblance',
+                        'ODbL', 'data/personnages.csv'):
+            with self.subTest(mot=attendu):
+                self.assertIn(attendu, description)
 
 
 class TestReproductibilite(unittest.TestCase):

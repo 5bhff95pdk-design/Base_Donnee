@@ -2,11 +2,19 @@
 
 ## Ce qui est intégré
 
-La source `data/relations.csv` contient une **première extraction éditoriale de
-114 relations explicites, reliant 141 des 213 personnages**. Elle est volontairement
+La source `data/relations.csv` contient une **extraction éditoriale de
+155 relations explicites, reliant 176 des 213 personnages**. Elle est volontairement
 partielle : l’absence d’un lien ne signifie pas que les personnages ne se connaissent
-pas. Les 72 personnages sans lien dans cette tranche ne sont pas déclarés isolés
+pas. Les 37 personnages sans lien dans cette tranche ne sont pas déclarés isolés
 socialement. Tous les textes de Parenté et de narration sont conservés.
+
+La seconde passe (2026-09-13) a structuré **41 liens déjà écrits en prose** dans
+le champ `Parenté` : fratries, cousinages, oncles et tantes, grands-parents et
+un filleul qui étaient déclarés nommément mais absents de la table, alors que
+l’autre extrémité existait dans la base. Aucun lien n’a été déduit : chaque
+ligne reprend le texte exact de la fiche citée. Les cas où un prénom seul reste
+ambigu (« Lucien », « Steve », « Julien ») ont été résolus avec la Famille, la
+Branche et le secteur des fiches concernées, puis relus un par un.
 
 La construction produit :
 
@@ -52,12 +60,22 @@ le générateur n’interprète pas les prénoms et ne devine pas les liens.
 | superieur_de | supérieur ou patron de | subordonne_de | Non |
 | locataire_de | source locataire de cible | bailleur_de | Non |
 | enseignant_de | source enseignant de cible | eleve_de | Non |
+| oncle_de | source oncle ou tante de cible | neveu_de | Non |
+| grand_parent_de | source grand-parent de cible | petit_enfant_de | Non |
+| parrain_de | source parrain ou marraine de cible | filleul_de | Non |
 
-`cousin_de` est disponible pour compléter la table, sans occurrence dans cette
-première extraction. Les inverses sont des conventions de lecture, pas des lignes
-ajoutées automatiquement. Les liens symétriques se stockent une seule fois, avec
-le plus petit ID lexical en Source_ID. Ainsi, deux membres d’un couple ne créent
-pas deux relations redondantes.
+`oncle_de`, `grand_parent_de` et `parrain_de` ont été ajoutés pour couvrir des
+liens que le champ Parenté énonce explicitement sans les réduire à une
+filiation : « Neveu de Lucien et Thérèse Lacroix », « Petite-fille de Réjean et
+Céline Pedneault », « Filleul de Fernand Côté ». Sans eux, ces liens
+restaient en prose et hors de la table ; ils ne doivent **pas** servir à
+convertir une simple cohabitation ou un partage de clan en lien de famille.
+
+`cousin_de` n’était disponible qu’en théorie dans la première extraction : il
+porte désormais 13 relations. Les inverses sont des conventions de lecture, pas
+des lignes ajoutées automatiquement. Les liens symétriques se stockent une seule
+fois, avec le plus petit ID lexical en Source_ID. Ainsi, deux membres d’un couple
+ne créent pas deux relations redondantes.
 
 `conjoint_de` regroupe époux/épouse et conjoint/conjointe : le texte source conserve
 la nuance. `parent_de` ne distingue pas les filiations biologique et adoptive.
@@ -87,9 +105,11 @@ Ne pas actualiser les preuves en masse sans relecture.
 
 ## Liens laissés en attente
 
-Cette tranche privilégie les familles des personnages initiaux, les filiations
-explicitement énoncées et certains liens de couple, travail et colocation. Elle
-n’épuise ni les liens de cousinage, ni les grands-parents, ni les relations d’intrigue.
+Cette extraction couvre désormais les filiations, les fratries, les couples, les
+cousinages, les liens oncle/tante, grand-parentaux, de parrainage, ainsi que
+certains liens de travail et de colocation énoncés dans Parenté. Elle n’épuise
+pas les relations d’intrigue, ni les liens décrits uniquement dans la narration
+(voisinage, dettes, influences), ni les proximités non nommées.
 
 Exemples à qualifier avant une éventuelle intégration :
 

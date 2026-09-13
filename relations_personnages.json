@@ -41,6 +41,18 @@
     "enseignant_de": {
       "inverse": "eleve_de",
       "symetrique": false
+    },
+    "oncle_de": {
+      "inverse": "neveu_de",
+      "symetrique": false
+    },
+    "grand_parent_de": {
+      "inverse": "petit_enfant_de",
+      "symetrique": false
+    },
+    "parrain_de": {
+      "inverse": "filleul_de",
+      "symetrique": false
     }
   },
   "relations": [
@@ -164,6 +176,19 @@
     {
       "source_id": "P009",
       "source_nom": "Dévon Boucher",
+      "type": "cousin_de",
+      "cible_id": "P117",
+      "cible_nom": "Normand Boucher",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P117",
+        "champ": "Parenté",
+        "extrait": "Cousin de Dévon et Éric Boucher"
+      }
+    },
+    {
+      "source_id": "P009",
+      "source_nom": "Dévon Boucher",
       "type": "fratrie",
       "cible_id": "P047",
       "cible_nom": "Éric Boucher",
@@ -172,6 +197,19 @@
         "personnage_id": "P047",
         "champ": "Parenté",
         "extrait": "Fils de Fernande — frère de Dévon"
+      }
+    },
+    {
+      "source_id": "P010",
+      "source_nom": "Kevin Bérubé",
+      "type": "cousin_de",
+      "cible_id": "P120",
+      "cible_nom": "Big Jo Bérubé",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P120",
+        "champ": "Parenté",
+        "extrait": "Cousin de Kevin et Jessy Bérubé — travaille pour Dévon"
       }
     },
     {
@@ -357,6 +395,19 @@
       }
     },
     {
+      "source_id": "P019",
+      "source_nom": "Anik Desrosiers",
+      "type": "cousin_de",
+      "cible_id": "P149",
+      "cible_nom": "Karine Desrosiers",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P149",
+        "champ": "Parenté",
+        "extrait": "Cousine d’Anik Desrosiers"
+      }
+    },
+    {
       "source_id": "P020",
       "source_nom": "Antoine Lefèvre",
       "type": "fratrie",
@@ -396,6 +447,19 @@
       }
     },
     {
+      "source_id": "P022",
+      "source_nom": "Lucien Lacroix",
+      "type": "oncle_de",
+      "cible_id": "P138",
+      "cible_nom": "Armand Lacroix",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P138",
+        "champ": "Parenté",
+        "extrait": "Neveu de Lucien et Thérèse Lacroix"
+      }
+    },
+    {
       "source_id": "P024",
       "source_nom": "Sam Aubin",
       "type": "fratrie",
@@ -406,6 +470,19 @@
         "personnage_id": "P066",
         "champ": "Parenté",
         "extrait": "Frère de Sam Aubin"
+      }
+    },
+    {
+      "source_id": "P025",
+      "source_nom": "Karine Gagnon",
+      "type": "cousin_de",
+      "cible_id": "P111",
+      "cible_nom": "Bobby Gagnon",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P111",
+        "champ": "Parenté",
+        "extrait": "Cousin de Karine et Rock Gagnon"
       }
     },
     {
@@ -471,6 +548,19 @@
         "personnage_id": "P058",
         "champ": "Parenté",
         "extrait": "Sœur de Patrice Dubois"
+      }
+    },
+    {
+      "source_id": "P032",
+      "source_nom": "Gilles Bergeron",
+      "type": "parent_de",
+      "cible_id": "P049",
+      "cible_nom": "Isabelle Bergeron",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P049",
+        "champ": "Parenté",
+        "extrait": "Fille de Gilles Bergeron"
       }
     },
     {
@@ -695,6 +785,19 @@
       }
     },
     {
+      "source_id": "P047",
+      "source_nom": "Éric Boucher",
+      "type": "cousin_de",
+      "cible_id": "P117",
+      "cible_nom": "Normand Boucher",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P117",
+        "champ": "Parenté",
+        "extrait": "Cousin de Dévon et Éric Boucher"
+      }
+    },
+    {
       "source_id": "P049",
       "source_nom": "Isabelle Bergeron",
       "type": "parent_de",
@@ -705,6 +808,45 @@
         "personnage_id": "P176",
         "champ": "Parenté",
         "extrait": "Fils d’Isabelle Bergeron — petit-fils de Gilles"
+      }
+    },
+    {
+      "source_id": "P052",
+      "source_nom": "Rock Gagnon",
+      "type": "cousin_de",
+      "cible_id": "P111",
+      "cible_nom": "Bobby Gagnon",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P111",
+        "champ": "Parenté",
+        "extrait": "Cousin de Karine et Rock Gagnon"
+      }
+    },
+    {
+      "source_id": "P053",
+      "source_nom": "Jessy Bérubé",
+      "type": "cousin_de",
+      "cible_id": "P120",
+      "cible_nom": "Big Jo Bérubé",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P120",
+        "champ": "Parenté",
+        "extrait": "Cousin de Kevin et Jessy Bérubé — travaille pour Dévon"
+      }
+    },
+    {
+      "source_id": "P054",
+      "source_nom": "Thérèse Lacroix",
+      "type": "oncle_de",
+      "cible_id": "P138",
+      "cible_nom": "Armand Lacroix",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P138",
+        "champ": "Parenté",
+        "extrait": "Neveu de Lucien et Thérèse Lacroix"
       }
     },
     {
@@ -786,6 +928,19 @@
       }
     },
     {
+      "source_id": "P068",
+      "source_nom": "Fernand Côté",
+      "type": "parrain_de",
+      "cible_id": "P136",
+      "cible_nom": "Rock Côté",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P136",
+        "champ": "Parenté",
+        "extrait": "Filleul de Fernand Côté"
+      }
+    },
+    {
       "source_id": "P070",
       "source_nom": "Yves Fortin",
       "type": "conjoint_de",
@@ -801,6 +956,19 @@
     {
       "source_id": "P070",
       "source_nom": "Yves Fortin",
+      "type": "oncle_de",
+      "cible_id": "P139",
+      "cible_nom": "Justine Fortin",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P139",
+        "champ": "Parenté",
+        "extrait": "Nièce d’Yves et Pauline Fortin"
+      }
+    },
+    {
+      "source_id": "P070",
+      "source_nom": "Yves Fortin",
       "type": "parent_de",
       "cible_id": "P101",
       "cible_nom": "Tommy Fortin",
@@ -809,6 +977,19 @@
         "personnage_id": "P101",
         "champ": "Parenté",
         "extrait": "Fils d’Yves et Pauline Fortin"
+      }
+    },
+    {
+      "source_id": "P071",
+      "source_nom": "Pauline Fortin",
+      "type": "oncle_de",
+      "cible_id": "P139",
+      "cible_nom": "Justine Fortin",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P139",
+        "champ": "Parenté",
+        "extrait": "Nièce d’Yves et Pauline Fortin"
       }
     },
     {
@@ -929,6 +1110,32 @@
       }
     },
     {
+      "source_id": "P076",
+      "source_nom": "Émile Brassard",
+      "type": "oncle_de",
+      "cible_id": "P208",
+      "cible_nom": "Olivier Brassard",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P208",
+        "champ": "Parenté",
+        "extrait": "Neveu d’Émile Brassard"
+      }
+    },
+    {
+      "source_id": "P083",
+      "source_nom": "Amina Traoré",
+      "type": "oncle_de",
+      "cible_id": "P180",
+      "cible_nom": "Noah Traoré",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P180",
+        "champ": "Parenté",
+        "extrait": "Neveu d’Amina Traoré"
+      }
+    },
+    {
       "source_id": "P086",
       "source_nom": "Benoit Larouche",
       "type": "enseignant_de",
@@ -968,6 +1175,19 @@
       }
     },
     {
+      "source_id": "P089",
+      "source_nom": "Lise Blackburn",
+      "type": "fratrie",
+      "cible_id": "P124",
+      "cible_nom": "Hélène Blackburn",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P124",
+        "champ": "Parenté",
+        "extrait": "Sœur de Lise Blackburn"
+      }
+    },
+    {
       "source_id": "P090",
       "source_nom": "Maxime Boivin",
       "type": "fratrie",
@@ -978,6 +1198,32 @@
         "personnage_id": "P108",
         "champ": "Parenté",
         "extrait": "Sœur de Maxime Boivin"
+      }
+    },
+    {
+      "source_id": "P090",
+      "source_nom": "Maxime Boivin",
+      "type": "oncle_de",
+      "cible_id": "P183",
+      "cible_nom": "Jade Boivin",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P183",
+        "champ": "Parenté",
+        "extrait": "Nièce de France et Maxime Boivin"
+      }
+    },
+    {
+      "source_id": "P092",
+      "source_nom": "Pierrette Simard",
+      "type": "parent_de",
+      "cible_id": "P043",
+      "cible_nom": "Marc-André Simard",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P092",
+        "champ": "Parenté",
+        "extrait": "Mère de Marc-André Simard"
       }
     },
     {
@@ -1007,6 +1253,58 @@
       }
     },
     {
+      "source_id": "P096",
+      "source_nom": "Julie Martel",
+      "type": "cousin_de",
+      "cible_id": "P140",
+      "cible_nom": "Élodie Martel",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P140",
+        "champ": "Parenté",
+        "extrait": "Cousine de Julie et Amélie Martel"
+      }
+    },
+    {
+      "source_id": "P096",
+      "source_nom": "Julie Martel",
+      "type": "fratrie",
+      "cible_id": "P130",
+      "cible_nom": "Amélie Martel",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P130",
+        "champ": "Parenté",
+        "extrait": "Sœur de Julie Martel"
+      }
+    },
+    {
+      "source_id": "P099",
+      "source_nom": "Jeanne Otis",
+      "type": "oncle_de",
+      "cible_id": "P128",
+      "cible_nom": "Caroline Otis",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P128",
+        "champ": "Parenté",
+        "extrait": "Nièce de Jeanne Otis"
+      }
+    },
+    {
+      "source_id": "P099",
+      "source_nom": "Jeanne Otis",
+      "type": "oncle_de",
+      "cible_id": "P147",
+      "cible_nom": "Félix Otis",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P147",
+        "champ": "Parenté",
+        "extrait": "Neveu de Jeanne Otis"
+      }
+    },
+    {
       "source_id": "P105",
       "source_nom": "Réjean Pedneault",
       "type": "conjoint_de",
@@ -1017,6 +1315,84 @@
         "personnage_id": "P105",
         "champ": "Parenté",
         "extrait": "Époux de Céline Pedneault"
+      }
+    },
+    {
+      "source_id": "P105",
+      "source_nom": "Réjean Pedneault",
+      "type": "cousin_de",
+      "cible_id": "P129",
+      "cible_nom": "Denis Pedneault",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P129",
+        "champ": "Parenté",
+        "extrait": "Cousin de Réjean Pedneault"
+      }
+    },
+    {
+      "source_id": "P105",
+      "source_nom": "Réjean Pedneault",
+      "type": "grand_parent_de",
+      "cible_id": "P174",
+      "cible_nom": "Maude Pedneault",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P174",
+        "champ": "Parenté",
+        "extrait": "Petite-fille de Réjean et Céline Pedneault"
+      }
+    },
+    {
+      "source_id": "P106",
+      "source_nom": "Céline Pedneault",
+      "type": "grand_parent_de",
+      "cible_id": "P174",
+      "cible_nom": "Maude Pedneault",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P174",
+        "champ": "Parenté",
+        "extrait": "Petite-fille de Réjean et Céline Pedneault"
+      }
+    },
+    {
+      "source_id": "P108",
+      "source_nom": "France Boivin",
+      "type": "oncle_de",
+      "cible_id": "P183",
+      "cible_nom": "Jade Boivin",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P183",
+        "champ": "Parenté",
+        "extrait": "Nièce de France et Maxime Boivin"
+      }
+    },
+    {
+      "source_id": "P109",
+      "source_nom": "Alain Côté",
+      "type": "oncle_de",
+      "cible_id": "P187",
+      "cible_nom": "Jérémie Côté",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P187",
+        "champ": "Parenté",
+        "extrait": "Neveu d’Alain Côté"
+      }
+    },
+    {
+      "source_id": "P118",
+      "source_nom": "Steve Gauthier",
+      "type": "cousin_de",
+      "cible_id": "P207",
+      "cible_nom": "Maïka Gauthier",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P207",
+        "champ": "Parenté",
+        "extrait": "Nièce de Lise Gauthier — cousine de Steve et Chantal"
       }
     },
     {
@@ -1072,6 +1448,32 @@
       }
     },
     {
+      "source_id": "P130",
+      "source_nom": "Amélie Martel",
+      "type": "cousin_de",
+      "cible_id": "P140",
+      "cible_nom": "Élodie Martel",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P140",
+        "champ": "Parenté",
+        "extrait": "Cousine de Julie et Amélie Martel"
+      }
+    },
+    {
+      "source_id": "P131",
+      "source_nom": "Sylvain Bouchard",
+      "type": "cousin_de",
+      "cible_id": "P201",
+      "cible_nom": "Geneviève Bouchard",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P201",
+        "champ": "Parenté",
+        "extrait": "Célibataire — cousine de Sylvain Bouchard"
+      }
+    },
+    {
       "source_id": "P134",
       "source_nom": "François Côté",
       "type": "superieur_de",
@@ -1085,6 +1487,19 @@
       }
     },
     {
+      "source_id": "P135",
+      "source_nom": "Chantal Gauthier",
+      "type": "cousin_de",
+      "cible_id": "P207",
+      "cible_nom": "Maïka Gauthier",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P207",
+        "champ": "Parenté",
+        "extrait": "Nièce de Lise Gauthier — cousine de Steve et Chantal"
+      }
+    },
+    {
       "source_id": "P151",
       "source_nom": "Vittorio Santini",
       "type": "conjoint_de",
@@ -1095,6 +1510,19 @@
         "personnage_id": "P152",
         "champ": "Parenté",
         "extrait": "Épouse de Vittorio"
+      }
+    },
+    {
+      "source_id": "P151",
+      "source_nom": "Vittorio Santini",
+      "type": "oncle_de",
+      "cible_id": "P154",
+      "cible_nom": "Tony Santini",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P154",
+        "champ": "Parenté",
+        "extrait": "Neveu de Vittorio — parle à Bobby Gagnon"
       }
     },
     {
@@ -1319,6 +1747,19 @@
       }
     },
     {
+      "source_id": "P184",
+      "source_nom": "Gaétan Bossé",
+      "type": "fratrie",
+      "cible_id": "P186",
+      "cible_nom": "Stéphane Bossé",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P184",
+        "champ": "Parenté",
+        "extrait": "Frère de Stéphane Bossé"
+      }
+    },
+    {
       "source_id": "P185",
       "source_nom": "Marie-Ève Boucher",
       "type": "conjoint_de",
@@ -1329,6 +1770,45 @@
         "personnage_id": "P185",
         "champ": "Parenté",
         "extrait": "Conjointe de Stéphane Bossé — cousine de Normand Boucher"
+      }
+    },
+    {
+      "source_id": "P188",
+      "source_nom": "Lise Gauthier",
+      "type": "oncle_de",
+      "cible_id": "P118",
+      "cible_nom": "Steve Gauthier",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P188",
+        "champ": "Parenté",
+        "extrait": "Tante de Steve et Chantal Gauthier"
+      }
+    },
+    {
+      "source_id": "P188",
+      "source_nom": "Lise Gauthier",
+      "type": "oncle_de",
+      "cible_id": "P135",
+      "cible_nom": "Chantal Gauthier",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P188",
+        "champ": "Parenté",
+        "extrait": "Tante de Steve et Chantal Gauthier"
+      }
+    },
+    {
+      "source_id": "P188",
+      "source_nom": "Lise Gauthier",
+      "type": "oncle_de",
+      "cible_id": "P207",
+      "cible_nom": "Maïka Gauthier",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P207",
+        "champ": "Parenté",
+        "extrait": "Nièce de Lise Gauthier — cousine de Steve et Chantal"
       }
     },
     {
@@ -1412,6 +1892,19 @@
     {
       "source_id": "P196",
       "source_nom": "Johanne Gravel",
+      "type": "fratrie",
+      "cible_id": "P202",
+      "cible_nom": "Réal Gravel",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P202",
+        "champ": "Parenté",
+        "extrait": "Frère de Johanne Gravel — oncle de Camille, Samuel et Julien"
+      }
+    },
+    {
+      "source_id": "P196",
+      "source_nom": "Johanne Gravel",
       "type": "parent_de",
       "cible_id": "P197",
       "cible_nom": "Camille Desgagné",
@@ -1462,6 +1955,45 @@
       }
     },
     {
+      "source_id": "P202",
+      "source_nom": "Réal Gravel",
+      "type": "oncle_de",
+      "cible_id": "P197",
+      "cible_nom": "Camille Desgagné",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P202",
+        "champ": "Parenté",
+        "extrait": "Frère de Johanne Gravel — oncle de Camille, Samuel et Julien"
+      }
+    },
+    {
+      "source_id": "P202",
+      "source_nom": "Réal Gravel",
+      "type": "oncle_de",
+      "cible_id": "P198",
+      "cible_nom": "Samuel Desgagné",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P202",
+        "champ": "Parenté",
+        "extrait": "Frère de Johanne Gravel — oncle de Camille, Samuel et Julien"
+      }
+    },
+    {
+      "source_id": "P202",
+      "source_nom": "Réal Gravel",
+      "type": "oncle_de",
+      "cible_id": "P203",
+      "cible_nom": "Julien Desgagné",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P202",
+        "champ": "Parenté",
+        "extrait": "Frère de Johanne Gravel — oncle de Camille, Samuel et Julien"
+      }
+    },
+    {
       "source_id": "P204",
       "source_nom": "Emma Boucher",
       "type": "colocataire_de",
@@ -1498,6 +2030,19 @@
         "personnage_id": "P205",
         "champ": "Parenté",
         "extrait": "Célibataire — colocataire d’Emma Boucher et William Lavoie"
+      }
+    },
+    {
+      "source_id": "P210",
+      "source_nom": "Lucien Gagné",
+      "type": "oncle_de",
+      "cible_id": "P122",
+      "cible_nom": "Isabelle Gagné",
+      "preuve": {
+        "fichier": "data/personnages.csv",
+        "personnage_id": "P210",
+        "champ": "Parenté",
+        "extrait": "Oncle d’Isabelle Gagné — propriétaire d’Emma, Moussa et William"
       }
     },
     {

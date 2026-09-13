@@ -34,6 +34,7 @@ mais les autres livrables sont quand même générés.
 import csv
 import datetime
 import glob as _glob
+import importlib.util as _importlib_util
 import json
 import os
 import re
@@ -45,6 +46,7 @@ from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
 import openpyxl
 
 import relations
+
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 
@@ -53,6 +55,24 @@ try:
     PIL_OK = True
 except Exception:  # Pillow absent : tout sauf la planche reste fonctionnel
     PIL_OK = False
+
+
+def _charger_etiquettes():
+    """Étiquette IA (XMP) : même paquet que celui écrit dans les portraits par
+    scripts/etiqueter_portraits_ia.py. Une seule source pour le texte, la
+    planche contact générée porte donc exactement la même mention que les
+    fichiers sources."""
+    chemin = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                          'scripts', 'etiqueter_portraits_ia.py')
+    spec = _importlib_util.spec_from_file_location('etiqueter_portraits_ia', chemin)
+    if spec is None or spec.loader is None:
+        raise SystemExit(f"✘ Étiquettes IA introuvables : {chemin}")
+    module = _importlib_util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+ETIQUETTES = _charger_etiquettes()
 
 # ------------------------------------------------------------------ chemins
 SRC_PERSOS = 'data/personnages.csv'
@@ -379,7 +399,8 @@ def ecrire_lisez_moi(classeur, recs):
       '• Couverture      : 100 % des entrées (faction, lien au Spot, réplique, arc S1).',
       '• Statut          : source publique (data/narration.csv, versionnée dans le dépôt).',
       '• Ce classeur     : la narration est présente (feuille « Narration »).',
-      '• Relations       : extraction partielle de Parenté dans la feuille Relations ; source data/relations.csv.',
+      '• Relations       : extraction de Parenté (familles, cousinages, oncles/tantes, grand-parents,'
+      ' parrainage, travail, colocation) dans la feuille Relations ; source data/relations.csv.',
       '• Export associé  : relations_personnages.json, séparé des exports géographiques et de la carte.',
       '• Atelier         : docs/propositions-personnages-centraux.md est non canonique, hors de ce classeur.',
       '• Faction         : vocabulaire contrôlé de '
@@ -403,7 +424,8 @@ def ecrire_lisez_moi(classeur, recs):
       '• Carte interactive    : Leaflet 1.9.4 (BSD-2), vendorié dans carte/vendor/'
       ' (le code de la carte fonctionne hors ligne ; seules les tuiles restent en ligne).',
       '• Portraits            : images générées par IA ; fiction intégrale. Statut distinct'
-      ' dans LICENSE-DONNEES.md.',
+      ' dans LICENSE-DONNEES.md ; chaque image porte son étiquette IA en métadonnées'
+      ' XMP (DigitalSourceType = trainedAlgorithmicMedia).',
       f'• Généré le            : {DATE_LIVRABLE.date().isoformat()} (date figée pour la reproductibilité)',
     ]:
         c = d.cell(r, 1, txt)
@@ -461,6 +483,15 @@ def ecrire_xlsx(recs, narr, chemin, liens=None):
     out.properties.modified = DATE_LIVRABLE
     out.properties.title = 'Base de données de personnages fictifs — La Baie (Saguenay)'
     out.properties.keywords = 'fiction; Saguenay; La Baie; OpenStreetMap; ODbL'
+    # Le classeur circule plus loin que le dépôt : la mention de fiction et
+    # d'étiquetage IA doit voyager dans les propriétés du fichier lui-même.
+    out.properties.description = (
+        'Personnages, adresses (numéros civiques) et situations entièrement inventés ; '
+        'rues et toponymes réels (© contributeurs OpenStreetMap, ODbL). '
+        'Portraits générés par intelligence artificielle (CC BY 4.0) — aucune personne '
+        'réelle photographiée. Toute ressemblance avec des personnes, entreprises ou '
+        'organisations réelles serait fortuite. Données sous ODbL, code sous MIT. '
+        'Source : data/personnages.csv — ne pas éditer ce classeur à la main.')
     out.save(chemin)
     figer_xlsx(chemin)
 
@@ -598,6 +629,30 @@ def copier_vignettes(recs=None):
     print(f"  ✔ {len(sources)} vignettes synchronisées vers carte/portraits/")
 
 
+SEUIL_PORTRAIT_PLANCHE = 1.4
+
+
+def ajuster_vignette_planche(image, larg, haut):
+    """Prépare une vignette pour une case `larg` × `haut`.
+
+    Retourne (image, décalage x, décalage y). Les vignettes VERTICALES (ratio
+    inférieur à SEUIL_PORTRAIT_PLANCHE) sont réduites EN ENTIER : un recadrage
+    « couverture » y coupe le visage, ce qui annule la seule fonction de la
+    planche contact — reconnaître les personnages. Les vignettes paysage
+    gardent le recadrage couverture au ratio de la case.
+    """
+    if image.width / image.height < SEUIL_PORTRAIT_PLANCHE:
+        facteur = min(larg / image.width, haut / image.height)
+        reduite = image.resize((max(1, round(image.width * facteur)),
+                                max(1, round(image.height * facteur))), Image.LANCZOS)
+        return reduite, (larg - reduite.width) // 2, (haut - reduite.height) // 2
+    facteur = max(larg / image.width, haut / image.height)
+    reduite = image.resize((round(image.width * facteur), round(image.height * facteur)),
+                           Image.LANCZOS)
+    gx, gy = (reduite.width - larg) // 2, (reduite.height - haut) // 2
+    return reduite.crop((gx, gy, gx + larg, gy + haut)), 0, 0
+
+
 def planche_contact(recs, cols=10, larg=240, haut=160, bandeau=34, marge=10):
     """Assemble la planche contact de TOUS les personnages (vignette + nom).
 
@@ -638,24 +693,28 @@ def planche_contact(recs, cols=10, larg=240, haut=160, bandeau=34, marge=10):
     H = lignes * (haut + bandeau) + (lignes + 1) * marge
     planche = Image.new('RGB', (W, H), (18, 32, 44))
     draw = ImageDraw.Draw(planche)
+    entieres = 0
     for i, (vig, nom) in enumerate(cases):
         cl, lg = i % cols, i // cols
         x = marge + cl * (larg + marge)
         y = marge + lg * (haut + bandeau + marge)
         with Image.open(vig) as im:
-            im = im.convert('RGB')
-            # recadrage « couverture » au ratio 3:2 de la case
-            sr = max(larg / im.width, haut / im.height)
-            im = im.resize((round(im.width * sr), round(im.height * sr)), Image.LANCZOS)
-            gx, gy = (im.width - larg) // 2, (im.height - haut) // 2
-            im = im.crop((gx, gy, gx + larg, gy + haut))
-            planche.paste(im, (x, y))
+            case, dx, dy = ajuster_vignette_planche(im.convert('RGB'), larg, haut)
+            if dx or dy:
+                entieres += 1
+            planche.paste(case, (x + dx, y + dy))
         draw.rectangle([x, y + haut, x + larg, y + haut + bandeau], fill=(19, 36, 50))
         lib = nom if len(nom) <= 26 else nom[:25] + '…'
         draw.text((x + 6, y + haut + 8), lib, fill=(220, 234, 245), font=police)
     os.makedirs('portraits', exist_ok=True)
-    planche.save(PLANCHE, 'WEBP', quality=82, method=6)
-    print(f"  ✔ {PLANCHE} ({len(cases)} vignettes, {W}×{H} px)")
+    # Étiquette IA dans le fichier lui-même : la planche circule hors du dépôt
+    # (copiée dans un document, un diaporama), elle doit porter sa mention.
+    planche.save(PLANCHE, 'WEBP', quality=82, method=6,
+                 xmp=ETIQUETTES.paquet_xmp(
+                     titre=f'Planche contact — {len(cases)} portraits de personnages '
+                           f'fictifs, générés par IA (projet La Baie, Saguenay)'))
+    print(f"  ✔ {PLANCHE} ({len(cases)} vignettes dont {entieres} verticales "
+          f"affichées entières, {W}×{H} px, étiquetée « IA »)")
 
 
 def main():
