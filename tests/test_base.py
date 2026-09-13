@@ -31,7 +31,7 @@ sys.path.insert(0, str(RACINE))
 
 import construire_base as cb  # noqa: E402  (date figée, colonnes, source)
 
-N = 183                      # nombre canonique d'entrées
+N = 193                      # nombre canonique d'entrées
 COLONNES = cb.COLONNES       # 16 colonnes (Famille + Branche depuis 2026-09-13)
 MINEURS = {'Léo Cloutier': 9, 'Nour Benali': 13, 'Alexandre Lavoie': 16,
            # cohorte « jeunes » du 2026-09-13 (aréna, école, restaurant familial)
@@ -188,8 +188,8 @@ class TestConventions(unittest.TestCase):
                     self.assertNotIn(')', str(v),
                                      f'{r["Nom"]} : parenthèses dans {champ} → {v}')
         # la paire Famille + Branche regroupe les personnes d'un même foyer :
-        # elle doit être cohérente avec la source, et regrouper (86 foyers
-        # pour 183 personnes) sans être vide.
+        # elle doit être cohérente avec la source, et regrouper (~90 foyers
+        # pour 193 personnes) sans être vide.
         foyers = [(r['Famille'], r['Branche'] or '') for r in self.recs]
         avec_la_source = [(r['Famille'], r['Branche'] or '')
                           for r in lire_csv_source(SRC_PERSOS)]
@@ -219,6 +219,21 @@ class TestGeographie(unittest.TestCase):
         self.assertEqual(d['Secteur'], 'Chicoutimi')
         self.assertLess(float(d['Longitude']), -71.0)
         self.assertNotIn('Harvey', str(d['Adresse']))
+
+    def test_les_deux_autres_arrondissements_restent_peuples(self):
+        """Chicoutimi et Jonquière comptaient 27 et 10 personnages sur 4 et 5
+        rues (analyse du 2026-09-13) ; le lot du même jour les a portés à 34 et
+        16 sur 8 et 8 rues. On ne redescend plus sous ces planchers."""
+        def rues(secteur):
+            return {str(r['Adresse']).split(',', 1)[1].strip()
+                    for r in self.recs if r['Secteur'] == secteur
+                    and not str(r['Adresse']).startswith('Lieu-dit')}
+        effectifs = {s: sum(1 for r in self.recs if r['Secteur'] == s)
+                     for s in ('Chicoutimi', 'Jonquière')}
+        self.assertGreaterEqual(effectifs['Chicoutimi'], 34, effectifs)
+        self.assertGreaterEqual(effectifs['Jonquière'], 16, effectifs)
+        self.assertGreaterEqual(len(rues('Chicoutimi')), 8, sorted(rues('Chicoutimi')))
+        self.assertGreaterEqual(len(rues('Jonquière')), 8, sorted(rues('Jonquière')))
 
 
 class TestDemographie(unittest.TestCase):
@@ -341,7 +356,8 @@ class TestPortraits(unittest.TestCase):
 
     def test_nouveaux_portraits_numerotes(self):
         for base in ('171-leo-cloutier', '172-nour-benali', '173-alexandre-lavoie',
-                     '174-maude-pedneault', '183-jade-boivin'):
+                     '174-maude-pedneault', '183-jade-boivin',
+                     '184-gaetan-bosse', '193-marc-picard'):
             self.assertTrue(os.path.exists(f'portraits/{base}-web.webp'), base)
             self.assertTrue(os.path.exists(f'portraits/{base}-vignette.webp'), base)
 

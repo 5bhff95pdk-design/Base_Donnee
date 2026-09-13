@@ -4,6 +4,33 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 Ce projet n'a pas de version publiée : les entrées datent les bascules
 structurantes.
 
+## [2026-09-13] — Lot « Chicoutimi / Jonquière » : 10 personnages (183 → 193)
+
+Réponse au constat géographique de l'analyse (La Baie 136 / Chicoutimi 27 /
+Jonquière 10, sur 4 et 5 rues) : dix adultes de tous âges dans les deux
+autres arrondissements, sur **six rues nouvelles** vérifiées sur
+OpenStreetMap (Nominatim).
+
+- **Chicoutimi (6)** : Gaétan Bossé (58, bouquiniste, rue Bossé), Stéphane
+  Bossé (45, cuisinier de casse-croûte) et Marie-Ève Boucher (36, journaliste)
+  sur Jacques-Cartier Ouest, Jérémie Côté (31, facteur, rue Sainte-Anne),
+  Lise Gauthier (62, infirmière clinicienne, rue du Havre), Valentina Rojas
+  (40, épicière latino, rue Bossé).
+- **Jonquière (4)** : Fernand (67, retraité de l'aluminerie) et Audrey Lavoie
+  (29, apprentie électricienne) sur la rue Davis à Arvida, Nancy Simard (52,
+  coiffeuse, Saint-Hubert), Marc Picard (47, arpenteur-géomètre innu, rue du
+  Vieux-Pont).
+- Répartition : La Baie 143 / **Chicoutimi 34** / **Jonquière 16** ; 8 rues
+  dans chacun des deux arrondissements (contre 4 et 5).
+- Nouvelles branches : `Lavoie/Arvida`, `Simard/salon`, foyer `Côté/poste`
+  étoffé ; nouvelles familles Bossé, Rojas, Picard.
+- Portraits n° 184 à 193 (IA, 3:2), planche contact à 20 rangées.
+- Tests : `N = 193`, nouveau garde-fou
+  `test_les_deux_autres_arrondissements_restent_peuples` (planchers
+  d'effectif et de nombre de rues) — 40 garde-fous.
+- Narration : 10 lignes privées fournies hors dépôt
+  (`data/narration-chicoutimi-jonquiere.a-coller.csv`).
+
 ## [2026-09-13] — Cohorte « jeunes » : 10 personnages (173 → 183)
 
 Réponse au constat démographique de l'analyse (6 % de moins de 25 ans,
