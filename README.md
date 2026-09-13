@@ -91,8 +91,14 @@ licences dans [`LICENSE-DONNEES.md`](LICENSE-DONNEES.md), § 4) ; pour un usage
 - `construire_base.py` n'écrit **aucune donnée volatile** : la date « Généré
   le » est figée au 2026-09-11 (surcharge possible via la variable
   `SOURCE_DATE_EPOCH`) et les métadonnées du classeur sont normalisées.
-  Relancer le script deux fois produit des fichiers **octet pour octet
-  identiques** — la CI échoue si `git diff` n'est pas vide après régénération.
+  Relancer le script deux fois sur une même machine produit des fichiers
+  **octet pour octet identiques** (vérifié par la CI en comparant deux
+  constructions successives) ; les livrables données/code (xlsx, csv, json,
+  geojson, html) sont en outre strictement identiques d'une machine à l'autre.
+  Seule la **planche contact WebP** dépend du codec `libwebp` natif : son
+  idempotence est garantie sur un même runner, sans comparaison binaire
+  inter-environnements (la fonte utilisée est, elle, vendoriée dans
+  `assets/fonts/`).
 - Les tests vérifient notamment : effectifs et cohérence des 4 exports,
   unicité des noms, adresses avec numéro ou `Lieu-dit :`, rôles sans clan,
   coordonnées dans le bon arrondissement, mineurs présents, couverture
