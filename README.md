@@ -39,7 +39,7 @@ les toponymes sont réels (OpenStreetMap).
 | `scripts/init_source_csv.py` | Migration unique : ancien classeur maître → `data/*.csv`. |
 | `scripts/retirer_archives_git.sh` | Purge optionnelle de l'ancien gabarit « archive » dans l'historique Git. |
 | `scripts/historique/` | Scripts de migration passés, conservés pour mémoire. |
-| `tests/test_base.py` | **41 garde-fous** couvrant toutes les conventions, lancés en CI. |
+| `tests/test_base.py` | **43 garde-fous** couvrant toutes les conventions, lancés en CI. |
 | `.github/workflows/validation.yml` | CI : lint + régénération + contrôle de reproductibilité + tests. |
 | `docs/analyse-projet.md` | Revue complète du projet (données, code, licences, carte). |
 | `LICENSE` / `LICENSE-DONNEES.md` | Trois statuts distincts : code MIT, données ODbL, portraits IA en CC BY 4.0. |
@@ -101,7 +101,7 @@ python3 construire_base.py
 #    synchronise les vignettes et reconstruit la planche contact.
 
 # 4. contrôler la base
-python3 -m unittest discover -s tests -v   # 41 garde-fous
+python3 -m unittest discover -s tests -v   # 43 garde-fous
 ruff check .                               # lint
 ```
 
@@ -128,7 +128,7 @@ La **recherche de personnages**, elle, est locale et fonctionne sans réseau.
   **planche contact WebP** dépend du codec `libwebp` natif : son idempotence
   est garantie sur un même runner, sans comparaison binaire
   inter-environnements (la fonte, elle, est vendoriée dans `assets/fonts/`).
-- Les **41 garde-fous** vérifient notamment : effectifs et cohérence des 4
+- Les **43 garde-fous** vérifient notamment : effectifs et cohérence des 4
   exports, conformité de la source texte, **unicité et absence de `];`** dans
   les valeurs, adresses avec numéro ou `Lieu-dit :`, rôles sans clan,
   **Famille/Branche sans parenthèses**, coordonnées dans le bon arrondissement,
