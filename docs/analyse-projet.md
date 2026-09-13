@@ -29,6 +29,17 @@ code, outillage, reproductibilité, licences et carte interactive.
 > marqueurs — quatre chantiers éditoriaux qui demandent de nouvelles données
 > (personnages, rues OSM, portraits) plutôt que du code.
 
+> **🟢 Suivi n° 3 au 2026-09-13 — la narration devient publique.**
+> Décision d'auteur : la séparation public/privé du § « Narration » est **levée**.
+> `data/narration.csv` (213 × 8) est versionné — 133 fiches d'origine récupérées
+> de `scripts/historique/migrer_corrections.py` (normalisation des factions via
+> la table de `scripts/init_source_csv.py`), 80 fiches écrites pour l'occasion.
+> Le classeur unique porte désormais la feuille *Narration* ; le classeur
+> « complet » disparaît. Garde-fous inversés (toujours 43, 0 ignoré désormais) :
+> narration versionnée, classeur complet, surnoms alignés sur la base — la
+> narration reste hors des exports géo et de la carte (choix de périmètre).
+> Licence inchangée : ODbL couvrait déjà « factions, répliques » fictives.
+
 > **🟢 Suivi n° 2 au 2026-09-13 — état à 213 fiches.**
 > Les chiffres des § 2 à § 7 décrivent l'état historique à **173 entrées**
 > (15 colonnes, 27 tests) ; l'état courant est **213 × 16 colonnes, 43

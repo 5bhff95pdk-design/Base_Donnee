@@ -95,15 +95,16 @@ jobs:
           fi
           echo "✔ Livrables données/code à jour et reproductibles."
 
-      - name: La narration n'est pas versionnée
+      - name: La narration est versionnée
         run: |
-          # Filet de sécurité : la narration (répliques, arcs, factions) est une
-          # source privée. Si elle apparaît dans l'index Git, on échoue.
-          if [ -n "$(git ls-files data/narration.csv)" ]; then
-            echo "::error::data/narration.csv est commité : retirer la narration du dépôt."
+          # La narration (factions, répliques, arcs) est publique depuis le
+          # 2026-09-13 : la source doit vivre dans le dépôt, sinon le classeur
+          # ne peut pas être régénéré.
+          if ! git ls-files --error-unmatch data/narration.csv > /dev/null 2>&1; then
+            echo "::error::data/narration.csv n'est pas commité : la narration est publique et versionnée."
             exit 1
           fi
-          echo "✔ Narration absente du dépôt (source privée)."
+          echo "✔ Narration versionnée dans le dépôt (source publique)."
 
       - name: Garde-fous (tests)
         run: python -m unittest discover -s tests -v

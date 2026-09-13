@@ -7,7 +7,7 @@ détaille les deux autres statuts.
 | Élément | Fichiers concernés | Statut |
 |---|---|---|
 | **Code** | `construire_base.py`, `scripts/`, `tests/`, code JS des cartes, la bibliothèque Leaflet | **MIT** (voir `LICENSE`) ; Leaflet est en **BSD-2-Clause** (`carte/vendor/leaflet/LICENSE`) |
-| **Données** | `base_personnages_fictifs.xlsx`, `.csv`, `.json`, `.geojson`, données injectées dans les cartes (noms de rues, toponymes, géométries, coordonnées dérivées) | **ODbL 1.0** — base dérivée d'OpenStreetMap |
+| **Données** | `data/personnages.csv`, `data/narration.csv`, `base_personnages_fictifs.xlsx`, `.csv`, `.json`, `.geojson`, données injectées dans les cartes (noms de rues, toponymes, géométries, coordonnées dérivées) | **ODbL 1.0** — base dérivée d'OpenStreetMap |
 | **Portraits** | `portraits/*-web.webp`, `portraits/*-vignette.webp`, `planche-contact-generale.webp`, vignettes de `carte/portraits/` | Images **générées par IA**, personnages fictifs, mises à disposition en **CC BY 4.0** |
 
 ---

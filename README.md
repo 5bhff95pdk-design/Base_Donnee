@@ -24,9 +24,8 @@ les toponymes sont réels (OpenStreetMap).
 |---|---|
 | `data/personnages.csv` | **Source de vérité** : 213 lignes × 16 colonnes, UTF-8 `;`. C'est le seul fichier à éditer à la main. |
 | `data/factions.txt` | Vocabulaire contrôlé des **17 factions** (narration). |
-| `data/narration.csv` | ⚠️ **Privé, non versionné** : factions, répliques, arcs (voir plus bas). |
-| `base_personnages_fictifs.xlsx` | Classeur **public** : *Personnages* (213 × 16) + *Lisez-moi*. **Sans** la narration. |
-| `base_personnages_fictifs-complet.xlsx` | Classeur **privé** (`.gitignore`) : idem + feuille *Narration*. |
+| `data/narration.csv` | **Source narration** (publique, versionnée) : faction, lien au Spot, réplique, arc S1 — 8 colonnes. |
+| `base_personnages_fictifs.xlsx` | Classeur public : *Personnages* (213 × 16) + *Narration* + *Lisez-moi*. |
 | `base_personnages_fictifs.csv` | Export tableur, séparateur `;`, UTF-8 BOM (accents OK dans Excel FR). |
 | `base_personnages_fictifs.json` | Export code / API, clés minuscules sans accent. |
 | `base_personnages_fictifs.geojson` | Points WGS84 pour QGIS, geojson.io, uMap, Mapbox. |
@@ -70,17 +69,19 @@ Principales conventions :
   personnage de moins de 18 ans qui ne soit pas humain reste le chat
   Pisse-Feu (7 ans en âge animal).
 
-## Narration : ce qui est public et ce qui ne l'est pas
+## Narration : publique dans le dépôt, hors des exports géo
 
-| | Public (dépôt, exports, carte) | Privé (local, `.gitignore`) |
+| | Dans le dépôt ? | Où la trouve-t-on ? |
 |---|---|---|
-| Personnages (16 colonnes) | ✔ `data/personnages.csv`, xlsx/csv/json/geojson, carte | |
-| Factions, répliques, arcs | ✘ jamais | ✔ `data/narration.csv`, `base_personnages_fictifs-complet.xlsx` |
-| Vocabulaire des factions | ✔ `data/factions.txt` | |
+| Personnages (16 colonnes) | ✔ | `data/personnages.csv`, classeur, csv/json/geojson, carte |
+| Factions, répliques, arcs | ✔ | `data/narration.csv`, feuille *Narration* du classeur |
+| Vocabulaire des factions | ✔ | `data/factions.txt` (17 valeurs canoniques) |
 
-La narration n'est exportée ni dans le JSON, ni dans le GeoJSON, ni dans la
-carte — et le classeur commité ne la contient pas. Un test et une étape CI
-échouent si `data/narration.csv` venait à être ajouté à l'index Git.
+La narration a été rendue publique le 2026-09-13 (elle était auparavant
+privée et non versionnée). Elle alimente la feuille *Narration* du classeur
+mais reste **volontairement hors des exports** csv / json / geojson et de la
+carte : un test le garantit. Un test et une étape CI vérifient aussi que
+`data/narration.csv` reste bien versionné dans Git.
 
 ## Démarrage rapide
 
@@ -132,8 +133,9 @@ La **recherche de personnages**, elle, est locale et fonctionne sans réseau.
   exports, conformité de la source texte, **unicité et absence de `];`** dans
   les valeurs, adresses avec numéro ou `Lieu-dit :`, rôles sans clan,
   **Famille/Branche sans parenthèses**, coordonnées dans le bon arrondissement,
-  mineurs présents, **narration absente du classeur public et de l'index Git**,
-  factions dans le vocabulaire contrôlé, portraits et planche contact présents,
+  mineurs présents, **narration versionnée, complète dans le classeur et
+  alignée sur la base (surnoms)**, factions dans le vocabulaire contrôlé,
+  portraits et planche contact présents,
   Leaflet sans CDN, **carte de racine strictement dérivée de la canonique**,
   échappement HTML, et les trois licences distinguées. Le nombre annoncé dans
   ce README est lui-même vérifié par un test (il annonçait 26 tests).

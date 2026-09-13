@@ -24,14 +24,3 @@ Thumbs.db
 *.tmp
 ~$*.xlsx
 
-# --- Classeur maître PRIVÉ : il contient la feuille Narration (factions,
-#     répliques, arcs), qui ne doit pas être diffusée. Il est régénéré par
-#     construire_base.py à partir de data/narration.csv (source privée, elle
-#     aussi ignorée). Seul le classeur PUBLIC est versionné.
-/base_personnages_fictifs-complet.xlsx
-
-# --- Narration : source privée, non versionnée (voir README « Narration »).
-#     Le vocabulaire des factions, lui, est public : data/factions.txt.
-/data/narration.csv
-# Lots de narration préparés hors dépôt (à fusionner dans data/narration.csv)
-/data/narration-*.csv

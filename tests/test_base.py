@@ -6,11 +6,12 @@ Lancé par la CI (.github/workflows/validation.yml) après régénération :
     python -m unittest discover -s tests -v
 
 Couvre : effectifs annoncés, conventions d'écriture (adresses, rôles, surnoms,
-famille + branche), cohérence géographique, couverture de la narration (si la
-source privée est présente), portraits et planche contact, carte hors ligne et
-dérivation de la copie de racine, licences distinctes, non-versionnement de la
-narration, et reproductibilité des livrables (le « git diff » vide est vérifié
-par la CI après deux constructions successives).
+famille + branche), cohérence géographique, couverture complète de la
+narration (source publique versionnée), portraits et planche contact, carte
+hors ligne et dérivation de la copie de racine, licences distinctes,
+versionnement de la narration dans Git, et reproductibilité des livrables
+(le « git diff » vide est vérifié par la CI après deux constructions
+successives).
 """
 import csv
 import glob
@@ -274,47 +275,58 @@ class TestDemographie(unittest.TestCase):
 
 
 class TestNarration(unittest.TestCase):
-    """La narration est une source PRIVÉE : non versionnée, non exportée."""
+    """La narration est une source PUBLIQUE : versionnée, complète dans le
+    classeur, mais volontairement absente des exports géo et de la carte."""
 
     @classmethod
     def setUpClass(cls):
-        cls.narr = lire_csv_source(SRC_NARR) if os.path.exists(SRC_NARR) else None
+        cls.narr = lire_csv_source(SRC_NARR)
         _, cls.recs = charger_xlsx()
 
-    def test_source_narration_non_versionnee(self):
-        """Filet de sécurité : la narration ne doit jamais être commitée."""
+    def test_source_narration_versionnee(self):
+        """Filet de sécurité : la narration doit rester versionnée dans Git."""
+        self.assertTrue(os.path.exists(SRC_NARR),
+                        f'{SRC_NARR} absente : la narration est publique, elle '
+                        'doit vivre dans le dépôt')
         with open('.gitignore', encoding='utf-8') as f:
-            self.assertIn('data/narration.csv', f.read())
+            self.assertNotIn('data/narration.csv', f.read(),
+                             'data/narration.csv ne doit plus être ignoré')
         try:
             suivi = subprocess.run(['git', 'ls-files', SRC_NARR],
                                    capture_output=True, text=True, timeout=15).stdout.strip()
         except (OSError, subprocess.SubprocessError):
             self.skipTest('git indisponible')
-        self.assertEqual(suivi, '', f'{SRC_NARR} est suivi par Git : narration publique !')
+        self.assertEqual(suivi, SRC_NARR,
+                         f'{SRC_NARR} n’est pas suivi par Git : narration manquante au dépôt !')
 
-    def test_classeur_public_sans_narration(self):
-        """Le classeur public ne doit contenir aucune trace de narration."""
-        self.assertNotIn('Narration',
-                         openpyxl.load_workbook('base_personnages_fictifs.xlsx').sheetnames)
-        with zipfile.ZipFile('base_personnages_fictifs.xlsx') as z:
+    def test_classeur_avec_narration(self):
+        """Le classeur contient la feuille Narration, ancien classeur
+        « complet » retiré du dépôt."""
+        classeur = 'base_personnages_fictifs.xlsx'
+        self.assertIn('Narration', openpyxl.load_workbook(classeur).sheetnames)
+        with zipfile.ZipFile(classeur) as z:
             xml = ''.join(z.read(n).decode('utf-8', 'ignore')
                           for n in z.namelist() if n.endswith('.xml'))
-        for fuite in ('Quote joual', 'Arc S1', 'Lien Spot'):
-            self.assertNotIn(fuite, xml, f'« {fuite} » présente dans le classeur public')
+        for attendu in ('Quote joual', 'Arc S1', 'Lien Spot', 'Faction (détail)'):
+            self.assertIn(attendu, xml, f'« {attendu} » absente du classeur')
         complet = 'base_personnages_fictifs-complet.xlsx'
-        if os.path.exists(complet):
-            self.assertIn('Narration', openpyxl.load_workbook(complet).sheetnames)
+        self.assertFalse(os.path.exists(complet),
+                         f'{complet} n’a plus de raison d’être : un seul classeur public')
 
     def test_narration_pas_exportee(self):
+        """Choix de périmètre : la narration ne va ni dans le GeoJSON ni
+        dans le JSON ni dans la carte — seule la feuille Narration la porte."""
         with open('base_personnages_fictifs.geojson', encoding='utf-8') as fh:
             gj = json.load(fh)
         for feat in gj['features']:
             self.assertNotIn('faction', feat['properties'])
             self.assertNotIn('quote', str(feat['properties']).lower())
+        with open('base_personnages_fictifs.json', encoding='utf-8') as fh:
+            js = fh.read().lower()
+        self.assertNotIn('arc s1', js)
+        self.assertNotIn('quote joual', js)
 
     def test_couverture_et_vocabulaire(self):
-        if self.narr is None:
-            self.skipTest('source privée data/narration.csv absente')
         noms_base = {r['Nom'] for r in self.recs}
         noms_narr = {lg['Nom'] for lg in self.narr}
         self.assertEqual(noms_narr, noms_base,
@@ -330,6 +342,18 @@ class TestNarration(unittest.TestCase):
             valides = {lg.strip() for lg in f if lg.strip() and not lg.lstrip().startswith('#')}
         fautifs = {lg['Faction'] for lg in self.narr} - valides
         self.assertFalse(fautifs, f'factions hors vocabulaire : {fautifs}')
+        # surnoms alignés sur la base : la narration ne dérive pas de la source
+        surnoms_base = {r['Nom']: r['Surnom'] for r in self.recs}
+        for lg in self.narr:
+            self.assertEqual((lg.get('Surnom') or '').strip(),
+                             (surnoms_base[lg['Nom']] or '').strip(),
+                             f'{lg["Nom"]} : Surnom différent de data/personnages.csv')
+        # pas de caractère de contrôle (les mêmes règles que la source)
+        for lg in self.narr:
+            for champ in ('Nom', 'Surnom', 'Faction', 'Faction (détail)',
+                          'Lien Spot', 'Quote joual', 'Arc S1'):
+                self.assertFalse(any(ord(c) < 32 for c in (lg.get(champ) or '')),
+                                 f'{lg["Nom"]} : caractère de contrôle dans « {champ} »')
 
 
 class TestPortraits(unittest.TestCase):
