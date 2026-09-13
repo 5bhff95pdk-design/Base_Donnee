@@ -16,10 +16,10 @@ jobs:
   valider:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Installer Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.12'
           cache: pip
@@ -32,11 +32,28 @@ jobs:
 
       - name: Reproductibilité (aucun diff après régénération)
         run: |
-          if ! git diff --exit-code --stat; then
-            echo "::error::La régénération modifie des fichiers suivis: construction non reproductible (horodatage? ordre? gabarit?)"
-            git diff
+          echo "Versions:"; python - <<'PY'
+          import PIL, openpyxl, sys
+          print("python", sys.version.split()[0])
+          print("Pillow", PIL.__version__)
+          print("openpyxl", openpyxl.__version__)
+          try:
+              from PIL import features
+              print("libwebp", features.version_module("webp"))
+          except Exception as e:
+              print("libwebp?", e)
+          PY
+          fichiers=$(git diff --name-only)
+          if [ -n "$fichiers" ]; then
+            echo "$fichiers" | while read -r f; do
+              echo "::error file=${f}::la régénération modifie ce fichier (construction non reproductible)"
+            done
+            echo "---- résumé numstat ----"
+            git diff --numstat
+            echo "---- fin ----"
             exit 1
           fi
+          echo "Aucun diff après régénération : construction reproductible."
 
       - name: Garde-fous (tests)
         run: python -m unittest discover -s tests -v
