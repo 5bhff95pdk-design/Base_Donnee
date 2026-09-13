@@ -1,0 +1,28 @@
+# Vocabulaire contrôlé de la colonne « Faction » (feuille / data/narration.csv).
+#
+# Une ligne = une faction canonique. Les lignes vides et celles commençant par
+# « # » sont ignorées. Toute valeur de Faction absente de cette liste fait
+# échouer la construction (construire_base.py) : c'est le garde-fou qui
+# empêche la colonne de redevenir du texte libre (128 valeurs distinctes
+# avant normalisation, le 2026-09-13).
+#
+# La nuance d'origine (souvent « Lieu / Posture ») est conservée dans la
+# colonne « Faction (détail) » : rien n'est perdu, on gagne un champ filtrable.
+
+Ruelle
+Sous-sol
+Bloc
+Famille
+Commerce
+Bar du Coin
+Institutions
+Santé / Enseignement
+Église
+Santini
+Motards
+Industrie
+Média / Art
+Plein air / Port
+Loi / Sécurité
+Propre
+Neutre

@@ -14,6 +14,7 @@
     "tic_ou_objet": "4K caméras",
     "portrait": "portraits/14-ahmed-benali-web.webp",
     "famille": "Benali",
+    "branche": null,
     "parente": "Époux de Nadia"
   },
   {
@@ -30,7 +31,8 @@
     "vetements": "Uniforme Postes Canada",
     "tic_ou_objet": "Sac de courrier",
     "portrait": "portraits/109-alain-cote-web.webp",
-    "famille": "Côté (poste)",
+    "famille": "Côté",
+    "branche": "poste",
     "parente": "Célibataire"
   },
   {
@@ -47,7 +49,8 @@
     "vetements": "Hoodie",
     "tic_ou_objet": "5 écrans",
     "portrait": "portraits/28-alex-tremblay-web.webp",
-    "famille": "Tremblay (Alex)",
+    "famille": "Tremblay",
+    "branche": "Alex",
     "parente": "Fils de Sonia"
   },
   {
@@ -64,7 +67,8 @@
     "vetements": "Veston de hockey par-dessus un hoodie",
     "tic_ou_objet": "Bâton de hockey et patins éraflés",
     "portrait": "portraits/173-alexandre-lavoie-web.webp",
-    "famille": "Lavoie (JP)",
+    "famille": "Lavoie",
+    "branche": "JP",
     "parente": "Fils cadet de Robert et Diane — petit frère de JP"
   },
   {
@@ -81,7 +85,8 @@
     "vetements": "Hoodie noir, gants",
     "tic_ou_objet": "Pied-de-biche pliable",
     "portrait": "portraits/114-alexis-cote-web.webp",
-    "famille": "Côté (ruelle)",
+    "famille": "Côté",
+    "branche": "ruelle",
     "parente": "Célibataire — tourne autour du Spot"
   },
   {
@@ -98,7 +103,8 @@
     "vetements": "Survêtement d’équipe",
     "tic_ou_objet": "Bâton",
     "portrait": "portraits/132-alexis-gagnon-web.webp",
-    "famille": "Gagnon (hockey)",
+    "famille": "Gagnon",
+    "branche": "hockey",
     "parente": "Célibataire"
   },
   {
@@ -115,7 +121,8 @@
     "vetements": "Peignoir et cigarette",
     "tic_ou_objet": "Clope à la fenêtre",
     "portrait": "portraits/162-aline-tremblay-web.webp",
-    "famille": "Tremblay (Gratien)",
+    "famille": "Tremblay",
+    "branche": "Gratien",
     "parente": "Mère de Gratien Tremblay"
   },
   {
@@ -133,6 +140,7 @@
     "tic_ou_objet": "Ordonnancier",
     "portrait": "portraits/83-amina-traore-web.webp",
     "famille": "Traoré",
+    "branche": null,
     "parente": "Célibataire"
   },
   {
@@ -150,6 +158,7 @@
     "tic_ou_objet": "Dépliant du fjord",
     "portrait": "portraits/130-amelie-martel-web.webp",
     "famille": "Martel",
+    "branche": null,
     "parente": "Sœur de Julie Martel"
   },
   {
@@ -167,6 +176,7 @@
     "tic_ou_objet": "Fume galerie 3h14",
     "portrait": "portraits/19-anik-desrosiers-web.webp",
     "famille": "Desrosiers-Simard",
+    "branche": null,
     "parente": "Conjointe de Marc-André"
   },
   {
@@ -184,6 +194,7 @@
     "tic_ou_objet": "Miroir dentaire",
     "portrait": "portraits/74-anne-girard-web.webp",
     "famille": "Girard",
+    "branche": null,
     "parente": "Épouse de Louis Girard"
   },
   {
@@ -201,6 +212,7 @@
     "tic_ou_objet": "Mouchoir blanc",
     "portrait": "portraits/138-armand-lacroix-web.webp",
     "famille": "Lacroix",
+    "branche": null,
     "parente": "Neveu de Lucien et Thérèse Lacroix"
   },
   {
@@ -217,7 +229,8 @@
     "vetements": "Masque et combinaison",
     "tic_ou_objet": "Conserves 1998",
     "portrait": "portraits/150-bernard-tremblay-web.webp",
-    "famille": "Tremblay (bunker)",
+    "famille": "Tremblay",
+    "branche": "bunker",
     "parente": "Célibataire — vend des stocks à Dévon"
   },
   {
@@ -234,7 +247,8 @@
     "vetements": "Manteau Michael Kors",
     "tic_ou_objet": "BMW clé",
     "portrait": "portraits/61-bertrand-gagnon-web.webp",
-    "famille": "Gagnon (immobilier)",
+    "famille": "Gagnon",
+    "branche": "immobilier",
     "parente": "Ex-mari de Sylvie Gagnon"
   },
   {
@@ -252,6 +266,7 @@
     "tic_ou_objet": "Bras croisés",
     "portrait": "portraits/120-big-jo-berube-web.webp",
     "famille": "Bérubé",
+    "branche": null,
     "parente": "Cousin de Kevin et Jessy Bérubé — travaille pour Dévon"
   },
   {
@@ -268,7 +283,8 @@
     "vetements": "Veste de cuir",
     "tic_ou_objet": "Clés de garage",
     "portrait": "portraits/111-bobby-gagnon-web.webp",
-    "famille": "Gagnon (motards)",
+    "famille": "Gagnon",
+    "branche": "motards",
     "parente": "Cousin de Karine et Rock Gagnon"
   },
   {
@@ -286,6 +302,7 @@
     "tic_ou_objet": "Chiffon rouge",
     "portrait": "portraits/57-carl-dube-web.webp",
     "famille": "Dubé",
+    "branche": null,
     "parente": "Frère de Mélanie Dubé"
   },
   {
@@ -302,7 +319,8 @@
     "vetements": "Uniforme Tim Hortons",
     "tic_ou_objet": "Double-double",
     "portrait": "portraits/135-chantal-gauthier-web.webp",
-    "famille": "Gauthier (Tim)",
+    "famille": "Gauthier",
+    "branche": "Tim",
     "parente": "Célibataire"
   },
   {
@@ -319,7 +337,8 @@
     "vetements": "Faux suède fourrure pelée",
     "tic_ou_objet": "Sacoche 3 cells cassés",
     "portrait": "portraits/08-chantal-lavoie-web.webp",
-    "famille": "Lavoie (Chantal)",
+    "famille": "Lavoie",
+    "branche": "Chantal",
     "parente": "Fille de Gaétan"
   },
   {
@@ -336,7 +355,8 @@
     "vetements": "Jogging",
     "tic_ou_objet": "Laptop",
     "portrait": "portraits/31-chloe-bouchard-web.webp",
-    "famille": "Bouchard (Chloé)",
+    "famille": "Bouchard",
+    "branche": "Chloé",
     "parente": "Fille de Nathalie"
   },
   {
@@ -353,7 +373,8 @@
     "vetements": "Doudoune, sac à dos",
     "tic_ou_objet": "Cell jetable",
     "portrait": "portraits/116-cindy-lavoie-web.webp",
-    "famille": "Tremblay (Gratien)",
+    "famille": "Tremblay",
+    "branche": "Gratien",
     "parente": "Fille de Manon Lavoie — estafette de Gratien"
   },
   {
@@ -370,7 +391,8 @@
     "vetements": "Veston rouge théâtral",
     "tic_ou_objet": "Microphone souvenir",
     "portrait": "portraits/55-claude-lavoie-web.webp",
-    "famille": "Lavoie (Michel)",
+    "famille": "Lavoie",
+    "branche": "Michel",
     "parente": "Père de Michel Lavoie"
   },
   {
@@ -388,6 +410,7 @@
     "tic_ou_objet": "Corbeau empaillé",
     "portrait": "portraits/146-corinne-noel-web.webp",
     "famille": "Noël",
+    "branche": null,
     "parente": "Célibataire — fournit Sam Aubin en motifs"
   },
   {
@@ -405,6 +428,7 @@
     "tic_ou_objet": "Cafetière percolateur",
     "portrait": "portraits/163-cecile-truchon-web.webp",
     "famille": "Truchon",
+    "branche": null,
     "parente": "Mère d’Yvan Truchon"
   },
   {
@@ -422,6 +446,7 @@
     "tic_ou_objet": "Filet à raccommoder",
     "portrait": "portraits/106-celine-pedneault-web.webp",
     "famille": "Pedneault",
+    "branche": null,
     "parente": "Épouse de Réjean Pedneault"
   },
   {
@@ -439,6 +464,7 @@
     "tic_ou_objet": "iPhone craqué",
     "portrait": "portraits/16-dave-cloutier-web.webp",
     "famille": "Cloutier",
+    "branche": null,
     "parente": "Fils de Manon"
   },
   {
@@ -455,7 +481,8 @@
     "vetements": "Cardigan",
     "tic_ou_objet": "Thermos citron",
     "portrait": "portraits/34-diane-tremblay-web.webp",
-    "famille": "Lavoie (JP)",
+    "famille": "Lavoie",
+    "branche": "JP",
     "parente": "Mère de JP"
   },
   {
@@ -473,6 +500,7 @@
     "tic_ou_objet": "Clés de taxi",
     "portrait": "portraits/107-dominic-audet-web.webp",
     "famille": "Audet",
+    "branche": null,
     "parente": "Célibataire"
   },
   {
@@ -490,6 +518,7 @@
     "tic_ou_objet": "Cure-dent",
     "portrait": "portraits/09-devon-boucher-web.webp",
     "famille": "Boucher",
+    "branche": null,
     "parente": "Fils de Fernande Boucher — frère d’Éric"
   },
   {
@@ -507,6 +536,7 @@
     "tic_ou_objet": "Truck Poutine shawarma",
     "portrait": "portraits/29-fatima-al-hassan-web.webp",
     "famille": "Al-Hassan",
+    "branche": null,
     "parente": "Épouse de Karim"
   },
   {
@@ -523,7 +553,8 @@
     "vetements": "Manteau marin",
     "tic_ou_objet": "Pipe éteinte",
     "portrait": "portraits/68-fernand-cote-web.webp",
-    "famille": "Côté (Victoria)",
+    "famille": "Côté",
+    "branche": "Victoria",
     "parente": "Époux de Lucie Côté"
   },
   {
@@ -541,6 +572,7 @@
     "tic_ou_objet": "Clés de hangar",
     "portrait": "portraits/161-fernande-boucher-web.webp",
     "famille": "Boucher",
+    "branche": null,
     "parente": "Mère de Dévon, Éric et tante de Normand"
   },
   {
@@ -558,6 +590,7 @@
     "tic_ou_objet": "Bouquet de lys",
     "portrait": "portraits/108-france-boivin-web.webp",
     "famille": "Boivin",
+    "branche": null,
     "parente": "Sœur de Maxime Boivin"
   },
   {
@@ -575,6 +608,7 @@
     "tic_ou_objet": "Gants isolants",
     "portrait": "portraits/80-francois-harvey-web.webp",
     "famille": "Harvey",
+    "branche": null,
     "parente": "Célibataire"
   },
   {
@@ -592,6 +626,7 @@
     "tic_ou_objet": "Panneau FIN DU MONDE",
     "portrait": "portraits/145-frere-ezechiel-web.webp",
     "famille": "Lacroix",
+    "branche": null,
     "parente": "Célibataire — harcèle Lucien Lacroix"
   },
   {
@@ -609,6 +644,7 @@
     "tic_ou_objet": "Parle à l’eau",
     "portrait": "portraits/147-felix-otis-web.webp",
     "famille": "Otis",
+    "branche": null,
     "parente": "Neveu de Jeanne Otis"
   },
   {
@@ -626,6 +662,7 @@
     "tic_ou_objet": "Répliques de Cédez",
     "portrait": "portraits/148-gaston-ha-ha-web.webp",
     "famille": "Ha! Ha!",
+    "branche": null,
     "parente": "Célibataire — vit pour la Pyramide"
   },
   {
@@ -642,7 +679,8 @@
     "vetements": "Tablier de tavernier",
     "tic_ou_objet": "Torchon et verre",
     "portrait": "portraits/167-gaston-pelletier-web.webp",
-    "famille": "Pelletier (bar)",
+    "famille": "Pelletier",
+    "branche": "bar",
     "parente": "Père d’Hugo Pelletier — grand-père de Léa"
   },
   {
@@ -659,7 +697,8 @@
     "vetements": "Manteau de chasse usé",
     "tic_ou_objet": "Bière Molson Export",
     "portrait": "portraits/44-gaetan-lavoie-web.webp",
-    "famille": "Lavoie (Chantal)",
+    "famille": "Lavoie",
+    "branche": "Chantal",
     "parente": "Père de Chantal Lavoie"
   },
   {
@@ -677,6 +716,7 @@
     "tic_ou_objet": "50 clés",
     "portrait": "portraits/32-gilles-bergeron-web.webp",
     "famille": "Bergeron",
+    "branche": null,
     "parente": "Père d’Isabelle"
   },
   {
@@ -694,6 +734,7 @@
     "tic_ou_objet": "Sandwichs, Narcan",
     "portrait": "portraits/17-ginette-roy-web.webp",
     "famille": "Roy",
+    "branche": null,
     "parente": "Épouse de Réjean"
   },
   {
@@ -711,6 +752,7 @@
     "tic_ou_objet": "Lotto 6/49",
     "portrait": "portraits/62-gisele-truchon-web.webp",
     "famille": "Truchon",
+    "branche": null,
     "parente": "Conjointe d’Yvan Truchon"
   },
   {
@@ -727,7 +769,8 @@
     "vetements": "Manteau cuir noir râpé",
     "tic_ou_objet": "5 min = 45 min",
     "portrait": "portraits/04-gratien-tremblay-web.webp",
-    "famille": "Tremblay (Gratien)",
+    "famille": "Tremblay",
+    "branche": "Gratien",
     "parente": "Fils d’Aline Tremblay — conjoint de Linda"
   },
   {
@@ -745,6 +788,7 @@
     "tic_ou_objet": "Pontiac Grand Prix 2",
     "portrait": "portraits/113-guy-tremblay-web.webp",
     "famille": "Truchon",
+    "branche": null,
     "parente": "Relais d’Yvan Truchon"
   },
   {
@@ -761,7 +805,8 @@
     "vetements": "Chemise travail bleue",
     "tic_ou_objet": "Clés immeuble 7405",
     "portrait": "portraits/37-gerard-lapointe-web.webp",
-    "famille": "Lapointe (Marco)",
+    "famille": "Lapointe",
+    "branche": "Marco",
     "parente": "Père de Marco"
   },
   {
@@ -779,6 +824,7 @@
     "tic_ou_objet": "Caisse de chips",
     "portrait": "portraits/103-hassan-benali-web.webp",
     "famille": "Benali",
+    "branche": null,
     "parente": "Fils d’Ahmed et Nadia Benali"
   },
   {
@@ -795,7 +841,8 @@
     "vetements": "Chemise noire de bar",
     "tic_ou_objet": "Torchon d’épaule",
     "portrait": "portraits/72-hugo-pelletier-web.webp",
-    "famille": "Pelletier (bar)",
+    "famille": "Pelletier",
+    "branche": "bar",
     "parente": "Fils de Gaston Pelletier — époux de Sarah"
   },
   {
@@ -813,6 +860,7 @@
     "tic_ou_objet": "Badge direction",
     "portrait": "portraits/124-helene-blackburn-web.webp",
     "famille": "Blackburn",
+    "branche": null,
     "parente": "Sœur de Lise Blackburn"
   },
   {
@@ -830,6 +878,7 @@
     "tic_ou_objet": "Sac d’épicerie",
     "portrait": "portraits/59-helene-chicoine-web.webp",
     "famille": "Chicoine",
+    "branche": null,
     "parente": "Mère de Réal Chicoine"
   },
   {
@@ -847,6 +896,7 @@
     "tic_ou_objet": "Sacoche de copies",
     "portrait": "portraits/49-isabelle-bergeron-web.webp",
     "famille": "Bergeron",
+    "branche": null,
     "parente": "Fille de Gilles Bergeron"
   },
   {
@@ -864,6 +914,7 @@
     "tic_ou_objet": "Épinglette de ville",
     "portrait": "portraits/84-jacques-maltais-web.webp",
     "famille": "Maltais",
+    "branche": null,
     "parente": "Célibataire"
   },
   {
@@ -880,7 +931,8 @@
     "vetements": "Hoodie noir Gildan troué",
     "tic_ou_objet": "Trie mégots, roule marbrées",
     "portrait": "portraits/01-jean-philippe-lavoie-web.webp",
-    "famille": "Lavoie (JP)",
+    "famille": "Lavoie",
+    "branche": "JP",
     "parente": "Fils de Robert et Diane"
   },
   {
@@ -897,7 +949,8 @@
     "vetements": "Manteau de laine",
     "tic_ou_objet": "Canne en nacre",
     "portrait": "portraits/166-jeanne-gagnon-web.webp",
-    "famille": "Gagnon (immobilier)",
+    "famille": "Gagnon",
+    "branche": "immobilier",
     "parente": "Mère de Sylvie Gagnon"
   },
   {
@@ -915,6 +968,7 @@
     "tic_ou_objet": "Tampon dateur",
     "portrait": "portraits/99-jeanne-otis-web.webp",
     "famille": "Otis",
+    "branche": null,
     "parente": "Célibataire"
   },
   {
@@ -932,6 +986,7 @@
     "tic_ou_objet": "Clés du 4½",
     "portrait": "portraits/93-jessica-paradis-web.webp",
     "famille": "Paradis",
+    "branche": null,
     "parente": "Locataire de Sylvie Gagnon"
   },
   {
@@ -949,6 +1004,7 @@
     "tic_ou_objet": "AirPods cassé",
     "portrait": "portraits/53-jessy-berube-web.webp",
     "famille": "Bérubé",
+    "branche": null,
     "parente": "Fils de Lucie Bérubé — frère de Kevin"
   },
   {
@@ -965,7 +1021,8 @@
     "vetements": "Manteau léopard",
     "tic_ou_objet": "Ciseaux",
     "portrait": "portraits/21-johanne-tremblay-web.webp",
-    "famille": "Tremblay (Johanne)",
+    "famille": "Tremblay",
+    "branche": "Johanne",
     "parente": "Conjointe de Sylvain Gagné"
   },
   {
@@ -983,6 +1040,7 @@
     "tic_ou_objet": "Classeur de factures",
     "portrait": "portraits/60-josee-langlois-web.webp",
     "famille": "Langlois",
+    "branche": null,
     "parente": "Épouse de Steve Langlois"
   },
   {
@@ -1000,6 +1058,7 @@
     "tic_ou_objet": "Talkie bateau",
     "portrait": "portraits/96-julie-martel-web.webp",
     "famille": "Martel",
+    "branche": null,
     "parente": "Célibataire"
   },
   {
@@ -1017,6 +1076,7 @@
     "tic_ou_objet": "Talkie des pistes",
     "portrait": "portraits/139-justine-fortin-web.webp",
     "famille": "Fortin",
+    "branche": null,
     "parente": "Nièce d’Yves et Pauline Fortin"
   },
   {
@@ -1034,6 +1094,7 @@
     "tic_ou_objet": "Couteau de chef",
     "portrait": "portraits/48-karim-al-hassan-web.webp",
     "famille": "Al-Hassan",
+    "branche": null,
     "parente": "Époux de Fatima Al-Hassan"
   },
   {
@@ -1051,6 +1112,7 @@
     "tic_ou_objet": "Cahier de plaques",
     "portrait": "portraits/149-karine-desrosiers-web.webp",
     "famille": "Desrosiers-Simard",
+    "branche": null,
     "parente": "Cousine d’Anik Desrosiers"
   },
   {
@@ -1067,7 +1129,8 @@
     "vetements": "Veste cuir Les Louves",
     "tic_ou_objet": "Harley 6h AM",
     "portrait": "portraits/25-karine-gagnon-web.webp",
-    "famille": "Gagnon (motards)",
+    "famille": "Gagnon",
+    "branche": "motards",
     "parente": "Fille de Thérèse Gagnon — sœur de Rock"
   },
   {
@@ -1085,6 +1148,7 @@
     "tic_ou_objet": "Cogne portes",
     "portrait": "portraits/10-kevin-berube-web.webp",
     "famille": "Bérubé",
+    "branche": null,
     "parente": "Fils de Lucie Bérubé — frère de Jessy"
   },
   {
@@ -1102,6 +1166,7 @@
     "tic_ou_objet": "Sac médical",
     "portrait": "portraits/79-kim-boudreault-web.webp",
     "famille": "Boudreault",
+    "branche": null,
     "parente": "Célibataire"
   },
   {
@@ -1118,7 +1183,8 @@
     "vetements": "Manteau K-Way",
     "tic_ou_objet": "Clopes à la fenêtre",
     "portrait": "portraits/51-linda-tremblay-web.webp",
-    "famille": "Tremblay (Gratien)",
+    "famille": "Tremblay",
+    "branche": "Gratien",
     "parente": "Conjointe de Gratien Tremblay"
   },
   {
@@ -1136,6 +1202,7 @@
     "tic_ou_objet": "Cartable rose",
     "portrait": "portraits/89-lise-blackburn-web.webp",
     "famille": "Blackburn",
+    "branche": null,
     "parente": "Collègue de Ginette Roy"
   },
   {
@@ -1153,6 +1220,7 @@
     "tic_ou_objet": "Calculatrice",
     "portrait": "portraits/75-louis-girard-web.webp",
     "famille": "Girard",
+    "branche": null,
     "parente": "Époux d’Anne Girard"
   },
   {
@@ -1169,7 +1237,8 @@
     "vetements": "Camo",
     "tic_ou_objet": "Jumelles 24h/24",
     "portrait": "portraits/143-luc-villeneuve-web.webp",
-    "famille": "Villeneuve (ciel)",
+    "famille": "Villeneuve",
+    "branche": "ciel",
     "parente": "Célibataire — croise William McKenzie"
   },
   {
@@ -1187,6 +1256,7 @@
     "tic_ou_objet": "Lunch d’entrepôt",
     "portrait": "portraits/165-lucie-berube-web.webp",
     "famille": "Bérubé",
+    "branche": null,
     "parente": "Mère de Kevin, Jessy et tante de Big Jo"
   },
   {
@@ -1203,7 +1273,8 @@
     "vetements": "Robe maison",
     "tic_ou_objet": "Radio CKRS",
     "portrait": "portraits/69-lucie-cote-web.webp",
-    "famille": "Côté (Victoria)",
+    "famille": "Côté",
+    "branche": "Victoria",
     "parente": "Épouse de Fernand Côté"
   },
   {
@@ -1221,6 +1292,7 @@
     "tic_ou_objet": "Thermos soupe pois",
     "portrait": "portraits/22-lucien-lacroix-web.webp",
     "famille": "Lacroix",
+    "branche": null,
     "parente": "Frère de Thérèse"
   },
   {
@@ -1237,7 +1309,8 @@
     "vetements": "T-shirt du bar",
     "tic_ou_objet": "Verre à polir",
     "portrait": "portraits/102-lea-pelletier-web.webp",
-    "famille": "Pelletier (bar)",
+    "famille": "Pelletier",
+    "branche": "bar",
     "parente": "Fille d’Hugo et Sarah Pelletier"
   },
   {
@@ -1255,6 +1328,7 @@
     "tic_ou_objet": "Sac de toile et liasses de circulaires",
     "portrait": "portraits/171-leo-cloutier-web.webp",
     "famille": "Cloutier",
+    "branche": null,
     "parente": "Fils de Manon Cloutier — petit frère de Dave"
   },
   {
@@ -1272,6 +1346,7 @@
     "tic_ou_objet": "Cigarettes du relais",
     "portrait": "portraits/46-manon-cloutier-web.webp",
     "famille": "Cloutier",
+    "branche": null,
     "parente": "Mère de Dave Cloutier"
   },
   {
@@ -1288,7 +1363,8 @@
     "vetements": "Doudoune",
     "tic_ou_objet": "Cell cassé",
     "portrait": "portraits/170-manon-lavoie-web.webp",
-    "famille": "Tremblay (Gratien)",
+    "famille": "Tremblay",
+    "branche": "Gratien",
     "parente": "Mère de Cindy Lavoie"
   },
   {
@@ -1305,7 +1381,8 @@
     "vetements": "Veste cuir Les Louves",
     "tic_ou_objet": "Cigarette au bec",
     "portrait": "portraits/112-manon-villeneuve-web.webp",
-    "famille": "Gagnon (motards)",
+    "famille": "Gagnon",
+    "branche": "motards",
     "parente": "Bras droit de Karine Gagnon"
   },
   {
@@ -1323,6 +1400,7 @@
     "tic_ou_objet": "Clés Ford F-150",
     "portrait": "portraits/43-marc-andre-simard-web.webp",
     "famille": "Desrosiers-Simard",
+    "branche": null,
     "parente": "Conjoint d’Anik Desrosiers"
   },
   {
@@ -1339,7 +1417,8 @@
     "vetements": "Survêtement",
     "tic_ou_objet": "Boîte à cash",
     "portrait": "portraits/115-marcel-bouchard-web.webp",
-    "famille": "Bouchard (ruelle)",
+    "famille": "Bouchard",
+    "branche": "ruelle",
     "parente": "Célibataire — Dévon lui doit"
   },
   {
@@ -1356,7 +1435,8 @@
     "vetements": "Camisole beater tachée, short molleton",
     "tic_ou_objet": "Bouteille 2L entre cuisses, caméra Wi-Fi 25$",
     "portrait": "portraits/02-marco-lapointe-web.webp",
-    "famille": "Lapointe (Marco)",
+    "famille": "Lapointe",
+    "branche": "Marco",
     "parente": "Fils de Gérard et Monique"
   },
   {
@@ -1374,6 +1454,7 @@
     "tic_ou_objet": "Stéthoscope",
     "portrait": "portraits/77-marie-claude-brassard-web.webp",
     "famille": "Brassard",
+    "branche": null,
     "parente": "Épouse d’Émile Brassard"
   },
   {
@@ -1390,7 +1471,8 @@
     "vetements": "Cardigan",
     "tic_ou_objet": "Trousseau d’école",
     "portrait": "portraits/133-martine-lavoie-web.webp",
-    "famille": "Lavoie (école)",
+    "famille": "Lavoie",
+    "branche": "école",
     "parente": "Célibataire"
   },
   {
@@ -1408,6 +1490,7 @@
     "tic_ou_objet": "Stéthoscope animal",
     "portrait": "portraits/90-maxime-boivin-web.webp",
     "famille": "Boivin",
+    "branche": null,
     "parente": "Célibataire — véto du quartier"
   },
   {
@@ -1424,7 +1507,8 @@
     "vetements": "Veste paillettes",
     "tic_ou_objet": "Anime bingo",
     "portrait": "portraits/23-michel-lavoie-web.webp",
-    "famille": "Lavoie (Michel)",
+    "famille": "Lavoie",
+    "branche": "Michel",
     "parente": "Fils de Claude"
   },
   {
@@ -1442,6 +1526,7 @@
     "tic_ou_objet": "Thé plantes",
     "portrait": "portraits/27-mireille-joseph-web.webp",
     "famille": "Joseph",
+    "branche": null,
     "parente": "Mère de Samuel"
   },
   {
@@ -1458,7 +1543,8 @@
     "vetements": "Cardigan",
     "tic_ou_objet": "Confiture bleuets",
     "portrait": "portraits/38-monique-bouchard-web.webp",
-    "famille": "Lapointe (Marco)",
+    "famille": "Lapointe",
+    "branche": "Marco",
     "parente": "Mère de Marco"
   },
   {
@@ -1476,6 +1562,7 @@
     "tic_ou_objet": "Porte-clés kid",
     "portrait": "portraits/15-melanie-dube-web.webp",
     "famille": "Dubé",
+    "branche": null,
     "parente": "Sœur de Carl"
   },
   {
@@ -1493,6 +1580,7 @@
     "tic_ou_objet": "Calepin dettes",
     "portrait": "portraits/41-nadia-benali-web.webp",
     "famille": "Benali",
+    "branche": null,
     "parente": "Épouse d’Ahmed Benali"
   },
   {
@@ -1510,6 +1598,7 @@
     "tic_ou_objet": "Plateau de verres",
     "portrait": "portraits/58-nancy-dubois-web.webp",
     "famille": "Dubois",
+    "branche": null,
     "parente": "Sœur de Patrice Dubois"
   },
   {
@@ -1527,6 +1616,7 @@
     "tic_ou_objet": "Jumelles",
     "portrait": "portraits/98-natasha-vollant-web.webp",
     "famille": "Vollant",
+    "branche": null,
     "parente": "Célibataire"
   },
   {
@@ -1543,7 +1633,8 @@
     "vetements": "Tablier IGA",
     "tic_ou_objet": "Sacs réutilisables",
     "portrait": "portraits/45-nathalie-bouchard-web.webp",
-    "famille": "Bouchard (Chloé)",
+    "famille": "Bouchard",
+    "branche": "Chloé",
     "parente": "Mère de Chloé Bouchard"
   },
   {
@@ -1561,6 +1652,7 @@
     "tic_ou_objet": "Chalumeau",
     "portrait": "portraits/117-normand-boucher-web.webp",
     "famille": "Boucher",
+    "branche": null,
     "parente": "Cousin de Dévon et Éric Boucher"
   },
   {
@@ -1578,6 +1670,7 @@
     "tic_ou_objet": "Manuels scolaires ouverts sur le comptoir-caisse",
     "portrait": "portraits/172-nour-benali-web.webp",
     "famille": "Benali",
+    "branche": null,
     "parente": "Fille d’Ahmed et Nadia Benali — sœur d’Hassan"
   },
   {
@@ -1595,6 +1688,7 @@
     "tic_ou_objet": "Bras croisés",
     "portrait": "portraits/30-patrice-dubois-web.webp",
     "famille": "Dubois",
+    "branche": null,
     "parente": "Frère de Nancy"
   },
   {
@@ -1612,6 +1706,7 @@
     "tic_ou_objet": "Cachet de notaire",
     "portrait": "portraits/81-paule-desbiens-web.webp",
     "famille": "Desbiens",
+    "branche": null,
     "parente": "Célibataire"
   },
   {
@@ -1629,6 +1724,7 @@
     "tic_ou_objet": "Balance romaine",
     "portrait": "portraits/71-pauline-fortin-web.webp",
     "famille": "Fortin",
+    "branche": null,
     "parente": "Épouse d’Yves Fortin"
   },
   {
@@ -1645,7 +1741,8 @@
     "vetements": "Blouse d’hôpital",
     "tic_ou_objet": "Stylo poche",
     "portrait": "portraits/95-philippe-villeneuve-web.webp",
-    "famille": "Villeneuve (hôpital)",
+    "famille": "Villeneuve",
+    "branche": "hôpital",
     "parente": "Célibataire"
   },
   {
@@ -1663,6 +1760,7 @@
     "tic_ou_objet": "Sac à provisions",
     "portrait": "portraits/92-pierrette-simard-web.webp",
     "famille": "Desrosiers-Simard",
+    "branche": null,
     "parente": "Mère de Marc-André Simard"
   },
   {
@@ -1679,7 +1777,8 @@
     "vetements": "s.o.",
     "tic_ou_objet": "Dort sur frigo",
     "portrait": "portraits/12-pisse-feu-web.webp",
-    "famille": "Lapointe (Marco)",
+    "famille": "Lapointe",
+    "branche": "Marco",
     "parente": "Chat du 427 Victoria"
   },
   {
@@ -1696,7 +1795,8 @@
     "vetements": "Parka et sac-antenne",
     "tic_ou_objet": "Radio pirate 87.9",
     "portrait": "portraits/141-raymond-gagnon-web.webp",
-    "famille": "Gagnon (complot)",
+    "famille": "Gagnon",
+    "branche": "complot",
     "parente": "Célibataire — écoute Alex Tremblay"
   },
   {
@@ -1713,7 +1813,8 @@
     "vetements": "Uniforme STS",
     "tic_ou_objet": "Thermos de café",
     "portrait": "portraits/82-richard-villeneuve-web.webp",
-    "famille": "Villeneuve (bus)",
+    "famille": "Villeneuve",
+    "branche": "bus",
     "parente": "Célibataire"
   },
   {
@@ -1731,6 +1832,7 @@
     "tic_ou_objet": "Poings croisés",
     "portrait": "portraits/155-rico-leduc-web.webp",
     "famille": "Santini",
+    "branche": null,
     "parente": "Travaille pour Tony — croise Big Jo"
   },
   {
@@ -1747,7 +1849,8 @@
     "vetements": "Chemise carreaux, casquette",
     "tic_ou_objet": "Tasse café sale",
     "portrait": "portraits/33-robert-lavoie-web.webp",
-    "famille": "Lavoie (JP)",
+    "famille": "Lavoie",
+    "branche": "JP",
     "parente": "Père de JP"
   },
   {
@@ -1764,7 +1867,8 @@
     "vetements": "Veste de sécurité",
     "tic_ou_objet": "Casque de quai",
     "portrait": "portraits/136-rock-cote-web.webp",
-    "famille": "Côté (port)",
+    "famille": "Côté",
+    "branche": "port",
     "parente": "Filleul de Fernand Côté"
   },
   {
@@ -1781,7 +1885,8 @@
     "vetements": "Veste cuir Les Loups",
     "tic_ou_objet": "Clé à molette",
     "portrait": "portraits/52-rock-gagnon-web.webp",
-    "famille": "Gagnon (motards)",
+    "famille": "Gagnon",
+    "branche": "motards",
     "parente": "Fils de Thérèse Gagnon — frère de Karine"
   },
   {
@@ -1799,6 +1904,7 @@
     "tic_ou_objet": "Carnet noir",
     "portrait": "portraits/05-roger-bontemps-web.webp",
     "famille": "Bontemps",
+    "branche": null,
     "parente": "Époux de Valette"
   },
   {
@@ -1816,6 +1922,7 @@
     "tic_ou_objet": "Dort assis",
     "portrait": "portraits/03-real-chicoine-web.webp",
     "famille": "Chicoine",
+    "branche": null,
     "parente": "Fils d’Hélène"
   },
   {
@@ -1833,6 +1940,7 @@
     "tic_ou_objet": "Couteau à poisson",
     "portrait": "portraits/105-rejean-pedneault-web.webp",
     "famille": "Pedneault",
+    "branche": null,
     "parente": "Époux de Céline Pedneault"
   },
   {
@@ -1850,6 +1958,7 @@
     "tic_ou_objet": "Canne et journal",
     "portrait": "portraits/50-rejean-roy-web.webp",
     "famille": "Roy",
+    "branche": null,
     "parente": "Mari de Ginette Roy"
   },
   {
@@ -1867,6 +1976,7 @@
     "tic_ou_objet": "Manifestes de cargo",
     "portrait": "portraits/159-salvatore-martel-web.webp",
     "famille": "Santini",
+    "branche": null,
     "parente": "Relais portuaire — croise Yvan Truchon"
   },
   {
@@ -1884,6 +1994,7 @@
     "tic_ou_objet": "Thermos café fort",
     "portrait": "portraits/56-samuel-joseph-web.webp",
     "famille": "Joseph",
+    "branche": null,
     "parente": "Fils de Mireille Joseph"
   },
   {
@@ -1900,7 +2011,8 @@
     "vetements": "T-shirt du bar",
     "tic_ou_objet": "Shaker",
     "portrait": "portraits/73-sarah-pelletier-web.webp",
-    "famille": "Pelletier (bar)",
+    "famille": "Pelletier",
+    "branche": "bar",
     "parente": "Épouse d’Hugo Pelletier"
   },
   {
@@ -1918,6 +2030,7 @@
     "tic_ou_objet": "Clés de niveleuse",
     "portrait": "portraits/88-serge-potvin-web.webp",
     "famille": "Potvin",
+    "branche": null,
     "parente": "Célibataire"
   },
   {
@@ -1934,7 +2047,8 @@
     "vetements": "Fausse fourrure",
     "tic_ou_objet": "Couronne Dollarama",
     "portrait": "portraits/142-solange-bouchard-web.webp",
-    "famille": "Bouchard (couronne)",
+    "famille": "Bouchard",
+    "branche": "couronne",
     "parente": "Célibataire"
   },
   {
@@ -1951,7 +2065,8 @@
     "vetements": "Uniforme CHSLD",
     "tic_ou_objet": "Lunch Tupperware",
     "portrait": "portraits/42-sonia-tremblay-web.webp",
-    "famille": "Tremblay (Alex)",
+    "famille": "Tremblay",
+    "branche": "Alex",
     "parente": "Mère d’Alex Tremblay"
   },
   {
@@ -1968,7 +2083,8 @@
     "vetements": "Salopette de garage",
     "tic_ou_objet": "Clé à chocs",
     "portrait": "portraits/118-steve-gauthier-web.webp",
-    "famille": "Gauthier (casse)",
+    "famille": "Gauthier",
+    "branche": "casse",
     "parente": "Célibataire — fournit Bobby"
   },
   {
@@ -1986,6 +2102,7 @@
     "tic_ou_objet": "Coffre rouillé",
     "portrait": "portraits/18-steve-langlois-web.webp",
     "famille": "Langlois",
+    "branche": null,
     "parente": "Époux de Josée"
   },
   {
@@ -2002,7 +2119,8 @@
     "vetements": "Polo Dollarama",
     "tic_ou_objet": "Jouets",
     "portrait": "portraits/40-stephanie-lapointe-web.webp",
-    "famille": "Lapointe (Marco)",
+    "famille": "Lapointe",
+    "branche": "Marco",
     "parente": "Sœur de Marco"
   },
   {
@@ -2019,7 +2137,8 @@
     "vetements": "Manteau hockey",
     "tic_ou_objet": "Sifflet au cou",
     "portrait": "portraits/131-sylvain-bouchard-web.webp",
-    "famille": "Bouchard (hockey)",
+    "famille": "Bouchard",
+    "branche": "hockey",
     "parente": "Célibataire"
   },
   {
@@ -2036,7 +2155,8 @@
     "vetements": "Tablier de coiffeur",
     "tic_ou_objet": "Ciseaux japonais",
     "portrait": "portraits/67-sylvain-gagne-web.webp",
-    "famille": "Tremblay (Johanne)",
+    "famille": "Tremblay",
+    "branche": "Johanne",
     "parente": "Conjoint de Johanne Tremblay"
   },
   {
@@ -2053,7 +2173,8 @@
     "vetements": "Michael Kors",
     "tic_ou_objet": "Mercedes GLK, bail",
     "portrait": "portraits/13-sylvie-gagnon-web.webp",
-    "famille": "Gagnon (immobilier)",
+    "famille": "Gagnon",
+    "branche": "immobilier",
     "parente": "Fille de Jeanne Gagnon — ex-épouse de Bertrand"
   },
   {
@@ -2070,7 +2191,8 @@
     "vetements": "Veste cuir sur cardigan",
     "tic_ou_objet": "Harley parkée",
     "portrait": "portraits/164-therese-gagnon-web.webp",
-    "famille": "Gagnon (motards)",
+    "famille": "Gagnon",
+    "branche": "motards",
     "parente": "Mère de Karine et Rock Gagnon"
   },
   {
@@ -2088,6 +2210,7 @@
     "tic_ou_objet": "Chapelet",
     "portrait": "portraits/54-therese-lacroix-web.webp",
     "famille": "Lacroix",
+    "branche": null,
     "parente": "Sœur de Lucien Lacroix"
   },
   {
@@ -2104,7 +2227,8 @@
     "vetements": "Peignoir et manteau",
     "tic_ou_objet": "Chariot IGA",
     "portrait": "portraits/144-ti-paul-cote-web.webp",
-    "famille": "Côté (ruelle)",
+    "famille": "Côté",
+    "branche": "ruelle",
     "parente": "Célibataire — copain de Réal Chicoine"
   },
   {
@@ -2122,6 +2246,7 @@
     "tic_ou_objet": "Bottes crottées",
     "portrait": "portraits/101-tommy-fortin-web.webp",
     "famille": "Fortin",
+    "branche": null,
     "parente": "Fils d’Yves et Pauline Fortin"
   },
   {
@@ -2139,6 +2264,7 @@
     "tic_ou_objet": "Cigarette au bec",
     "portrait": "portraits/154-tony-santini-web.webp",
     "famille": "Santini",
+    "branche": null,
     "parente": "Neveu de Vittorio — parle à Bobby Gagnon"
   },
   {
@@ -2156,6 +2282,7 @@
     "tic_ou_objet": "Chasse odeur",
     "portrait": "portraits/06-valette-bontemps-web.webp",
     "famille": "Bontemps",
+    "branche": null,
     "parente": "Épouse de Roger"
   },
   {
@@ -2172,7 +2299,8 @@
     "vetements": "Chandail CPE",
     "tic_ou_objet": "Autocollants",
     "portrait": "portraits/85-veronique-cote-web.webp",
-    "famille": "Côté (CPE)",
+    "famille": "Côté",
+    "branche": "CPE",
     "parente": "Collègue de Mélanie Dubé"
   },
   {
@@ -2190,6 +2318,7 @@
     "tic_ou_objet": "Dog tags",
     "portrait": "portraits/97-william-mckenzie-web.webp",
     "famille": "McKenzie",
+    "branche": null,
     "parente": "Célibataire"
   },
   {
@@ -2207,6 +2336,7 @@
     "tic_ou_objet": "Guitare Folkway",
     "portrait": "portraits/91-yan-couture-web.webp",
     "famille": "Couture",
+    "branche": null,
     "parente": "Célibataire — joue au bingo de Michel"
   },
   {
@@ -2224,6 +2354,7 @@
     "tic_ou_objet": "Pontiac Grand Prix",
     "portrait": "portraits/11-yvan-truchon-web.webp",
     "famille": "Truchon",
+    "branche": null,
     "parente": "Fils de Cécile Truchon — conjoint de Gisèle"
   },
   {
@@ -2241,6 +2372,7 @@
     "tic_ou_objet": "Seau de bleuets",
     "portrait": "portraits/70-yves-fortin-web.webp",
     "famille": "Fortin",
+    "branche": null,
     "parente": "Époux de Pauline Fortin"
   },
   {
@@ -2258,6 +2390,7 @@
     "tic_ou_objet": "Dépliant d’expo",
     "portrait": "portraits/140-elodie-martel-web.webp",
     "famille": "Martel",
+    "branche": null,
     "parente": "Cousine de Julie et Amélie Martel"
   },
   {
@@ -2275,6 +2408,7 @@
     "tic_ou_objet": "Radio portative",
     "portrait": "portraits/76-emile-brassard-web.webp",
     "famille": "Brassard",
+    "branche": null,
     "parente": "Époux de Marie-Claude Brassard"
   },
   {
@@ -2292,6 +2426,7 @@
     "tic_ou_objet": "Talkie-walkie",
     "portrait": "portraits/87-emilie-gauthier-web.webp",
     "famille": "Gauthier",
+    "branche": null,
     "parente": "Supérieure de Stéphanie Lapointe"
   },
   {
@@ -2309,6 +2444,7 @@
     "tic_ou_objet": "Aimant à ferraille",
     "portrait": "portraits/47-eric-boucher-web.webp",
     "famille": "Boucher",
+    "branche": null,
     "parente": "Fils de Fernande — frère de Dévon"
   },
   {
@@ -2325,7 +2461,8 @@
     "vetements": "Veston",
     "tic_ou_objet": "Canne au parc",
     "portrait": "portraits/169-albert-dufour-web.webp",
-    "famille": "Dufour (hôtel de ville)",
+    "famille": "Dufour",
+    "branche": "hôtel de ville",
     "parente": "Père du maire Gilles Dufour"
   },
   {
@@ -2342,7 +2479,8 @@
     "vetements": "Uniforme SPS",
     "tic_ou_objet": "Insigne de poitrine",
     "portrait": "portraits/123-andre-simard-web.webp",
-    "famille": "Simard (police)",
+    "famille": "Simard",
+    "branche": "police",
     "parente": "Supérieur de Pierre Samson"
   },
   {
@@ -2360,6 +2498,7 @@
     "tic_ou_objet": "Cartes de visite",
     "portrait": "portraits/128-caroline-otis-web.webp",
     "famille": "Otis",
+    "branche": null,
     "parente": "Nièce de Jeanne Otis"
   },
   {
@@ -2377,6 +2516,7 @@
     "tic_ou_objet": "Agenda noir",
     "portrait": "portraits/64-catherine-samson-web.webp",
     "famille": "Samson",
+    "branche": null,
     "parente": "Épouse de Pierre Samson"
   },
   {
@@ -2394,6 +2534,7 @@
     "tic_ou_objet": "Néons du bar",
     "portrait": "portraits/158-danny-fortin-web.webp",
     "famille": "Santini",
+    "branche": null,
     "parente": "Façade du clan — croise Lady Dynamite"
   },
   {
@@ -2411,6 +2552,7 @@
     "tic_ou_objet": "Casque-micro",
     "portrait": "portraits/129-denis-pedneault-web.webp",
     "famille": "Pedneault",
+    "branche": null,
     "parente": "Cousin de Réjean Pedneault"
   },
   {
@@ -2428,6 +2570,7 @@
     "tic_ou_objet": "Carnet de cuir",
     "portrait": "portraits/153-enzo-bianchi-web.webp",
     "famille": "Santini",
+    "branche": null,
     "parente": "Conseiller de Vittorio"
   },
   {
@@ -2444,7 +2587,8 @@
     "vetements": "Chemise de rédaction",
     "tic_ou_objet": "Stylo rouge",
     "portrait": "portraits/134-francois-cote-web.webp",
-    "famille": "Côté (presse)",
+    "famille": "Côté",
+    "branche": "presse",
     "parente": "Patron d’Olivier Savard — ex-patron de JP"
   },
   {
@@ -2461,7 +2605,8 @@
     "vetements": "Complet, épinglette de ville",
     "tic_ou_objet": "Poignée de main",
     "portrait": "portraits/121-gilles-dufour-web.webp",
-    "famille": "Dufour (hôtel de ville)",
+    "famille": "Dufour",
+    "branche": "hôtel de ville",
     "parente": "Fils d’Albert Dufour — maire de Saguenay"
   },
   {
@@ -2479,6 +2624,7 @@
     "tic_ou_objet": "Sac à main",
     "portrait": "portraits/168-helene-samson-web.webp",
     "famille": "Samson",
+    "branche": null,
     "parente": "Mère de Pierre Samson"
   },
   {
@@ -2495,7 +2641,8 @@
     "vetements": "Blazer rouge",
     "tic_ou_objet": "Épinglette fleurdelisé",
     "portrait": "portraits/122-isabelle-gagne-web.webp",
-    "famille": "Gagné (politique)",
+    "famille": "Gagné",
+    "branche": "politique",
     "parente": "Célibataire"
   },
   {
@@ -2512,7 +2659,8 @@
     "vetements": "Complet cheap",
     "tic_ou_objet": "Trois cellulaires",
     "portrait": "portraits/119-jonathan-roy-web.webp",
-    "famille": "Roy (arnaque)",
+    "famille": "Roy",
+    "branche": "arnaque",
     "parente": "Célibataire — croise Alex Tremblay"
   },
   {
@@ -2530,6 +2678,7 @@
     "tic_ou_objet": "VUS noir",
     "portrait": "portraits/157-julien-gagne-web.webp",
     "famille": "Santini",
+    "branche": null,
     "parente": "Chauffeur de Vittorio"
   },
   {
@@ -2547,6 +2696,7 @@
     "tic_ou_objet": "Paye trop cher",
     "portrait": "portraits/26-justin-chen-web.webp",
     "famille": "Chen",
+    "branche": null,
     "parente": "Fils de Mei"
   },
   {
@@ -2563,7 +2713,8 @@
     "vetements": "Hoodie UQAC",
     "tic_ou_objet": "Livre psycho",
     "portrait": "portraits/36-laurie-lavoie-web.webp",
-    "famille": "Lavoie (JP)",
+    "famille": "Lavoie",
+    "branche": "JP",
     "parente": "Sœur de JP"
   },
   {
@@ -2580,7 +2731,8 @@
     "vetements": "Toge",
     "tic_ou_objet": "Marteau de bois",
     "portrait": "portraits/127-louise-villeneuve-web.webp",
-    "famille": "Villeneuve (palais)",
+    "famille": "Villeneuve",
+    "branche": "palais",
     "parente": "Collègue de Catherine Samson"
   },
   {
@@ -2598,6 +2750,7 @@
     "tic_ou_objet": "Rosaire au poignet",
     "portrait": "portraits/152-maria-santini-web.webp",
     "famille": "Santini",
+    "branche": null,
     "parente": "Épouse de Vittorio"
   },
   {
@@ -2615,6 +2768,7 @@
     "tic_ou_objet": "Badges de chambre",
     "portrait": "portraits/63-mei-chen-web.webp",
     "famille": "Chen",
+    "branche": null,
     "parente": "Mère de Justin Chen"
   },
   {
@@ -2631,7 +2785,8 @@
     "vetements": "Soutane, rabat violet",
     "tic_ou_objet": "Anneau pastoral",
     "portrait": "portraits/126-mgr-paul-tremblay-web.webp",
-    "famille": "Tremblay (Église)",
+    "famille": "Tremblay",
+    "branche": "Église",
     "parente": "Supérieur de Lucien Lacroix"
   },
   {
@@ -2649,6 +2804,7 @@
     "tic_ou_objet": "Sourire de défi",
     "portrait": "portraits/160-nico-santini-web.webp",
     "famille": "Santini",
+    "branche": null,
     "parente": "Fils de Vittorio et Maria"
   },
   {
@@ -2666,6 +2822,7 @@
     "tic_ou_objet": "Carnet spiralé",
     "portrait": "portraits/78-olivier-savard-web.webp",
     "famille": "Savard",
+    "branche": null,
     "parente": "Célibataire — ex-collègue de JP"
   },
   {
@@ -2682,7 +2839,8 @@
     "vetements": "Polo construction",
     "tic_ou_objet": "Devis 400k",
     "portrait": "portraits/39-patrick-lapointe-web.webp",
-    "famille": "Lapointe (Marco)",
+    "famille": "Lapointe",
+    "branche": "Marco",
     "parente": "Frère de Marco"
   },
   {
@@ -2700,6 +2858,7 @@
     "tic_ou_objet": "Tableurs",
     "portrait": "portraits/156-paul-andre-cote-web.webp",
     "famille": "Santini",
+    "branche": null,
     "parente": "Comptable du clan — croise Bertrand Gagnon"
   },
   {
@@ -2717,6 +2876,7 @@
     "tic_ou_objet": "Clique Bic bleu",
     "portrait": "portraits/07-pierre-samson-web.webp",
     "famille": "Samson",
+    "branche": null,
     "parente": "Fils d’Hélène Samson — époux de Catherine"
   },
   {
@@ -2734,6 +2894,7 @@
     "tic_ou_objet": "Carnet de notes",
     "portrait": "portraits/104-sophie-labbe-web.webp",
     "famille": "Labbé",
+    "branche": null,
     "parente": "Célibataire — collègue de Laurie Lavoie"
   },
   {
@@ -2751,6 +2912,7 @@
     "tic_ou_objet": "Chevalière en or",
     "portrait": "portraits/151-vittorio-santini-web.webp",
     "famille": "Santini",
+    "branche": null,
     "parente": "Époux de Maria — tient Dévon à distance"
   },
   {
@@ -2768,6 +2930,7 @@
     "tic_ou_objet": "Skateboard",
     "portrait": "portraits/100-eric-simard-web.webp",
     "famille": "Chen",
+    "branche": null,
     "parente": "Colocataire de Justin Chen"
   },
   {
@@ -2785,6 +2948,7 @@
     "tic_ou_objet": "Veut docu raw",
     "portrait": "portraits/20-antoine-lefevre-web.webp",
     "famille": "Lefèvre",
+    "branche": null,
     "parente": "Frère de Camille"
   },
   {
@@ -2802,6 +2966,7 @@
     "tic_ou_objet": "Clap de cinéma",
     "portrait": "portraits/86-benoit-larouche-web.webp",
     "famille": "Larouche",
+    "branche": null,
     "parente": "Prof d’Antoine Lefèvre"
   },
   {
@@ -2819,6 +2984,7 @@
     "tic_ou_objet": "Pentax vintage",
     "portrait": "portraits/65-camille-lefevre-web.webp",
     "famille": "Lefèvre",
+    "branche": null,
     "parente": "Sœur d’Antoine Lefèvre"
   },
   {
@@ -2836,6 +3002,7 @@
     "tic_ou_objet": "Masque de soudure",
     "portrait": "portraits/66-dany-aubin-web.webp",
     "famille": "Aubin",
+    "branche": null,
     "parente": "Frère de Sam Aubin"
   },
   {
@@ -2852,7 +3019,8 @@
     "vetements": "Manteau d’usine",
     "tic_ou_objet": "Cartable de griefs",
     "portrait": "portraits/137-gerald-tremblay-web.webp",
-    "famille": "Tremblay (syndicat)",
+    "famille": "Tremblay",
+    "branche": "syndicat",
     "parente": "Collègue de Mathieu Lavoie"
   },
   {
@@ -2869,7 +3037,8 @@
     "vetements": "Manteau et casque blanc",
     "tic_ou_objet": "Casque sous le bras",
     "portrait": "portraits/125-jean-marc-fortin-web.webp",
-    "famille": "Fortin (industrie)",
+    "famille": "Fortin",
+    "branche": "industrie",
     "parente": "Patron de Mathieu Lavoie et Nicolas Gagné"
   },
   {
@@ -2886,7 +3055,8 @@
     "vetements": "Polo Rio Tinto",
     "tic_ou_objet": "Boîte à lunch",
     "portrait": "portraits/35-mathieu-lavoie-web.webp",
-    "famille": "Lavoie (JP)",
+    "famille": "Lavoie",
+    "branche": "JP",
     "parente": "Frère aîné de JP"
   },
   {
@@ -2904,6 +3074,7 @@
     "tic_ou_objet": "Perche micro",
     "portrait": "portraits/110-melissa-harvey-web.webp",
     "famille": "Harvey",
+    "branche": null,
     "parente": "Nièce de François Harvey"
   },
   {
@@ -2920,7 +3091,8 @@
     "vetements": "Polo Rio Tinto",
     "tic_ou_objet": "Casque blanc",
     "portrait": "portraits/94-nicolas-gagne-web.webp",
-    "famille": "Gagné (Arvida)",
+    "famille": "Gagné",
+    "branche": "Arvida",
     "parente": "Collègue de Mathieu Lavoie"
   },
   {
@@ -2938,6 +3110,7 @@
     "tic_ou_objet": "Efface tattoos gang",
     "portrait": "portraits/24-sam-aubin-web.webp",
     "famille": "Aubin",
+    "branche": null,
     "parente": "Frère de Dany"
   }
 ]

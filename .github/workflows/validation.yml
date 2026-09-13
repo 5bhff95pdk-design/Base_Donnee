@@ -1,18 +1,37 @@
 name: Validation de la base
 
-# Régénère tous les livrables à partir du classeur maître, vérifie que la
-# génération est reproductible (zéro diff = pas d'horodatage volatile), puis
-# lance les garde-fous de tests/test_base.py.
+# Régénère tous les livrables à partir de la source texte (data/*.csv), vérifie
+# que la génération est reproductible (zéro diff = pas d'horodatage volatile),
+# contrôle le style du code puis lance les garde-fous de tests/test_base.py.
+#
+# Exécution programmée : une dépendance qui casse (openpyxl, Pillow, runner)
+# serait détectée sans attendre le prochain commit.
 
 on:
   push:
     branches: [main, 'arena/**']
   pull_request:
+  schedule:
+    - cron: '23 4 * * 1'      # chaque lundi, 04:23 UTC
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Dépendances de développement
+        run: python -m pip install --upgrade pip -r requirements-dev.txt
+      - name: Ruff
+        run: ruff check --output-format=github .
+
   valider:
     runs-on: ubuntu-latest
     steps:
@@ -60,7 +79,7 @@ jobs:
       - name: Les livrables données/code commités sont à jour
         run: |
           # Tous les livrables texte/données (xlsx inclus) doivent être
-          # reproductibles et à jour par rapport au classeur maître.
+          # reproductibles et à jour par rapport à la source data/.csv.
           # Exception : la planche contact WebP est une image compressée par
           # libwebp natif, dont les octets varient selon le codec du runner ;
           # son idempotence est garantie par l'étape précédente (même runner),
@@ -75,6 +94,16 @@ jobs:
             exit 1
           fi
           echo "✔ Livrables données/code à jour et reproductibles."
+
+      - name: La narration n'est pas versionnée
+        run: |
+          # Filet de sécurité : la narration (répliques, arcs, factions) est une
+          # source privée. Si elle apparaît dans l'index Git, on échoue.
+          if [ -n "$(git ls-files data/narration.csv)" ]; then
+            echo "::error::data/narration.csv est commité : retirer la narration du dépôt."
+            exit 1
+          fi
+          echo "✔ Narration absente du dépôt (source privée)."
 
       - name: Garde-fous (tests)
         run: python -m unittest discover -s tests -v
