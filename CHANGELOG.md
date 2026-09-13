@@ -4,6 +4,44 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 Ce projet n'a pas de version publiée : les entrées datent les bascules
 structurantes.
 
+## [2026-09-13] — Documentation : état actuel séparé des archives
+
+- Ancienne analyse et suivis préservés dans `docs/historique/`, avec avertissement
+  de lecture et liens relatifs adaptés ; `docs/analyse-projet.md` devient l’état actuel.
+- README corrigé : classeur unique à quatre feuilles, export des relations,
+  parcours documentaires, portée réelle des tests et narration publique.
+- Inventaire des fichiers de licence et nombre de mineurs actualisés, sans
+  changement des licences annoncées ni audit juridique.
+- Trois garde-fous documentaires supplémentaires : chiffres de l’analyse,
+  séparation historique/courant et liens Markdown locaux (60 tests Python).
+- Limites encore ouvertes explicitement documentées : stockage local corrompu,
+  erreurs de construction, services externes et couverture navigateur notamment.
+
+## [2026-09-13] — Relations explicites et atelier narratif
+
+- Première extraction éditoriale de 114 relations entre 141 personnages dans
+  `data/relations.csv`, avec IDs, type et provenance exacte (champ Parenté).
+- Validation des références, symétrie, doublons, auto-relations, cycles parentaux
+  et preuves désynchronisées ; nouveaux livrables JSON autonome et feuille Relations.
+- Huit tests supplémentaires (57 Python au total), dont la séparation des
+  propositions narratives et des livrables canoniques.
+- Atelier non canonique de 13 personnages centraux : faits existants sourcés,
+  propositions de désirs, enjeux, contradictions et décisions à valider.
+- Documentation du périmètre partiel : pas d’inférence par clan et pas de
+  conversion automatique des mentions vagues (« croise », « lui doit »…).
+
+## [2026-09-13] — Identifiants stables des personnages
+
+- Migration des 213 personnages et fiches de narration vers un ID permanent,
+  attribué une seule fois depuis la numérotation des portraits existants.
+- Ajout de `ID` en dernière colonne (17/9 colonnes) et de `id` aux exports
+  JSON/GeoJSON/carte, y compris `Feature.id`.
+- Jointure de la narration par ID ; libellés du classeur issus de la base.
+- Chemins des portraits explicites, conservés lors d’un renommage ; les
+  40 chemins auparavant implicites ont été renseignés sans déplacer d’image.
+- Six garde-fous supplémentaires : propagation des IDs, format, doublons,
+  références orphelines/manquantes, renommage/réordonnancement, chemin invalide.
+
 ## [2026-09-13] — La narration devient publique (fichier versionné, classeur unique)
 
 Décision d'auteur : la séparation public/privé instaurée lors de la revue

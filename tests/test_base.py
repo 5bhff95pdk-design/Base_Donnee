@@ -22,6 +22,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 import zipfile
 from pathlib import Path
 
@@ -34,7 +35,7 @@ sys.path.insert(0, str(RACINE))
 import construire_base as cb  # noqa: E402  (date figée, colonnes, source)
 
 N = 213                      # nombre canonique d'entrées
-COLONNES = cb.COLONNES       # 16 colonnes (Famille + Branche depuis 2026-09-13)
+COLONNES = cb.COLONNES       # 17 colonnes (identifiant stable inclus)
 MINEURS = {'Léo Cloutier': 9, 'Nour Benali': 13, 'Alexandre Lavoie': 16,
            # cohorte « jeunes » du 2026-09-13 (aréna, école, restaurant familial)
            'Jade Boivin': 12, 'Noah Traoré': 14, 'Thomas Bergeron': 15,
@@ -89,7 +90,7 @@ class TestEffectifsEtFormats(unittest.TestCase):
     def test_colonnes_canoniques(self):
         hdr = [c.value for c in self.wb['Personnages'][1]]
         self.assertEqual(hdr, COLONNES)
-        self.assertEqual(len(COLONNES), 16)
+        self.assertEqual(len(COLONNES), 17)
 
 
 class TestSourceTexte(unittest.TestCase):
@@ -134,6 +135,181 @@ class TestSourceTexte(unittest.TestCase):
         for v in valeurs:
             self.assertEqual(v, v.strip())
             self.assertNotIn('/', v.replace(' / ', ''), f'« {v} » : séparateur ambigu')
+
+
+
+class TestIdentifiants(unittest.TestCase):
+    def test_ids_sources_et_exports(self):
+        source = {r['ID']: r['Nom'] for r in cb.charger_personnages()}
+        self.assertEqual(len(source), N)
+        self.assertEqual(set(source), {r['ID'] for r in cb.charger_narration(cb.charger_personnages())})
+        with open('base_personnages_fictifs.json', encoding='utf-8') as f:
+            self.assertEqual(source, {r['id']: r['nom'] for r in json.load(f)})
+        with open('base_personnages_fictifs.geojson', encoding='utf-8') as f:
+            features = json.load(f)['features']
+        self.assertEqual(source, {r['id']: r['properties']['nom'] for r in features})
+        for r in features:
+            self.assertEqual(r['id'], r['properties']['id'])
+        with open('base_personnages_fictifs.csv', encoding='utf-8-sig') as f:
+            self.assertEqual(source, {r['ID']: r['Nom'] for r in csv.DictReader(f, delimiter=';')})
+        self.assertEqual(source, {r['ID']: r['Nom'] for r in charger_xlsx()[1]})
+        wb = openpyxl.load_workbook(cb.XLSX)
+        lignes = list(wb['Narration'].values)
+        narr = [dict(zip(lignes[0], r)) for r in lignes[1:]]
+        self.assertEqual(source, {r['ID']: r['Nom'] for r in narr})
+        for fichier in (cb.CARTE_CANONIQUE, cb.CARTE_RACINE):
+            h = Path(fichier).read_text(encoding='utf-8')
+            donnees = json.loads(re.search(r'const PERSOS=(\[.*?\]);', h, re.S)[1])
+            self.assertEqual(source, {r['id']: r['nom'] for r in donnees})
+
+    def test_ids_invalides_refuses(self):
+        for identifiant in (None, '', 'P000', 'P01', 'P0001', 'p001', 'P001 ', 'Pabc'):
+            with self.subTest(identifiant=identifiant), self.assertRaises(SystemExit):
+                cb.valider_ids([{'ID': identifiant}], 'test')
+        cb.valider_ids([{'ID': 'P001'}, {'ID': 'P1000'}], 'test')
+
+    def test_doublons_refuses(self):
+        rows = cb.lire_csv(SRC_PERSOS, COLONNES)
+        with patch.object(cb, 'lire_csv', return_value=[rows[0], rows[0]]):
+            with self.assertRaisesRegex(SystemExit, 'ID en double'):
+                cb.charger_personnages()
+        narr = cb.lire_csv(SRC_NARR, cb.NARR_COLS)
+        with patch.object(cb, 'lire_csv', return_value=[narr[0], narr[0]]):
+            with self.assertRaisesRegex(SystemExit, 'ID en double'):
+                cb.charger_narration(rows)
+
+    def test_narration_orpheline_ou_manquante_refusee(self):
+        rows = cb.charger_personnages()
+        narr = cb.lire_csv(SRC_NARR, cb.NARR_COLS)
+        for variante in (narr[1:], [dict(narr[0], ID='P999'), *narr[1:]]):
+            with patch.object(cb, 'lire_csv', return_value=variante):
+                with self.assertRaisesRegex(SystemExit, 'Narration désynchronisée'):
+                    cb.charger_narration(rows)
+
+    def test_renommage_et_reordre_conservent_les_liens(self):
+        rows = cb.lire_csv(SRC_PERSOS, COLONNES)
+        original = dict(rows[0])
+        rows[0]['Nom'] = 'Nouveau nom sans fichier correspondant'
+        rows[0]['Surnom'] = 'Nouveau surnom'
+        with patch.object(cb, 'lire_csv', return_value=list(reversed(rows))):
+            charges = cb.charger_personnages()
+        perso = next(r for r in charges if r['ID'] == original['ID'])
+        self.assertEqual(perso['Portrait'], original['Portrait'])
+        avant = next(r for r in cb.lire_csv(SRC_NARR) if r['ID'] == original['ID'])
+        apres = next(r for r in cb.charger_narration(charges) if r['ID'] == original['ID'])
+        self.assertEqual(apres['Nom'], perso['Nom'])
+        self.assertEqual(apres['Surnom'], perso['Surnom'])
+        for champ in ('Faction', 'Arc S1', 'Quote joual'):
+            self.assertEqual(apres[champ], avant[champ])
+
+    def test_chemin_portrait_invalide_refuse(self):
+        rows = cb.lire_csv(SRC_PERSOS, COLONNES)
+        rows[0]['Portrait'] = 'portraits/fichier-inexistant-web.webp'
+        with patch.object(cb, 'lire_csv', return_value=rows):
+            with self.assertRaisesRegex(SystemExit, 'Portrait introuvable'):
+                cb.charger_personnages()
+
+
+class TestRelations(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.persos = cb.charger_personnages()
+        cls.liens = cb.relations.charger(cls.persos)
+
+    def test_source_relations_et_provenance(self):
+        self.assertGreater(len(self.liens), 0)
+        base = {r['ID']: r for r in self.persos}
+        for lien in self.liens:
+            self.assertEqual(lien['Extrait'], base[lien['Preuve_ID']]['Parenté'])
+        self.assertEqual(self.liens, cb.relations.valider(self.liens, self.persos))
+
+    def test_relations_references_et_types_invalides(self):
+        for champ, valeur in [('Source_ID', 'P999'), ('Cible_ID', 'P999'),
+                               ('Preuve_ID', 'P999'), ('Type', 'invente'),
+                               ('Champ_source', 'Arc S1'), ('Extrait', 'preuve inventée'),
+                               ('Extrait', ''), ('Extrait', None)]:
+            with self.subTest(champ=champ, valeur=valeur), self.assertRaises(SystemExit):
+                cb.relations.valider([dict(self.liens[0], **{champ: valeur})], self.persos)
+        ligne = dict(self.liens[0])
+        del ligne['Extrait']
+        with self.assertRaises(SystemExit):
+            cb.relations.valider([ligne], self.persos)
+
+    def test_relations_doublons_et_symetrie(self):
+        lien = next(r for r in self.liens if r['Type'] == 'conjoint_de')
+        with self.assertRaisesRegex(SystemExit, 'en double'):
+            cb.relations.valider([lien, lien], self.persos)
+        inverse = dict(lien, Source_ID=lien['Cible_ID'], Cible_ID=lien['Source_ID'])
+        with self.assertRaisesRegex(SystemExit, 'symétrique'):
+            cb.relations.valider([inverse], self.persos)
+
+    def test_relations_auto_liens_et_cycles(self):
+        lien = next(r for r in self.liens if r['Type'] == 'parent_de')
+        with self.assertRaisesRegex(SystemExit, 'auto-relation'):
+            cb.relations.valider([dict(lien, Cible_ID=lien['Source_ID'])], self.persos)
+        inverse = dict(lien, Source_ID=lien['Cible_ID'], Cible_ID=lien['Source_ID'])
+        with self.assertRaisesRegex(SystemExit, 'cycle de parenté'):
+            cb.relations.valider([lien, inverse], self.persos)
+
+    def test_relations_survivent_aux_renommages(self):
+        lien = self.liens[0]
+        persos = [dict(r, Nom='Nom modifié') if r['ID'] == lien['Source_ID'] else dict(r)
+                  for r in self.persos]
+        charges = cb.relations.valider(list(reversed(self.liens)), persos)
+        self.assertEqual(charges, self.liens)
+        export = cb.relations.serialiser(charges, persos)
+        self.assertEqual(export['relations'][0]['source_nom'], 'Nom modifié')
+        self.assertEqual(export['relations'][0]['source_id'], lien['Source_ID'])
+
+    def test_relations_exports_et_feuille(self):
+        attendu = cb.relations.serialiser(self.liens, self.persos)
+        self.assertEqual(json.loads(cb.relations.EXPORT.read_text(encoding='utf-8')), attendu)
+        wb, _ = charger_xlsx()
+        lignes = list(wb['Relations'].values)
+        self.assertEqual(len(lignes) - 1, len(self.liens))
+        for original, valeurs in zip(self.liens, lignes[1:]):
+            ligne = dict(zip(lignes[0], valeurs))
+            for cle in cb.relations.COLONNES:
+                self.assertEqual(ligne[cle], original[cle])
+        with tempfile.TemporaryDirectory() as tmp:
+            chemin = Path(tmp) / 'relations.json'
+            with patch.object(cb.relations, 'EXPORT', chemin):
+                cb.relations.exporter(self.liens, self.persos)
+                premier = chemin.read_bytes()
+                cb.relations.exporter(self.liens, self.persos)
+                self.assertEqual(premier, chemin.read_bytes())
+
+    def test_relations_source_absente_ou_malformee(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            chemin = Path(tmp) / 'relations.csv'
+            with patch.object(cb.relations, 'SOURCE', chemin):
+                with self.assertRaisesRegex(SystemExit, 'introuvable'):
+                    cb.relations.charger(self.persos)
+                chemin.write_text('Mauvaise;Entete\n', encoding='utf-8')
+                with self.assertRaisesRegex(SystemExit, 'en-tête'):
+                    cb.relations.charger(self.persos)
+                chemin.write_text(';'.join(cb.relations.COLONNES) + '\n', encoding='utf-8')
+                with self.assertRaisesRegex(SystemExit, 'source vide'):
+                    cb.relations.charger(self.persos)
+
+    def test_propositions_separees_des_livrables(self):
+        texte = Path('docs/propositions-personnages-centraux.md').read_text(encoding='utf-8')
+        self.assertIn('non canonique', texte)
+        ids = re.findall(r'^## (P[0-9]+) —', texte, re.M)
+        self.assertEqual(len(ids), len(set(ids)))
+        self.assertTrue(10 <= len(ids) <= 15)
+        self.assertLessEqual(set(ids), {r['ID'] for r in self.persos})
+        # Les formulations proposées ne doivent pas apparaître dans les sources
+        # ni les livrables ; seul ce document constitue l'atelier éditorial.
+        propositions = re.findall(r'^- \*\*Désir :\*\* (.+)$', texte, re.M)
+        self.assertEqual(len(propositions), len(ids))
+        wb, _ = charger_xlsx()
+        contenu = ' '.join(str(c.value) for feuille in wb for row in feuille for c in row)
+        for fichier in (SRC_PERSOS, SRC_NARR, str(cb.relations.EXPORT),
+                        'base_personnages_fictifs.json', cb.CARTE_CANONIQUE):
+            contenu += Path(fichier).read_text(encoding='utf-8')
+        for proposition in propositions:
+            self.assertNotIn(proposition, contenu)
 
 
 class TestConventions(unittest.TestCase):
@@ -327,8 +503,8 @@ class TestNarration(unittest.TestCase):
         self.assertNotIn('quote joual', js)
 
     def test_couverture_et_vocabulaire(self):
-        noms_base = {r['Nom'] for r in self.recs}
-        noms_narr = {lg['Nom'] for lg in self.narr}
+        noms_base = {r['ID'] for r in self.recs}
+        noms_narr = {lg['ID'] for lg in self.narr}
         self.assertEqual(noms_narr, noms_base,
                          f'manquants : {noms_base - noms_narr} ; orphelins : {noms_narr - noms_base}')
         for lg in self.narr:
@@ -342,12 +518,11 @@ class TestNarration(unittest.TestCase):
             valides = {lg.strip() for lg in f if lg.strip() and not lg.lstrip().startswith('#')}
         fautifs = {lg['Faction'] for lg in self.narr} - valides
         self.assertFalse(fautifs, f'factions hors vocabulaire : {fautifs}')
-        # surnoms alignés sur la base : la narration ne dérive pas de la source
-        surnoms_base = {r['Nom']: r['Surnom'] for r in self.recs}
-        for lg in self.narr:
-            self.assertEqual((lg.get('Surnom') or '').strip(),
-                             (surnoms_base[lg['Nom']] or '').strip(),
-                             f'{lg["Nom"]} : Surnom différent de data/personnages.csv')
+        # Les libellés du classeur suivent la base par ID, même après renommage.
+        base = {r['ID']: r for r in self.recs}
+        for lg in cb.charger_narration(self.recs):
+            self.assertEqual(lg['Nom'], base[lg['ID']]['Nom'])
+            self.assertEqual(lg['Surnom'], base[lg['ID']]['Surnom'])
         # pas de caractère de contrôle (les mêmes règles que la source)
         for lg in self.narr:
             for champ in ('Nom', 'Surnom', 'Faction', 'Faction (détail)',
@@ -509,6 +684,67 @@ class TestCarte(unittest.TestCase):
 
 
 class TestDocumentationEtLicences(unittest.TestCase):
+    def test_analyse_actuelle_chiffres(self):
+        texte = Path('docs/analyse-projet.md').read_text(encoding='utf-8')
+        persos = cb.charger_personnages()
+        narr = cb.charger_narration(persos)
+        liens = cb.relations.charger(persos)
+        propositions = Path('docs/propositions-personnages-centraux.md').read_text(encoding='utf-8')
+        chiffres = {
+            'Personnages': len(persos),
+            'Humains': sum(r['Type'] == 'Humain' for r in persos),
+            'Animal': sum(r['Type'] == 'Animal' for r in persos),
+            'Mineurs humains': sum(r['Type'] == 'Humain' and r['Age'] < 18 for r in persos),
+            'Familles': len({r['Famille'] for r in persos}),
+            'Foyers Famille/Branche': len({(r['Famille'], r['Branche']) for r in persos}),
+            'Colonnes Personnages': len(cb.COLONNES),
+            'Fiches Narration': len(narr),
+            'Colonnes Narration': len(cb.NARR_COLS),
+            'Factions autorisées': len(cb.lire_factions()),
+            'Relations explicites structurées': len(liens),
+            'Personnages reliés dans cette tranche': len({r[k] for r in liens
+                                                         for k in ('Source_ID', 'Cible_ID')}),
+            'Propositions de personnages centraux': len(re.findall(r'^## P[0-9]+ —',
+                                                                   propositions, re.M)),
+        }
+        for secteur in {r['Secteur'] for r in persos}:
+            chiffres[secteur] = sum(r['Secteur'] == secteur for r in persos)
+        for libelle, valeur in chiffres.items():
+            with self.subTest(indicateur=libelle):
+                self.assertIn(f'| {libelle} | {valeur} |', texte)
+        total = unittest.defaultTestLoader.loadTestsFromModule(sys.modules[__name__]).countTestCases()
+        self.assertIn(f'| Python | {total} |', texte)
+
+    def test_documentation_distingue_archive_et_actuel(self):
+        archive = Path('docs/historique/analyse-173-personnages.md').read_text(encoding='utf-8')
+        actuel = Path('docs/analyse-projet.md').read_text(encoding='utf-8')
+        readme = Path('README.md').read_text(encoding='utf-8')
+        self.assertIn('Document historique, non représentatif de l’état actuel', archive[:1000])
+        self.assertIn('(../analyse-projet.md)', archive[:1000])
+        self.assertIn('(historique/analyse-173-personnages.md)', actuel)
+        self.assertIn('publique et versionnée', actuel)
+        self.assertIn('non canonique', actuel)
+        self.assertNotIn('régénère les deux classeurs', readme)
+        licences = Path('LICENSE-DONNEES.md').read_text(encoding='utf-8')
+        mineurs = [r for r in cb.charger_personnages() if r['Type'] == 'Humain' and r['Age'] < 18]
+        self.assertIn(f'{len(mineurs)} personnages humains', licences)
+
+    def test_liens_markdown_locaux(self):
+        from urllib.parse import unquote, urlsplit
+        documents = [Path('README.md'), Path('CHANGELOG.md'), Path('LICENSE-DONNEES.md'),
+                     *Path('docs').rglob('*.md')]
+        for document in documents:
+            texte = document.read_text(encoding='utf-8')
+            # Vérifie les cibles fichier des liens Markdown inline ; les ancres
+            # et liens distants restent hors de ce contrôle sans réseau.
+            for cible in re.findall(r'\]\(([^)]+)\)', texte):
+                url = urlsplit(cible)
+                if url.scheme or url.netloc or not url.path:
+                    continue
+                chemin = document.parent / unquote(url.path)
+                with self.subTest(document=str(document), lien=cible):
+                    self.assertTrue(chemin.exists(), f'Lien local cassé : {chemin}')
+
     def test_readme_est_a_jour(self):
         self.assertTrue(os.path.exists('README.md'))
         self.assertFalse(os.path.exists('README.txt'), 'README.txt fait doublon')

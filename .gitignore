@@ -24,3 +24,8 @@ Thumbs.db
 *.tmp
 ~$*.xlsx
 
+
+# --- Tests navigateur ---
+node_modules/
+playwright-report/
+test-results/

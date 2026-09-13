@@ -1,13 +1,13 @@
 # Licences — données, portraits, code
 
-Ce projet mélange trois types de créances aux **statuts juridiques distincts**.
+Ce projet mélange trois types de contenus aux **statuts juridiques distincts**.
 Le fichier [`LICENSE`](LICENSE) (MIT) ne couvre que le **code** ; ce document
 détaille les deux autres statuts.
 
 | Élément | Fichiers concernés | Statut |
 |---|---|---|
-| **Code** | `construire_base.py`, `scripts/`, `tests/`, code JS des cartes, la bibliothèque Leaflet | **MIT** (voir `LICENSE`) ; Leaflet est en **BSD-2-Clause** (`carte/vendor/leaflet/LICENSE`) |
-| **Données** | `data/personnages.csv`, `data/narration.csv`, `base_personnages_fictifs.xlsx`, `.csv`, `.json`, `.geojson`, données injectées dans les cartes (noms de rues, toponymes, géométries, coordonnées dérivées) | **ODbL 1.0** — base dérivée d'OpenStreetMap |
+| **Code** | `construire_base.py`, `relations.py`, `scripts/`, `tests/`, code JS des cartes, la bibliothèque Leaflet | **MIT** (voir `LICENSE`) ; Leaflet est en **BSD-2-Clause** (`carte/vendor/leaflet/LICENSE`) |
+| **Données** | `data/personnages.csv`, `data/narration.csv`, `data/relations.csv`, `relations_personnages.json`, `base_personnages_fictifs.xlsx`, `.csv`, `.json`, `.geojson`, données injectées dans les cartes (noms de rues, toponymes, géométries, coordonnées dérivées) | **ODbL 1.0** — base dérivée d'OpenStreetMap |
 | **Portraits** | `portraits/*-web.webp`, `portraits/*-vignette.webp`, `planche-contact-generale.webp`, vignettes de `carte/portraits/` | Images **générées par IA**, personnages fictifs, mises à disposition en **CC BY 4.0** |
 
 ---
@@ -54,8 +54,8 @@ une personne existante serait fortuite.
 - Mention recommandée : *« Portrait généré par IA — projet La Baie, CC BY 4.0 »*.
 - Pour un usage public au Canada, vérifier les obligations d'**étiquetage des
   contenus générés par IA** prévues par la réglementation en vigueur.
-- Les personnes fictives mineures (3 personnages de 9, 13 et 16 ans) sont
-  traitées comme tous les autres personnages : illustrations non réalistes de
+- Les personnes fictives mineures (9 personnages humains de 9 à 17 ans) sont
+  traitées comme tous les autres personnages : illustrations générées par IA de
   personnages de fiction, sans aucune donnée personnelle réelle.
 
 L'ancien gabarit « archive » (`portraits/<nn>-<slug>.webp` sans suffixe,

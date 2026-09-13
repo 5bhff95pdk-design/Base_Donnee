@@ -3,7 +3,7 @@
 """
 construire_base.py — régénère tous les livrables à partir de la source texte.
 
-SOURCE DE VÉRITÉ : data/personnages.csv (16 colonnes, UTF-8, « ; »).
+SOURCE DE VÉRITÉ : data/personnages.csv (17 colonnes, UTF-8, « ; »).
 Le classeur XLSX n'est plus qu'un livrable généré (il était source ET cible
 avant le 2026-09-13 : diff illisible, fusion impossible). La narration vit
 dans data/narration.csv (source publique et versionnée depuis le
@@ -13,10 +13,11 @@ Idempotent : peut être relancé autant de fois que voulu.
 Usage :  python3 construire_base.py
 
 Produit :
-  base_personnages_fictifs.xlsx          (Personnages + Narration + Lisez-moi)
+  base_personnages_fictifs.xlsx          (Personnages + Narration + Relations + Lisez-moi)
   base_personnages_fictifs.csv           (; et UTF-8 BOM, compatible Excel FR)
   base_personnages_fictifs.json          (clés minuscules sans accent)
   base_personnages_fictifs.geojson       (points WGS84, QGIS / uMap / Mapbox)
+  relations_personnages.json            (relations explicites et provenance)
   carte/index.html                       (carte canonique, données réinjectées)
   carte-la-baie-saguenay.html            (dérivée de carte/index.html)
   carte/portraits/                       (vignettes synchronisées)
@@ -25,7 +26,7 @@ Produit :
 REPRODUCTIBILITÉ : aucune donnée volatile (date système, métadonnées Office)
 n'est écrite : relancer le script deux fois produit des fichiers OCTET POUR
 OCTET identiques (vérifié en CI : git diff doit rester vide). La date « Généré
-le » est figée (DATE_FIGEE) ou surchargée par SOURCE_DATE_EPOCH. Pillow est
+le » est figée (DATE_LIVRABLE) ou surchargée par SOURCE_DATE_EPOCH. Pillow est
 nécessaire pour la planche contact ; s'il manque, un avertissement est émis
 mais les autres livrables sont quand même générés.
 """
@@ -41,6 +42,8 @@ import unicodedata
 from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
 
 import openpyxl
+
+import relations
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 
@@ -77,12 +80,12 @@ PLANCHE = 'portraits/planche-contact-generale.webp'
 
 COLONNES = ['Nom', 'Surnom', 'Type', 'Age', 'Rôle', 'Secteur', 'Adresse',
             'Latitude', 'Longitude', 'Apparence', 'Vêtements', 'Tic / Objet',
-            'Portrait', 'Famille', 'Branche', 'Parenté']
-LARGEURS = {'Nom': 23, 'Surnom': 19, 'Type': 9, 'Age': 6, 'Rôle': 40, 'Secteur': 13,
+            'Portrait', 'Famille', 'Branche', 'Parenté', 'ID']
+LARGEURS = {'ID': 10, 'Nom': 23, 'Surnom': 19, 'Type': 9, 'Age': 6, 'Rôle': 40, 'Secteur': 13,
             'Adresse': 34, 'Latitude': 11, 'Longitude': 11, 'Apparence': 38,
             'Vêtements': 28, 'Tic / Objet': 28, 'Portrait': 44,
             'Famille': 22, 'Branche': 18, 'Parenté': 28}
-CLES_JSON = {'Nom': 'nom', 'Surnom': 'surnom', 'Type': 'type', 'Age': 'age',
+CLES_JSON = {'ID': 'id', 'Nom': 'nom', 'Surnom': 'surnom', 'Type': 'type', 'Age': 'age',
              'Rôle': 'role', 'Secteur': 'secteur', 'Adresse': 'adresse',
              'Latitude': 'latitude', 'Longitude': 'longitude',
              'Apparence': 'apparence', 'Vêtements': 'vetements',
@@ -91,9 +94,10 @@ CLES_JSON = {'Nom': 'nom', 'Surnom': 'surnom', 'Type': 'type', 'Age': 'age',
 ENTIERS = {'Age'}
 DECIMAUX = {'Latitude', 'Longitude'}
 NARR_COLS = ['Nom', 'Surnom', 'Faction', 'Faction (détail)', 'Lien Spot',
-             'Quote joual', 'Arc S1', 'Age apparent']
+             'Quote joual', 'Arc S1', 'Age apparent', 'ID']
 
 DICO = [
+ ('ID', 'Texte', 'Identifiant permanent et unique (P001, P002…). Ne jamais renuméroter ni réutiliser.'),
  ('Nom', 'Texte', 'Identité complète, obligatoire et unique.'),
  ('Surnom', 'Texte', 'Vide = la personne n’en a pas. Ce n’est PAS un oubli : dans la base,'
                      ' l’absence de surnom signale un personnage « rangé » (famille, voisins,'
@@ -119,11 +123,8 @@ DICO = [
  ('Vêtements', 'Texte', '« s.o. » = sans objet (non applicable, p. ex. un animal).'
                         ' Vide = inconnu mais applicable. Ne pas confondre les deux.'),
  ('Tic / Objet', 'Texte', 'Manie, accessoire ou objet signature.'),
- ('Portrait', 'Texte', 'Chemin relatif du WebP gabarit « -web » (~80 à 150 Ko). Vide = pas encore'
-                       ' illustré. Deux gabarits par personnage dans portraits/ : -web.webp'
-                       ' (le référencé ici) et -vignette.webp (400 px, carte et planche contact).'
-                       ' Découverts automatiquement par slug du nom. Toutes les vignettes sont'
-                       ' assemblées dans portraits/planche-contact-generale.webp.'),
+ ('Portrait', 'Texte', 'Chemin explicite et obligatoire du WebP -web.webp. Conservé lors des'
+                       ' renommages ; la vignette correspondante -vignette.webp doit exister.'),
  ('Famille', 'Texte', 'Nom du clan / foyer, SANS qualificatif : deux foyers homonymes (les Côté'
                       ' de la ruelle et ceux de la poste) se distinguent par la colonne Branche.'),
  ('Branche', 'Texte', 'Précision au sein de la Famille : « JP », « ruelle », « motards »,'
@@ -167,14 +168,18 @@ def lire_factions():
         return [lg.strip() for lg in f if lg.strip() and not lg.lstrip().startswith('#')]
 
 
-def portraits_par_nom():
-    """Associe chaque *-web.webp au slug contenu dans le nom de fichier."""
-    found = {}
-    for f in _glob.glob('portraits/*-web.webp'):
-        base = os.path.basename(f)
-        core = re.sub(r'^\d+-', '', base.replace('-web.webp', ''))
-        found[core] = 'portraits/' + base
-    return found
+def valider_ids(recs, source):
+    """Les clés sont attribuées dans la source, jamais calculées à la construction."""
+    vus = set()
+    for r in recs:
+        identifiant = r.get('ID')
+        if not isinstance(identifiant, str) or not re.fullmatch(r'P[0-9]{3,}', identifiant):
+            raise SystemExit(f"✘ {source} : ID invalide pour {r.get('Nom')} ({identifiant!r})")
+        if int(identifiant[1:]) == 0 or identifiant != f"P{int(identifiant[1:]):03d}":
+            raise SystemExit(f"✘ {source} : ID non canonique ({identifiant!r})")
+        if identifiant in vus:
+            raise SystemExit(f"✘ {source} : ID en double ({identifiant})")
+        vus.add(identifiant)
 
 
 # ------------------------------------------------------------------ lecture
@@ -183,7 +188,7 @@ def charger_personnages():
     if not os.path.exists(SRC_PERSOS):
         raise SystemExit(f"✘ Source introuvable : {SRC_PERSOS} (à lancer depuis la racine)")
     recs = lire_csv(SRC_PERSOS, COLONNES)
-    index = portraits_par_nom()
+    valider_ids(recs, SRC_PERSOS)
     maj = 0
     manquants = []
     for r in recs:
@@ -199,20 +204,17 @@ def charger_personnages():
                 r[k] = int(str(v).strip()) if k in ENTIERS else float(str(v).strip())
             except (TypeError, ValueError):
                 raise SystemExit(f"✘ {r['Nom']} : « {k} » n’est pas un nombre ({v!r})")
-        sl = slug(r['Nom'])
-        if sl in index:
-            r['Portrait'] = index[sl]
-        elif not r.get('Portrait'):
+        portrait = r.get('Portrait') or ''
+        vignette = portrait.replace('-web.webp', '-vignette.webp')
+        if (not portrait.startswith('portraits/') or not portrait.endswith('-web.webp')
+                or '..' in portrait.split('/') or not os.path.isfile(portrait)
+                or not os.path.isfile(vignette)):
             manquants.append(r['Nom'])
-            r['Portrait'] = None
     if maj:
         print(f"  + « s.o. » inscrit aux Vêtements de {maj} animal(aux)")
     if manquants:
-        # Échec franc plutôt qu'un simple avertissement : la CI ne lit pas la
-        # sortie standard, et un personnage sans portrait passait inaperçu
-        # jusqu'aux tests (slug du nom ≠ nom de fichier, ex. « abbe-julien- »).
         raise SystemExit("✘ Portrait introuvable pour : " + ', '.join(manquants)
-                         + "\n  → attendu : portraits/<n°>-<slug-du-nom>-web.webp")
+                         + "\n  → renseigner un chemin Portrait existant avec sa vignette")
     recs.sort(key=lambda r: (r['Secteur'] != 'La Baie', r['Secteur'] or '', str(r['Nom'])))
     return recs
 
@@ -224,12 +226,19 @@ def charger_narration(recs):
         raise SystemExit("✘ Narration introuvable : " + SRC_NARR
                          + " (source publique versionnée, voir README « Narration »)")
     narr = lire_csv(SRC_NARR, NARR_COLS)
-    noms_base = {r['Nom'] for r in recs}
-    noms_narr = {r['Nom'] for r in narr}
-    if noms_base != noms_narr:
+    valider_ids(narr, SRC_NARR)
+    base_par_id = {r['ID']: r for r in recs}
+    ids_base = set(base_par_id)
+    ids_narr = {r['ID'] for r in narr}
+    if ids_base != ids_narr:
         raise SystemExit("✘ Narration désynchronisée : "
-                         f"manquants {sorted(noms_base - noms_narr)} ; "
-                         f"orphelins {sorted(noms_narr - noms_base)}")
+                         f"manquants {sorted(ids_base - ids_narr)} ; "
+                         f"orphelins {sorted(ids_narr - ids_base)}")
+    # Les noms sont des libellés de lecture, plus des clés de jointure.
+    for r in narr:
+        personnage = base_par_id[r['ID']]
+        r['Nom'] = personnage['Nom']
+        r['Surnom'] = personnage.get('Surnom')
     valides = lire_factions()
     fautifs = sorted({r['Faction'] for r in narr} - set(valides))
     if fautifs:
@@ -324,7 +333,7 @@ def ecrire_lisez_moi(classeur, recs):
     for txt in [
       '• Cellule VIDE  = information applicable mais absente, ou choix assumé (voir Surnom).',
       '• « s.o. »       = sans objet : la colonne ne s’applique pas à cette entrée (ex. Vêtements d’un animal).',
-      '• Unicité        : la colonne Nom est la clé. Aucune entrée en double ; le surnom ne'
+      '• Unicité        : ID est la clé permanente ; Nom reste unique. Le surnom ne'
       ' s’écrit JAMAIS dans Nom (il a sa colonne, sans « »).',
       '• Famille + Branche : la paire identifie un foyer. Deux foyers homonymes (Côté de la'
       ' ruelle / Côté de la poste) partagent la Famille et se distinguent par la Branche.',
@@ -346,6 +355,9 @@ def ecrire_lisez_moi(classeur, recs):
       '• Couverture      : 100 % des entrées (faction, lien au Spot, réplique, arc S1).',
       '• Statut          : source publique (data/narration.csv, versionnée dans le dépôt).',
       '• Ce classeur     : la narration est présente (feuille « Narration »).',
+      '• Relations       : extraction partielle de Parenté dans la feuille Relations ; source data/relations.csv.',
+      '• Export associé  : relations_personnages.json, séparé des exports géographiques et de la carte.',
+      '• Atelier         : docs/propositions-personnages-centraux.md est non canonique, hors de ce classeur.',
       '• Faction         : vocabulaire contrôlé de '
       + f"{len(lire_factions())} valeurs (data/factions.txt) ; la nuance d’origine"
         " est conservée dans « Faction (détail) ».",
@@ -407,14 +419,15 @@ def ecrire_narration(classeur, narr):
     ns.row_dimensions[1].height = 30
 
 
-def ecrire_xlsx(recs, narr, chemin):
-    """Assemble le classeur : Personnages + Narration + Lisez-moi."""
+def ecrire_xlsx(recs, narr, chemin, liens=None):
+    """Assemble le classeur : Personnages + Narration + Relations + Lisez-moi."""
     out = openpyxl.Workbook()
     o = out.active
     o.title = FEUILLE
     ecrire_personnages(o, recs)
     ecrire_lisez_moi(out, recs)
     ecrire_narration(out, narr)
+    relations.ecrire_feuille(out, relations.charger(recs) if liens is None else liens, recs)
 
     # Métadonnées figées : un classeur régénéré à données identiques doit avoir
     # la même empreinte (pas d'horloge système dans docProps/core.xml).
@@ -467,7 +480,7 @@ def ecrire_autres(recs):
     with open('base_personnages_fictifs.json', 'w', encoding='utf-8') as f:
         json.dump(js, f, ensure_ascii=False, indent=2)
     gj = {"type": "FeatureCollection", "features": [
-        {"type": "Feature",
+        {"type": "Feature", "id": r['ID'],
          "geometry": {"type": "Point", "coordinates": [r['Longitude'], r['Latitude']]},
          "properties": {CLES_JSON[k]: r.get(k) for k in COLONNES if k not in DECIMAUX}}
         for r in recs]}
@@ -588,7 +601,10 @@ def main():
     print("Construction de la base…")
     recs = charger_personnages()
     narr = charger_narration(recs)
-    ecrire_xlsx(recs, narr, XLSX)
+    liens = relations.charger(recs)
+    ecrire_xlsx(recs, narr, XLSX, liens)
+    relations.exporter(liens, recs)
+    print(f"  ✔ relations : {len(liens)} liens explicites (classeur + JSON séparé)")
     print(f"  ✔ {XLSX} — {len(recs)} entrées × {len(COLONNES)} colonnes "
           f"+ feuille Narration ({len(narr)} lignes)")
     js = ecrire_autres(recs)

@@ -1,0 +1,115 @@
+Source_ID;Type;Cible_ID;Preuve_ID;Champ_source;Extrait
+P001;fratrie;P035;P035;Parenté;Frère aîné de JP
+P001;fratrie;P036;P036;Parenté;Sœur de JP
+P001;fratrie;P173;P173;Parenté;Fils cadet de Robert et Diane — petit frère de JP
+P002;fratrie;P039;P039;Parenté;Frère de Marco
+P002;fratrie;P040;P040;Parenté;Sœur de Marco
+P004;conjoint_de;P051;P051;Parenté;Conjointe de Gratien Tremblay
+P005;conjoint_de;P006;P005;Parenté;Époux de Valette
+P007;collegue_de;P200;P200;Parenté;Cousin de Tommy Fortin — collègue de Pierre Samson
+P007;conjoint_de;P064;P064;Parenté;Épouse de Pierre Samson
+P009;fratrie;P047;P047;Parenté;Fils de Fernande — frère de Dévon
+P010;fratrie;P053;P053;Parenté;Fils de Lucie Bérubé — frère de Kevin
+P011;conjoint_de;P062;P062;Parenté;Conjointe d’Yvan Truchon
+P011;parent_de;P178;P178;Parenté;Fils d’Yvan Truchon et Gisèle
+P013;ex_conjoint_de;P061;P061;Parenté;Ex-mari de Sylvie Gagnon
+P014;conjoint_de;P041;P041;Parenté;Épouse d’Ahmed Benali
+P014;parent_de;P103;P103;Parenté;Fils d’Ahmed et Nadia Benali
+P014;parent_de;P172;P172;Parenté;Fille d’Ahmed et Nadia Benali — sœur d’Hassan
+P015;collegue_de;P085;P085;Parenté;Collègue de Mélanie Dubé
+P015;fratrie;P057;P057;Parenté;Frère de Mélanie Dubé
+P016;fratrie;P171;P171;Parenté;Fils de Manon Cloutier — petit frère de Dave
+P017;collegue_de;P089;P089;Parenté;Collègue de Ginette Roy
+P017;conjoint_de;P050;P050;Parenté;Mari de Ginette Roy
+P018;conjoint_de;P060;P060;Parenté;Épouse de Steve Langlois
+P019;conjoint_de;P043;P043;Parenté;Conjoint d’Anik Desrosiers
+P020;fratrie;P065;P065;Parenté;Sœur d’Antoine Lefèvre
+P021;conjoint_de;P067;P067;Parenté;Conjoint de Johanne Tremblay
+P022;fratrie;P054;P054;Parenté;Sœur de Lucien Lacroix
+P024;fratrie;P066;P066;Parenté;Frère de Sam Aubin
+P025;fratrie;P052;P052;Parenté;Fils de Thérèse Gagnon — frère de Karine
+P026;colocataire_de;P100;P100;Parenté;Colocataire de Justin Chen
+P027;parent_de;P056;P056;Parenté;Fils de Mireille Joseph
+P029;conjoint_de;P048;P048;Parenté;Époux de Fatima Al-Hassan
+P030;fratrie;P058;P058;Parenté;Sœur de Patrice Dubois
+P033;parent_de;P001;P001;Parenté;Fils de Robert et Diane
+P033;parent_de;P173;P173;Parenté;Fils cadet de Robert et Diane — petit frère de JP
+P034;parent_de;P001;P001;Parenté;Fils de Robert et Diane
+P034;parent_de;P173;P173;Parenté;Fils cadet de Robert et Diane — petit frère de JP
+P035;collegue_de;P094;P094;Parenté;Collègue de Mathieu Lavoie
+P035;collegue_de;P137;P137;Parenté;Collègue de Mathieu Lavoie
+P036;collegue_de;P104;P104;Parenté;Célibataire — collègue de Laurie Lavoie
+P037;parent_de;P002;P002;Parenté;Fils de Gérard et Monique
+P038;parent_de;P002;P002;Parenté;Fils de Gérard et Monique
+P039;parent_de;P179;P179;Parenté;Fille de Patrick Lapointe — nièce de Marco
+P041;parent_de;P103;P103;Parenté;Fils d’Ahmed et Nadia Benali
+P041;parent_de;P172;P172;Parenté;Fille d’Ahmed et Nadia Benali — sœur d’Hassan
+P042;parent_de;P028;P028;Parenté;Fils de Sonia
+P044;parent_de;P008;P008;Parenté;Fille de Gaétan
+P045;parent_de;P031;P031;Parenté;Fille de Nathalie
+P046;parent_de;P016;P016;Parenté;Fils de Manon
+P046;parent_de;P171;P171;Parenté;Fils de Manon Cloutier — petit frère de Dave
+P049;parent_de;P176;P176;Parenté;Fils d’Isabelle Bergeron — petit-fils de Gilles
+P055;parent_de;P023;P023;Parenté;Fils de Claude
+P059;parent_de;P003;P003;Parenté;Fils d’Hélène
+P062;parent_de;P178;P178;Parenté;Fils d’Yvan Truchon et Gisèle
+P063;parent_de;P026;P026;Parenté;Fils de Mei
+P064;collegue_de;P127;P127;Parenté;Collègue de Catherine Samson
+P068;conjoint_de;P069;P068;Parenté;Époux de Lucie Côté
+P070;conjoint_de;P071;P070;Parenté;Époux de Pauline Fortin
+P070;parent_de;P101;P101;Parenté;Fils d’Yves et Pauline Fortin
+P071;parent_de;P101;P101;Parenté;Fils d’Yves et Pauline Fortin
+P072;conjoint_de;P073;P073;Parenté;Épouse d’Hugo Pelletier
+P072;parent_de;P102;P102;Parenté;Fille d’Hugo et Sarah Pelletier
+P073;parent_de;P102;P102;Parenté;Fille d’Hugo et Sarah Pelletier
+P074;conjoint_de;P075;P074;Parenté;Épouse de Louis Girard
+P074;parent_de;P181;P181;Parenté;Fille d’Anne et Louis Girard
+P075;parent_de;P181;P181;Parenté;Fille d’Anne et Louis Girard
+P076;collegue_de;P197;P197;Parenté;Fille de Denis et Johanne — collègue d’Émile Brassard
+P076;conjoint_de;P077;P076;Parenté;Époux de Marie-Claude Brassard
+P086;enseignant_de;P020;P086;Parenté;Prof d’Antoine Lefèvre
+P086;parent_de;P182;P182;Parenté;Fils de Benoit Larouche
+P087;superieur_de;P040;P087;Parenté;Supérieure de Stéphanie Lapointe
+P090;fratrie;P108;P108;Parenté;Sœur de Maxime Boivin
+P093;locataire_de;P013;P093;Parenté;Locataire de Sylvie Gagnon
+P094;collegue_de;P191;P191;Parenté;Fille de Fernand Lavoie — collègue de Nicolas Gagné
+P105;conjoint_de;P106;P105;Parenté;Époux de Céline Pedneault
+P123;superieur_de;P007;P123;Parenté;Supérieur de Pierre Samson
+P125;superieur_de;P035;P125;Parenté;Patron de Mathieu Lavoie et Nicolas Gagné
+P125;superieur_de;P094;P125;Parenté;Patron de Mathieu Lavoie et Nicolas Gagné
+P126;superieur_de;P022;P126;Parenté;Supérieur de Lucien Lacroix
+P134;superieur_de;P078;P134;Parenté;Patron d’Olivier Savard — ex-patron de JP
+P151;conjoint_de;P152;P152;Parenté;Épouse de Vittorio
+P151;parent_de;P160;P160;Parenté;Fils de Vittorio et Maria
+P152;parent_de;P160;P160;Parenté;Fils de Vittorio et Maria
+P160;parent_de;P177;P177;Parenté;Fille de Nico Santini — petite-fille de Vittorio et Maria
+P161;parent_de;P009;P009;Parenté;Fils de Fernande Boucher — frère d’Éric
+P161;parent_de;P047;P047;Parenté;Fils de Fernande — frère de Dévon
+P162;parent_de;P004;P004;Parenté;Fils d’Aline Tremblay — conjoint de Linda
+P163;parent_de;P011;P011;Parenté;Fils de Cécile Truchon — conjoint de Gisèle
+P164;parent_de;P025;P025;Parenté;Fille de Thérèse Gagnon — sœur de Rock
+P164;parent_de;P052;P052;Parenté;Fils de Thérèse Gagnon — frère de Karine
+P165;parent_de;P010;P010;Parenté;Fils de Lucie Bérubé — frère de Jessy
+P165;parent_de;P053;P053;Parenté;Fils de Lucie Bérubé — frère de Kevin
+P165;parent_de;P175;P175;Parenté;Fils de Lucie Bérubé — cadet de Kevin et Jessy
+P166;parent_de;P013;P013;Parenté;Fille de Jeanne Gagnon — ex-épouse de Bertrand
+P167;parent_de;P072;P072;Parenté;Fils de Gaston Pelletier — époux de Sarah
+P168;parent_de;P007;P007;Parenté;Fils d’Hélène Samson — époux de Catherine
+P169;parent_de;P121;P121;Parenté;Fils d’Albert Dufour — maire de Saguenay
+P170;parent_de;P116;P116;Parenté;Fille de Manon Lavoie — estafette de Gratien
+P185;conjoint_de;P186;P185;Parenté;Conjointe de Stéphane Bossé — cousine de Normand Boucher
+P190;parent_de;P191;P191;Parenté;Fille de Fernand Lavoie — collègue de Nicolas Gagné
+P194;parent_de;P195;P195;Parenté;Fils d’Yvette — époux de Johanne Gravel — père de Camille, Samuel et Julien
+P195;conjoint_de;P196;P196;Parenté;Épouse de Denis Desgagné — sœur de Réal Gravel
+P195;parent_de;P197;P197;Parenté;Fille de Denis et Johanne — collègue d’Émile Brassard
+P195;parent_de;P198;P198;Parenté;Fils de Denis et Johanne — frère de Camille et Julien
+P195;parent_de;P203;P203;Parenté;Fils de Denis et Johanne — aîné de Camille et Samuel
+P196;parent_de;P197;P197;Parenté;Fille de Denis et Johanne — collègue d’Émile Brassard
+P196;parent_de;P198;P198;Parenté;Fils de Denis et Johanne — frère de Camille et Julien
+P196;parent_de;P203;P203;Parenté;Fils de Denis et Johanne — aîné de Camille et Samuel
+P199;superieur_de;P084;P199;Parenté;Célibataire — supérieure de Jacques Maltais
+P204;colocataire_de;P205;P205;Parenté;Célibataire — colocataire d’Emma Boucher et William Lavoie
+P204;colocataire_de;P206;P206;Parenté;Cousin de JP — colocataire d’Emma Boucher et Moussa Diallo
+P205;colocataire_de;P206;P205;Parenté;Célibataire — colocataire d’Emma Boucher et William Lavoie
+P213;parent_de;P211;P211;Parenté;Fille de Karine Simard — sœur d’Anthony
+P213;parent_de;P212;P212;Parenté;Fils de Karine Simard — frère de Léa — neveu de Nancy Simard
