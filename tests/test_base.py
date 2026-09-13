@@ -32,12 +32,13 @@ sys.path.insert(0, str(RACINE))
 
 import construire_base as cb  # noqa: E402  (date figée, colonnes, source)
 
-N = 203                      # nombre canonique d'entrées
+N = 213                      # nombre canonique d'entrées
 COLONNES = cb.COLONNES       # 16 colonnes (Famille + Branche depuis 2026-09-13)
 MINEURS = {'Léo Cloutier': 9, 'Nour Benali': 13, 'Alexandre Lavoie': 16,
            # cohorte « jeunes » du 2026-09-13 (aréna, école, restaurant familial)
            'Jade Boivin': 12, 'Noah Traoré': 14, 'Thomas Bergeron': 15,
-           'Sofia Santini': 16, 'Maude Pedneault': 17}
+           'Sofia Santini': 16, 'Maude Pedneault': 17,
+           'Léa Simard': 16}
 SRC_PERSOS = cb.SRC_PERSOS
 SRC_NARR = cb.SRC_NARR
 SRC_FACTIONS = cb.SRC_FACTIONS
@@ -189,8 +190,8 @@ class TestConventions(unittest.TestCase):
                     self.assertNotIn(')', str(v),
                                      f'{r["Nom"]} : parenthèses dans {champ} → {v}')
         # la paire Famille + Branche regroupe les personnes d'un même foyer :
-        # elle doit être cohérente avec la source, et regrouper (~95 foyers
-        # pour 203 personnes) sans être vide.
+        # elle doit être cohérente avec la source, et regrouper (~100 foyers
+        # pour 213 personnes) sans être vide.
         foyers = [(r['Famille'], r['Branche'] or '') for r in self.recs]
         avec_la_source = [(r['Famille'], r['Branche'] or '')
                           for r in lire_csv_source(SRC_PERSOS)]
@@ -359,7 +360,8 @@ class TestPortraits(unittest.TestCase):
         for base in ('171-leo-cloutier', '172-nour-benali', '173-alexandre-lavoie',
                      '174-maude-pedneault', '183-jade-boivin',
                      '184-gaetan-bosse', '193-marc-picard',
-                     '194-yvette-desgagne', '203-julien-desgagne'):
+                     '194-yvette-desgagne', '203-julien-desgagne',
+                     '204-emma-boucher', '213-karine-simard'):
             self.assertTrue(os.path.exists(f'portraits/{base}-web.webp'), base)
             self.assertTrue(os.path.exists(f'portraits/{base}-vignette.webp'), base)
 

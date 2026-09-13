@@ -1,14 +1,14 @@
 # Base de données de personnages fictifs — La Baie (Saguenay)
 
-Projet personnel de **fiction** : **203 personnages géolocalisés et illustrés**
+Projet personnel de **fiction** : **213 personnages géolocalisés et illustrés**
 dans la ville de Saguenay (arrondissements de La Baie, Chicoutimi et
-Jonquière, Québec), dont **202 humains et 1 animal**. Les personnages, noms,
+Jonquière, Québec), dont **212 humains et 1 animal**. Les personnages, noms,
 situations et numéros civiques sont **entièrement inventés** ; les rues et
 les toponymes sont réels (OpenStreetMap).
 
 🗺️ **Carte interactive** : ouvrir [`carte-la-baie-saguenay.html`](carte-la-baie-saguenay.html)
 (ou [`carte/index.html`](carte/index.html)).
-📇 **Planche contact des 203 portraits** : [`portraits/planche-contact-generale.webp`](portraits/planche-contact-generale.webp).
+📇 **Planche contact des 213 portraits** : [`portraits/planche-contact-generale.webp`](portraits/planche-contact-generale.webp).
 
 <a href="portraits/planche-contact-generale.webp"><img src="portraits/planche-contact-generale.webp" alt="Planche contact des portraits" width="480"></a>
 
@@ -22,10 +22,10 @@ les toponymes sont réels (OpenStreetMap).
 
 | Fichier / dossier | Rôle |
 |---|---|
-| `data/personnages.csv` | **Source de vérité** : 203 lignes × 16 colonnes, UTF-8 `;`. C'est le seul fichier à éditer à la main. |
+| `data/personnages.csv` | **Source de vérité** : 213 lignes × 16 colonnes, UTF-8 `;`. C'est le seul fichier à éditer à la main. |
 | `data/factions.txt` | Vocabulaire contrôlé des **17 factions** (narration). |
 | `data/narration.csv` | ⚠️ **Privé, non versionné** : factions, répliques, arcs (voir plus bas). |
-| `base_personnages_fictifs.xlsx` | Classeur **public** : *Personnages* (203 × 16) + *Lisez-moi*. **Sans** la narration. |
+| `base_personnages_fictifs.xlsx` | Classeur **public** : *Personnages* (213 × 16) + *Lisez-moi*. **Sans** la narration. |
 | `base_personnages_fictifs-complet.xlsx` | Classeur **privé** (`.gitignore`) : idem + feuille *Narration*. |
 | `base_personnages_fictifs.csv` | Export tableur, séparateur `;`, UTF-8 BOM (accents OK dans Excel FR). |
 | `base_personnages_fictifs.json` | Export code / API, clés minuscules sans accent. |
@@ -65,7 +65,7 @@ Principales conventions :
   homonymes partagent la `Famille` et se distinguent par la `Branche`.
 - **Factions** (narration) : 17 valeurs canoniques listées dans
   `data/factions.txt` ; l'ancienne nuance est gardée dans « Faction (détail) ».
-- **Âge** : huit personnages sont mineurs (9 à 17 ans) — la cohorte
+- **Âge** : neuf personnages sont mineurs (9 à 17 ans) — la cohorte
   « jeunes » (aréna, école, cégep) a été étoffée le 2026-09-13 ; le seul
   personnage de moins de 18 ans qui ne soit pas humain reste le chat
   Pisse-Feu (7 ans en âge animal).

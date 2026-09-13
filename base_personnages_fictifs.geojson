@@ -4140,6 +4140,58 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -71.0804,
+          48.42605
+        ]
+      },
+      "properties": {
+        "nom": "Diane Perron",
+        "surnom": "La Prof",
+        "type": "Humain",
+        "age": 58,
+        "role": "Professeure de sociologie (UQAC)",
+        "secteur": "Chicoutimi",
+        "adresse": "126, Rue Dréan",
+        "apparence": "Longs cheveux gris, boucles d’oreilles en argent",
+        "vetements": "Blazer de lin sur col roulé",
+        "tic_ou_objet": "Pile de copies",
+        "portrait": "portraits/209-diane-perron-web.webp",
+        "famille": "Perron",
+        "branche": null,
+        "parente": "Célibataire — directrice de recherche de Laurie Lavoie"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.0503,
+          48.42635
+        ]
+      },
+      "properties": {
+        "nom": "Emma Boucher",
+        "surnom": "Em",
+        "type": "Humain",
+        "age": 20,
+        "role": "Étudiante en sciences humaines (Cégep de Chicoutimi)",
+        "secteur": "Chicoutimi",
+        "adresse": "318, Rue Saint-Vallier",
+        "apparence": "Cheveux mauves, lunettes",
+        "vetements": "Gros tricot",
+        "tic_ou_objet": "Portable couvert d’autocollants",
+        "portrait": "portraits/204-emma-boucher-web.webp",
+        "famille": "Boucher",
+        "branche": "coloc",
+        "parente": "Nièce de Fernande Boucher — cousine de Dévon — colocataire de Moussa et William"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -71.0542,
           48.428
         ]
@@ -4478,6 +4530,32 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -71.0502,
+          48.42645
+        ]
+      },
+      "properties": {
+        "nom": "Lucien Gagné",
+        "surnom": "Le Proprio des étudiants",
+        "type": "Humain",
+        "age": 66,
+        "role": "Propriétaire — logements étudiants",
+        "secteur": "Chicoutimi",
+        "adresse": "320, Rue Saint-Vallier",
+        "apparence": "Chauve, lunettes sur le nez",
+        "vetements": "Veste matelassée sur chemise à carreaux",
+        "tic_ou_objet": "Trousseau de clés",
+        "portrait": "portraits/210-lucien-gagne-web.webp",
+        "famille": "Gagné",
+        "branche": "logements",
+        "parente": "Oncle d’Isabelle Gagné — propriétaire d’Emma, Moussa et William"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -71.0543,
           48.42815
         ]
@@ -4523,6 +4601,32 @@
         "famille": "Bossé",
         "branche": null,
         "parente": "Conjointe de Stéphane Bossé — cousine de Normand Boucher"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.06075,
+          48.4205
+        ]
+      },
+      "properties": {
+        "nom": "Maïka Gauthier",
+        "surnom": null,
+        "type": "Humain",
+        "age": 19,
+        "role": "Étudiante en soins infirmiers (Cégep de Chicoutimi) — caissière de pharmacie",
+        "secteur": "Chicoutimi",
+        "adresse": "152, Rue LaFontaine",
+        "apparence": "Queue de cheval châtaine, sourire poli",
+        "vetements": "Sarrau blanc de pharmacie",
+        "tic_ou_objet": "Étiquette de nom",
+        "portrait": "portraits/207-maika-gauthier-web.webp",
+        "famille": "Gauthier",
+        "branche": null,
+        "parente": "Nièce de Lise Gauthier — cousine de Steve et Chantal"
       }
     },
     {
@@ -4582,6 +4686,32 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -71.05025,
+          48.4264
+        ]
+      },
+      "properties": {
+        "nom": "Moussa Diallo",
+        "surnom": null,
+        "type": "Humain",
+        "age": 21,
+        "role": "Étudiant en informatique (UQAC)",
+        "secteur": "Chicoutimi",
+        "adresse": "318, Rue Saint-Vallier",
+        "apparence": "Grand, sourire large",
+        "vetements": "Doudoune sur hoodie",
+        "tic_ou_objet": "Écouteurs autour du cou",
+        "portrait": "portraits/205-moussa-diallo-web.webp",
+        "famille": "Diallo",
+        "branche": null,
+        "parente": "Célibataire — colocataire d’Emma Boucher et William Lavoie"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -71.0546,
           48.4282
         ]
@@ -4601,6 +4731,32 @@
         "famille": "Santini",
         "branche": null,
         "parente": "Fils de Vittorio et Maria"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.0803,
+          48.42615
+        ]
+      },
+      "properties": {
+        "nom": "Olivier Brassard",
+        "surnom": "Oli",
+        "type": "Humain",
+        "age": 24,
+        "role": "Coursier à vélo — musicien",
+        "secteur": "Chicoutimi",
+        "adresse": "122, Rue Dréan",
+        "apparence": "Moustache, casquette à l’envers",
+        "vetements": "Veste en denim à écussons",
+        "tic_ou_objet": "Ukulélé sur le sac",
+        "portrait": "portraits/208-olivier-brassard-web.webp",
+        "famille": "Brassard",
+        "branche": null,
+        "parente": "Neveu d’Émile Brassard"
       }
     },
     {
@@ -4842,6 +4998,32 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -71.05035,
+          48.4263
+        ]
+      },
+      "properties": {
+        "nom": "William Lavoie",
+        "surnom": "Will",
+        "type": "Humain",
+        "age": 23,
+        "role": "Cuisinier — bistro du centre-ville",
+        "secteur": "Chicoutimi",
+        "adresse": "318, Rue Saint-Vallier",
+        "apparence": "Bandana, bras tatoué",
+        "vetements": "Veste de cuisine ouverte",
+        "tic_ou_objet": "Vapoteuse",
+        "portrait": "portraits/206-william-lavoie-web.webp",
+        "famille": "Lavoie",
+        "branche": "JP",
+        "parente": "Cousin de JP — colocataire d’Emma Boucher et Moussa Diallo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -71.0674,
           48.3984
         ]
@@ -4861,6 +5043,32 @@
         "famille": "Chen",
         "branche": null,
         "parente": "Colocataire de Justin Chen"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.2316,
+          48.42405
+        ]
+      },
+      "properties": {
+        "nom": "Anthony Simard",
+        "surnom": "Tony Steak",
+        "type": "Humain",
+        "age": 22,
+        "role": "Apprenti boucher — boucherie familiale",
+        "secteur": "Jonquière",
+        "adresse": "2216, Rue Saint-Joseph",
+        "apparence": "Cheveux ras, pansement au doigt",
+        "vetements": "Sarrau blanc, tablier rayé",
+        "tic_ou_objet": "Couteau à désosser",
+        "portrait": "portraits/212-anthony-simard-web.webp",
+        "famille": "Simard",
+        "branche": "Kénogami",
+        "parente": "Fils de Karine Simard — frère de Léa — neveu de Nancy Simard"
       }
     },
     {
@@ -5102,6 +5310,32 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -71.2318,
+          48.42395
+        ]
+      },
+      "properties": {
+        "nom": "Karine Simard",
+        "surnom": "Coach K",
+        "type": "Humain",
+        "age": 41,
+        "role": "Enseignante d’éducation physique — entraîneuse de natation",
+        "secteur": "Jonquière",
+        "adresse": "2216, Rue Saint-Joseph",
+        "apparence": "Athlétique, queue de cheval blonde",
+        "vetements": "Veste de survêtement marine",
+        "tic_ou_objet": "Chronomètre",
+        "portrait": "portraits/213-karine-simard-web.webp",
+        "famille": "Simard",
+        "branche": "Kénogami",
+        "parente": "Mère de Léa et Anthony — sœur de Nancy Simard"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -71.25285,
           48.41615
         ]
@@ -5121,6 +5355,32 @@
         "famille": "Larouche",
         "branche": null,
         "parente": "Fils de Benoit Larouche"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.2317,
+          48.424
+        ]
+      },
+      "properties": {
+        "nom": "Léa Simard",
+        "surnom": null,
+        "type": "Humain",
+        "age": 16,
+        "role": "Élève du secondaire — nageuse de compétition",
+        "secteur": "Jonquière",
+        "adresse": "2216, Rue Saint-Joseph",
+        "apparence": "Cheveux mouillés, l’air déterminé",
+        "vetements": "Serviette sur les épaules",
+        "tic_ou_objet": "Lunettes de piscine sur le front",
+        "portrait": "portraits/211-lea-simard-web.webp",
+        "famille": "Simard",
+        "branche": "Kénogami",
+        "parente": "Fille de Karine Simard — sœur d’Anthony"
       }
     },
     {

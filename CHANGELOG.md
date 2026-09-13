@@ -4,6 +4,30 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 Ce projet n'a pas de version publiée : les entrées datent les bascules
 structurantes.
 
+## [2026-09-13] — Lot « Cégep / UQAC et Kénogami » : 10 personnages (203 → 213)
+
+Lot mixte : la part des moins de 25 ans était retombée à 10,4 %, juste
+au-dessus du garde-fou. Sept jeunes (16-24 ans) et trois adultes qui les
+encadrent, sur quatre rues nouvelles (Saint-Vallier, LaFontaine, Dréan à
+Chicoutimi ; Saint-Joseph à Kénogami).
+
+- **Colocation étudiante du 318 Saint-Vallier (Chicoutimi)** : Emma Boucher
+  (20, sciences humaines, nièce de Fernande), Moussa Diallo (21, informatique
+  UQAC), William Lavoie (23, cuisinier, cousin de JP) ; leur propriétaire
+  Lucien Gagné (66, oncle de la députée).
+- **Autour du cégep** : Maïka Gauthier (19, soins infirmiers et caissière de
+  pharmacie), Olivier Brassard (24, coursier-musicien), Diane Perron (58,
+  professeure de sociologie, directrice de recherche de Laurie Lavoie).
+- **Foyer Simard/Kénogami (Jonquière)** : Karine Simard (41, prof d'éduc et
+  entraîneuse de natation), ses enfants Léa (16, nageuse) et Anthony (22,
+  apprenti boucher) — sœur et neveux de Nancy Simard.
+- Moins de 25 ans : 10,4 % → **13,2 %** ; La Baie 153 / Chicoutimi 41 /
+  Jonquière 19 ; mineurs : 9.
+- Portraits n° 204 à 213 (IA, 3:2), planche contact à 22 rangées ;
+  `N = 213`, `MINEURS` étendu — 41 garde-fous.
+- Narration : 10 lignes privées fournies hors dépôt
+  (`data/narration-cegep-kenogami.a-coller.csv`).
+
 ## [2026-09-13] — Lot « Institutions et famille Desgagné » : 10 personnages (193 → 203)
 
 Une famille sur **trois générations** à Grande-Baie et les services publics
