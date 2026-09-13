@@ -29,6 +29,32 @@ code, outillage, reproductibilité, licences et carte interactive.
 > marqueurs — quatre chantiers éditoriaux qui demandent de nouvelles données
 > (personnages, rues OSM, portraits) plutôt que du code.
 
+> **🟢 Suivi n° 2 au 2026-09-13 — état à 213 fiches.**
+> Les chiffres des § 2 à § 7 décrivent l'état historique à **173 entrées**
+> (15 colonnes, 27 tests) ; l'état courant est **213 × 16 colonnes, 43
+> garde-fous** (voir [`README.md`](../README.md) et
+> [`CHANGELOG.md`](../CHANGELOG.md)). Bilan de la revue rejouée (construction,
+> double build + empreintes SHA-256 identiques sur 647 livrables, `git diff`
+> vide, 41 puis 43 tests verts, CI verte) :
+>
+> - **Fermés depuis le suivi n° 1** : le rajeunissement (moins de 25 ans :
+>   6,4 % → **13,2 %**, 9 mineurs, garde-fou ≥ 10 %) et la diversification des
+>   rues (Chicoutimi 4 → **11** rues, Jonquière 5 → **9**, planchers testés).
+>   Les 179 liens de `Parenté` sont tous résolubles (93 par nom complet, 9 par
+>   surnom, le reste par prénom) ; 0 coordonnée dupliquée ; 64 familles et
+>   101 foyers.
+> - **Corrigés par cette revue** : (1) le bandeau « fiction / adresses
+>   inventées / portraits IA » était **invisible sur mobile** — à ≤ 820 px la
+>   sidebar devient un tiroir fermé et le CSS de base masque `.banner` ; il est
+>   ré-affiché en deuxième ligne d'en-tête (garde-fou dédié). (2) Bug latent
+>   d'injection : `re.subn` interprétait le gabarit de remplacement — une valeur
+>   contenant un saut de ligne ou `\1` aurait cassé le JS de la carte ; le
+>   remplacement est désormais une fonction, avec aller-retour testé et contrôle
+>   des caractères spéciaux dans la source.
+> - **Toujours ouverts** : l'uniformisation du ratio des portraits (12 verticaux
+>   1024×1536 sur 213, recadrés en 3:2 par la planche contact) et le clustering
+>   des marqueurs (213 points, dont 19 rue Victoria).
+
 ---
 
 ## 1. Verdict en une page

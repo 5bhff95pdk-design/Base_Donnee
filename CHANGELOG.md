@@ -4,6 +4,30 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 Ce projet n'a pas de version publiée : les entrées datent les bascules
 structurantes.
 
+## [2026-09-13] — Suivi de la revue : bandeau mobile, injection carte, analyse à jour
+
+Trois correctifs issus d'une revue fraîche du projet (état 213 fiches ; aucun
+changement dans les données) :
+
+- **Bandeau d'avertissement sur mobile** : à ≤ 820 px, la sidebar devient un
+  tiroir fermé et le CSS de base masque `.banner{display:none}` — l'avertissement
+  « fiction / adresses inventées / portraits IA » ne s'affichait plus sur
+  téléphone. Il est ré-affiché en deuxième ligne d'en-tête sur mobile.
+  Garde-fou `test_bandeau_avertissement_visible_sur_mobile`.
+- **Injection des données dans la carte** : `re.subn` interprétait le gabarit de
+  remplacement — une valeur contenant un saut de ligne, une tabulation ou `\1`
+  aurait cassé le JavaScript de la carte (voire fait échouer la construction).
+  Le remplacement est désormais une fonction ; garde-fou
+  `test_injection_carte_resiste_aux_caracteres_speciaux` (aller-retour réel sur
+  une carte temporaire), et le contrôle de la source étendu aux caractères de
+  contrôle. Les données actuelles n'en contiennent aucune.
+- **`docs/analyse-projet.md`** : suivi n° 2 — chiffres datés (état 173),
+  rajeunissement et diversification des rues marqués fermés, bandeau mobile et
+  injection marqués corrigés ; portraits (12 verticaux sur 213) et clustering
+  restent ouverts.
+- **43 garde-fous** (README mis à jour ; le nombre annoncé reste vérifié par un
+  test).
+
 ## [2026-09-13] — Lot « Cégep / UQAC et Kénogami » : 10 personnages (203 → 213)
 
 Lot mixte : la part des moins de 25 ans était retombée à 10,4 %, juste

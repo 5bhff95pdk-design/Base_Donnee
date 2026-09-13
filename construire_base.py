@@ -488,7 +488,11 @@ def ecrire_cartes(js):
         return
     with open(CARTE_CANONIQUE, encoding='utf-8') as f:
         source = f.read()
-    remplace, n = re.subn(r'const PERSOS=\[.*?\];', new, source, count=1, flags=re.S)
+    # Le remplacement est une FONCTION : re.subn interpréterait les séquences
+    # présentes dans `new` (\n, \t, \1…) et corromprait le JS — voire planterait
+    # — si une valeur de la base contenait un caractère spécial.
+    remplace, n = re.subn(r'const PERSOS=\[.*?\];', lambda _: new, source, count=1,
+                          flags=re.S)
     if n != 1:
         print(f"  ✘ PERSOS introuvable dans {CARTE_CANONIQUE}")
         return

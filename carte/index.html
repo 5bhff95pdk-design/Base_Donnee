@@ -93,7 +93,10 @@
          padding:4px 9px;font-size:15px;cursor:pointer;font-family:inherit;flex-shrink:0;line-height:1}
     .coords{display:none}
     header h1 span{display:none}
-    header{padding:3px 6px;min-height:36px;gap:6px}
+    header{padding:3px 6px;min-height:36px;gap:6px;flex-wrap:wrap}
+    /* Sur mobile, la sidebar est un tiroir fermé : le bandeau d'en-tête prend
+       le relais pour que l'avertissement « fiction / IA » reste toujours visible. */
+    .banner{display:block;flex:1 1 100%;font-size:10px;line-height:1.3;color:#c9b27a}
     .search input{padding:5px 8px;font-size:12px}
     .leaflet-top.leaflet-left{top:4px}
     .leaflet-popup-content{margin:8px 10px;max-height:55vh;overflow:auto}

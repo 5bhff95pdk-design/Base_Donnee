@@ -114,11 +114,16 @@ class TestSourceTexte(unittest.TestCase):
             self.assertEqual(len(json.load(f)), len(self.src))
 
     def test_aucune_valeur_ne_casse_l_injection_carte(self):
-        """« ]; » terminerait prématurément la regex de réinjection PERSOS."""
+        """« ]; » terminerait prématurément la regex de réinjection PERSOS ;
+        un caractère de contrôle (saut de ligne, tabulation) casserait la
+        chaîne JS et serait invisible dans un diff."""
         for r in self.src:
             for v in r.values():
                 if isinstance(v, str):
                     self.assertNotIn('];', v, f'{r["Nom"]} : valeur contenant « ]; »')
+                    controles = [c for c in v if ord(c) < 0x20]
+                    self.assertFalse(controles,
+                                     f'{r["Nom"]} : caractère(s) de contrôle {controles!r}')
 
     def test_vocabulaire_factions_est_propre(self):
         with open(SRC_FACTIONS, encoding='utf-8') as f:
@@ -430,6 +435,49 @@ class TestCarte(unittest.TestCase):
         self.assertIn('const esc=', self.canonique)
         self.assertGreaterEqual(self.canonique.count('${esc('), 8,
                                 'échappement HTML insuffisant')
+
+    def test_injection_carte_resiste_aux_caracteres_speciaux(self):
+        """re.subn interprétait le gabarit de remplacement : une valeur contenant
+        un saut de ligne, une tabulation ou « \\1 » aurait cassé le JS de la carte
+        (ou fait planter la construction). Le remplacement est désormais une
+        fonction — vérifié par un aller-retour d'injection réel sur carte temporaire."""
+        mechant = 'ligne1\nligne2\t« guillemets » back\\slash \\1 $&'
+        js = [{'nom': mechant}]
+        with tempfile.TemporaryDirectory() as tmp:
+            canon = os.path.join(tmp, 'canonique.html')
+            with open(canon, 'w', encoding='utf-8') as f:
+                f.write('<script src="vendor/leaflet/leaflet.js"></script>\n'
+                        "<script>const RACINE='../';const PERSOS=[];</script>")
+            ancien_c, ancien_r = cb.CARTE_CANONIQUE, cb.CARTE_RACINE
+            cb.CARTE_CANONIQUE = canon
+            cb.CARTE_RACINE = os.path.join(tmp, 'racine.html')
+            try:
+                cb.ecrire_cartes(js)
+            finally:
+                cb.CARTE_CANONIQUE, cb.CARTE_RACINE = ancien_c, ancien_r
+            with open(canon, encoding='utf-8') as f:
+                h = f.read()
+            m = re.search(r'const PERSOS=(\[.*?\]);', h, flags=re.S)
+            self.assertIsNotNone(m, 'PERSOS introuvable après injection')
+            self.assertEqual(json.loads(m.group(1))[0]['nom'], mechant,
+                             'aller-retour JSON corrompu par l’injection')
+
+    def test_bandeau_avertissement_visible_sur_mobile(self):
+        """À ≤ 820 px, la sidebar devient un tiroir FERME et le CSS de base masque
+        .banner : sans règle de rappel, l'avertissement « fiction / adresses
+        inventées / portraits IA » ne s'affiche plus sur téléphone. La media query
+        mobile doit ré-afficher le bandeau d'en-tête."""
+        self.assertIn('Portraits générés par intelligence artificielle', self.canonique)
+        for nom, h in (('carte/index.html', self.canonique),
+                       ('carte-la-baie-saguenay.html', self.racine)):
+            m = re.search(r'@media\(max-width:820px\)\{', h)
+            self.assertIsNotNone(m, f'{nom} : media query 820 px introuvable')
+            i, profondeur = m.end(), 1
+            while profondeur > 0:
+                profondeur += (h[i] == '{') - (h[i] == '}')
+                i += 1
+            self.assertRegex(h[m.end():i], r'\.banner\{[^}]*display:block',
+                             f'{nom} : bandeau non ré-affiché sur mobile')
 
     def test_licence_leaflet_presente(self):
         with open('carte/vendor/leaflet/LICENSE', encoding='utf-8') as fh:
