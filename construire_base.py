@@ -6,15 +6,14 @@ construire_base.py — régénère tous les livrables à partir de la source tex
 SOURCE DE VÉRITÉ : data/personnages.csv (16 colonnes, UTF-8, « ; »).
 Le classeur XLSX n'est plus qu'un livrable généré (il était source ET cible
 avant le 2026-09-13 : diff illisible, fusion impossible). La narration vit
-dans data/narration.csv, fichier PRIVÉ non versionné (voir .gitignore) : si
-elle est absente, le classeur complet n'est tout simplement pas produit.
+dans data/narration.csv (source publique et versionnée depuis le
+2026-09-13) : elle alimente la feuille Narration du classeur.
 
 Idempotent : peut être relancé autant de fois que voulu.
 Usage :  python3 construire_base.py
 
 Produit :
-  base_personnages_fictifs.xlsx          (public : Personnages + Lisez-moi)
-  base_personnages_fictifs-complet.xlsx  (privé  : + Narration, .gitignore)
+  base_personnages_fictifs.xlsx          (Personnages + Narration + Lisez-moi)
   base_personnages_fictifs.csv           (; et UTF-8 BOM, compatible Excel FR)
   base_personnages_fictifs.json          (clés minuscules sans accent)
   base_personnages_fictifs.geojson       (points WGS84, QGIS / uMap / Mapbox)
@@ -56,7 +55,6 @@ SRC_PERSOS = 'data/personnages.csv'
 SRC_NARR = 'data/narration.csv'
 SRC_FACTIONS = 'data/factions.txt'
 XLSX = 'base_personnages_fictifs.xlsx'
-XLSX_COMPLET = 'base_personnages_fictifs-complet.xlsx'
 FEUILLE = 'Personnages'
 CARTE_CANONIQUE = 'carte/index.html'
 CARTE_RACINE = 'carte-la-baie-saguenay.html'
@@ -220,10 +218,11 @@ def charger_personnages():
 
 
 def charger_narration(recs):
-    """Source privée : absente → narration simplement non publiée."""
+    """Source publique (versionnée) : obligatoire, la feuille Narration
+    du classeur en dépend. Absente = construction refusée, pas de silence."""
     if not os.path.exists(SRC_NARR):
-        print("  · narration absente (source privée) : classeur complet non produit")
-        return None
+        raise SystemExit("✘ Narration introuvable : " + SRC_NARR
+                         + " (source publique versionnée, voir README « Narration »)")
     narr = lire_csv(SRC_NARR, NARR_COLS)
     noms_base = {r['Nom'] for r in recs}
     noms_narr = {r['Nom'] for r in narr}
@@ -283,7 +282,7 @@ def ecrire_personnages(feuille, recs):
     feuille.sheet_view.showGridLines = False
 
 
-def ecrire_lisez_moi(classeur, recs, avec_narration):
+def ecrire_lisez_moi(classeur, recs):
     """Feuille « Lisez-moi » : dictionnaire des données et conventions."""
     HF = PatternFill('solid', fgColor='1F3864')
     HFONT = Font(bold=True, color='FFFFFF', size=11)
@@ -343,17 +342,16 @@ def ecrire_lisez_moi(classeur, recs, avec_narration):
     r += 1
     d.cell(r, 1, 'Narration').font = Font(bold=True, size=12, color='1F3864')
     r += 1
-    for txt in ([
+    for txt in [
       '• Couverture      : 100 % des entrées (faction, lien au Spot, réplique, arc S1).',
-      '• Statut          : source PRIVÉE (data/narration.csv, non versionnée).' ,
-      '• Ce classeur     : la narration est '
-      + ('présente (feuille « Narration ») — diffusion interne.'
-         if avec_narration else 'VOLONTAIREMENT ABSENTE — diffusion publique.'),
+      '• Statut          : source publique (data/narration.csv, versionnée dans le dépôt).',
+      '• Ce classeur     : la narration est présente (feuille « Narration »).',
       '• Faction         : vocabulaire contrôlé de '
       + f"{len(lire_factions())} valeurs (data/factions.txt) ; la nuance d’origine"
         " est conservée dans « Faction (détail) ».",
-      '• Jamais exportée : ni dans le CSV / JSON / GeoJSON publics, ni dans la carte.',
-    ]):
+      '• Périmètre       : la narration reste hors des exports csv / json / geojson'
+      ' et de la carte (choix de périmètre, voir README).',
+    ]:
         c = d.cell(r, 1, txt)
         c.font = Font(size=10.5)
         c.alignment = Alignment(vertical='center')
@@ -379,7 +377,7 @@ def ecrire_lisez_moi(classeur, recs, avec_narration):
 
 
 def ecrire_narration(classeur, narr):
-    """Feuille « Narration » (classeur complet uniquement)."""
+    """Feuille « Narration » (factions, liens au Spot, répliques, arcs S1)."""
     HF = PatternFill('solid', fgColor='1F3864')
     HFONT = Font(bold=True, color='FFFFFF', size=11)
     TH = Side(style='thin', color='D9D9D9')
@@ -410,14 +408,13 @@ def ecrire_narration(classeur, narr):
 
 
 def ecrire_xlsx(recs, narr, chemin):
-    """Assemble un classeur (public sans Narration, complet avec)."""
+    """Assemble le classeur : Personnages + Narration + Lisez-moi."""
     out = openpyxl.Workbook()
     o = out.active
     o.title = FEUILLE
     ecrire_personnages(o, recs)
-    ecrire_lisez_moi(out, recs, avec_narration=bool(narr))
-    if narr:
-        ecrire_narration(out, narr)
+    ecrire_lisez_moi(out, recs)
+    ecrire_narration(out, narr)
 
     # Métadonnées figées : un classeur régénéré à données identiques doit avoir
     # la même empreinte (pas d'horloge système dans docProps/core.xml).
@@ -591,11 +588,9 @@ def main():
     print("Construction de la base…")
     recs = charger_personnages()
     narr = charger_narration(recs)
-    ecrire_xlsx(recs, None, XLSX)
-    print(f"  ✔ {XLSX} — {len(recs)} entrées × {len(COLONNES)} colonnes (public, sans Narration)")
-    if narr:
-        ecrire_xlsx(recs, narr, XLSX_COMPLET)
-        print(f"  ✔ {XLSX_COMPLET} — + feuille Narration ({len(narr)} lignes, privé)")
+    ecrire_xlsx(recs, narr, XLSX)
+    print(f"  ✔ {XLSX} — {len(recs)} entrées × {len(COLONNES)} colonnes "
+          f"+ feuille Narration ({len(narr)} lignes)")
     js = ecrire_autres(recs)
     print(f"  ✔ csv / json / geojson régénérés ({len(recs)} entrées)")
     ecrire_cartes(js)

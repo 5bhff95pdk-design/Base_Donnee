@@ -4,6 +4,34 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 Ce projet n'a pas de version publiée : les entrées datent les bascules
 structurantes.
 
+## [2026-09-13] — La narration devient publique (fichier versionné, classeur unique)
+
+Décision d'auteur : la séparation public/privé instaurée lors de la revue
+qualité est levée. Factions, liens au Spot, répliques et arcs S1 rejoignent
+le dépôt — sous ODbL, comme le reste de la part fictive (LICENSE-DONNEES).
+
+- **`data/narration.csv` versionné** (213 lignes × 8 colonnes, `;` UTF-8) :
+  les 133 fiches d'origine sont revenues de `scripts/historique/
+  migrer_corrections.py` (faction libre normalisée via la table FACTIONS de
+  `scripts/init_source_csv.py`, nuance conservée dans « Faction (détail) ») ;
+  80 fiches nouvelles écrites pour l'occasion (protagonistes restés sans
+  narration — JP, Dévon, Gratien, Yvan, Marco, Sylvie, Pisse-Feu… — et les
+  quatre lots 173 → 213). Âge apparent = âge réel, comme sur les 133
+  historiques.
+- **Un seul classeur public** : `base_personnages_fictifs.xlsx` porte
+  désormais les feuilles *Personnages* + *Lisez-moi* + *Narration* ; le
+  classeur `-complet.xlsx` (`.gitignore`) disparaît, plus de raison d'être.
+  `charger_narration()` devient **obligatoire** : un fichier absent fait
+  échouer la construction au lieu de produire un classeur amputé.
+- **Garde-fous inversés** (toujours 43) : la narration doit être versionnée
+  (`git ls-files`), le classeur doit contenir la feuille *Narration* et
+  l'ancien classeur complet ne doit plus exister ; la couverture vérifie en
+  plus l'alignement des surnoms sur `data/personnages.csv` et l'absence de
+  caractères de contrôle. La narration reste hors du CSV/JSON/GeoJSON et de
+  la carte (choix de périmètre, test dédié maintenu).
+- **CI** : l'étape « La narration n'est pas versionnée » devient « La
+  narration est versionnée » ; README et feuille *Lisez-moi* mis à jour.
+
 ## [2026-09-13] — Suivi de la revue : bandeau mobile, injection carte, analyse à jour
 
 Trois correctifs issus d'une revue fraîche du projet (état 213 fiches ; aucun
