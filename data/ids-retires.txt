@@ -1,0 +1,4 @@
+# Registre des identifiants définitivement indisponibles.
+#
+# Une ligne = un ID qui a déjà été utilisé puis retiré de la base.
+# Ne jamais réutiliser un identifiant inscrit ici.

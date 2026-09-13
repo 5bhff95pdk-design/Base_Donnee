@@ -20,6 +20,7 @@ Produit :
   relations_personnages.json            (relations explicites et provenance)
   carte/index.html                       (carte canonique, données réinjectées)
   carte-la-baie-saguenay.html            (dérivée de carte/index.html)
+  atelier/index.html                     (atelier de scènes, données réinjectées)
   carte/portraits/                       (vignettes synchronisées)
   portraits/planche-contact-generale.webp
 
@@ -57,10 +58,12 @@ except Exception:  # Pillow absent : tout sauf la planche reste fonctionnel
 SRC_PERSOS = 'data/personnages.csv'
 SRC_NARR = 'data/narration.csv'
 SRC_FACTIONS = 'data/factions.txt'
+SRC_IDS_RETIRES = 'data/ids-retires.txt'
 XLSX = 'base_personnages_fictifs.xlsx'
 FEUILLE = 'Personnages'
 CARTE_CANONIQUE = 'carte/index.html'
 CARTE_RACINE = 'carte-la-baie-saguenay.html'
+ATELIER = 'atelier/index.html'
 ANIMAUX = {'Pisse-Feu'}
 
 # Date figée pour les livrables reproductibles (jamais de date système).
@@ -168,8 +171,27 @@ def lire_factions():
         return [lg.strip() for lg in f if lg.strip() and not lg.lstrip().startswith('#')]
 
 
+def lire_ids_retires():
+    """Lit le registre des identifiants définitivement indisponibles."""
+    if not os.path.exists(SRC_IDS_RETIRES):
+        raise SystemExit(f"✘ Registre des IDs retirés introuvable : {SRC_IDS_RETIRES}")
+    ids = []
+    with open(SRC_IDS_RETIRES, encoding='utf-8') as f:
+        for numero, ligne in enumerate(f, 1):
+            valeur = ligne.split('#', 1)[0].strip()
+            if not valeur:
+                continue
+            if not re.fullmatch(r'P[0-9]{3,}', valeur) or valeur != f"P{int(valeur[1:]):03d}":
+                raise SystemExit(f"✘ {SRC_IDS_RETIRES} ligne {numero} : ID invalide ({valeur!r})")
+            ids.append(valeur)
+    if len(ids) != len(set(ids)):
+        raise SystemExit(f"✘ {SRC_IDS_RETIRES} : ID retiré en double")
+    return set(ids)
+
+
 def valider_ids(recs, source):
     """Les clés sont attribuées dans la source, jamais calculées à la construction."""
+    retires = lire_ids_retires()
     vus = set()
     for r in recs:
         identifiant = r.get('ID')
@@ -177,6 +199,8 @@ def valider_ids(recs, source):
             raise SystemExit(f"✘ {source} : ID invalide pour {r.get('Nom')} ({identifiant!r})")
         if int(identifiant[1:]) == 0 or identifiant != f"P{int(identifiant[1:]):03d}":
             raise SystemExit(f"✘ {source} : ID non canonique ({identifiant!r})")
+        if identifiant in retires:
+            raise SystemExit(f"✘ {source} : ID définitivement retiré ({identifiant})")
         if identifiant in vus:
             raise SystemExit(f"✘ {source} : ID en double ({identifiant})")
         vus.add(identifiant)
@@ -494,8 +518,7 @@ def ecrire_cartes(js):
     racine (plus aucune duplication à maintenir : une seule source HTML)."""
     new = 'const PERSOS=' + json.dumps(js, ensure_ascii=False, separators=(',', ':')) + ';'
     if not os.path.exists(CARTE_CANONIQUE):
-        print(f"  ✘ {CARTE_CANONIQUE} introuvable")
-        return
+        raise SystemExit(f"✘ {CARTE_CANONIQUE} introuvable")
     with open(CARTE_CANONIQUE, encoding='utf-8') as f:
         source = f.read()
     # Le remplacement est une FONCTION : re.subn interpréterait les séquences
@@ -504,37 +527,75 @@ def ecrire_cartes(js):
     remplace, n = re.subn(r'const PERSOS=\[.*?\];', lambda _: new, source, count=1,
                           flags=re.S)
     if n != 1:
-        print(f"  ✘ PERSOS introuvable dans {CARTE_CANONIQUE}")
-        return
-    with open(CARTE_CANONIQUE, 'w', encoding='utf-8') as f:
-        f.write(remplace)
-    print(f"  ✔ {CARTE_CANONIQUE} ({len(remplace)} octets)")
-
+        raise SystemExit(f"✘ PERSOS introuvable dans {CARTE_CANONIQUE}")
     racine = remplace.replace('"vendor/leaflet/', '"carte/vendor/leaflet/')
     racine = racine.replace("const RACINE='../';", "const RACINE='';")
     if racine == remplace:
-        print(f"  ✘ dérivation de {CARTE_RACINE} impossible (motifs absents)")
-        return
+        raise SystemExit(f"✘ dérivation de {CARTE_RACINE} impossible (motifs absents)")
+    # Valider les deux transformations avant d'écrire : une erreur de dérivation
+    # ne doit jamais laisser la carte canonique à moitié mise à jour.
+    with open(CARTE_CANONIQUE, 'w', encoding='utf-8') as f:
+        f.write(remplace)
+    print(f"  ✔ {CARTE_CANONIQUE} ({len(remplace)} octets)")
     with open(CARTE_RACINE, 'w', encoding='utf-8') as f:
         f.write(racine)
     print(f"  ✔ {CARTE_RACINE} ({len(racine)} octets, dérivé de carte/index.html)")
 
 
-def copier_vignettes():
+def ecrire_atelier(js, narr, liens, recs):
+    """Réinjecte les données publiques dans l'atelier non canonique de scènes."""
+    if not os.path.exists(ATELIER):
+        raise SystemExit(f"✘ {ATELIER} introuvable")
+    with open(ATELIER, encoding='utf-8') as f:
+        source = f.read()
+    relation_doc = relations.serialiser(liens, recs)
+    remplacements = [
+        (r'const PERSOS=\[.*?\];',
+         'const PERSOS=' + json.dumps(js, ensure_ascii=False, separators=(',', ':')) + ';',
+         'PERSOS'),
+        (r'const NARRATION=\[.*?\];',
+         'const NARRATION=' + json.dumps(narr, ensure_ascii=False, separators=(',', ':')) + ';',
+         'NARRATION'),
+        (r'const RELATIONS=\{.*?\};',
+         'const RELATIONS=' + json.dumps(relation_doc, ensure_ascii=False, separators=(',', ':')) + ';',
+         'RELATIONS'),
+    ]
+    for motif, remplacement, nom in remplacements:
+        source, n = re.subn(motif, lambda _: remplacement, source, count=1, flags=re.S)
+        if n != 1:
+            raise SystemExit(f"✘ {nom} introuvable dans {ATELIER}")
+    with open(ATELIER, 'w', encoding='utf-8') as f:
+        f.write(source)
+    print(f"  ✔ {ATELIER} — atelier réinjecté ({len(js)} personnages, "
+          f"{len(narr)} narrations, {len(liens)} relations)")
+
+
+def copier_vignettes(recs=None):
+    """Synchronise uniquement les vignettes référencées par les personnages.
+
+    Une erreur de suppression ou de copie est bloquante : une carte livrée sans
+    image est un livrable incomplet et ne doit pas être annoncé comme réussi.
+    """
     os.makedirs('carte/portraits', exist_ok=True)
+    attendues = None
+    if recs is not None:
+        attendues = {r['Portrait'].replace('-web.webp', '-vignette.webp')
+                     for r in recs}
+    sources = set(_glob.glob('portraits/*-vignette.webp'))
+    if attendues is not None:
+        manquantes = sorted(attendues - sources)
+        if manquantes:
+            raise SystemExit("✘ Vignette(s) référencée(s) introuvable(s) : "
+                             + ', '.join(manquantes))
+        sources = attendues
     try:
         for old in _glob.glob('carte/portraits/*'):
-            try:
-                os.remove(old)
-            except OSError as e:
-                print(f"  ! suppression impossible {old} : {e}")
-        n = 0
-        for f in _glob.glob('portraits/*-vignette.webp'):
-            shutil.copy(f, 'carte/portraits/' + os.path.basename(f))
-            n += 1
-        print(f"  ✔ {n} vignettes synchronisées vers carte/portraits/")
+            os.remove(old)
+        for source in sorted(sources):
+            shutil.copy(source, 'carte/portraits/' + os.path.basename(source))
     except OSError as e:
-        print(f"  ! synchronisation des vignettes impossible : {e}")
+        raise SystemExit(f"✘ Synchronisation des vignettes impossible : {e}") from e
+    print(f"  ✔ {len(sources)} vignettes synchronisées vers carte/portraits/")
 
 
 def planche_contact(recs, cols=10, larg=240, haut=160, bandeau=34, marge=10):
@@ -610,7 +671,8 @@ def main():
     js = ecrire_autres(recs)
     print(f"  ✔ csv / json / geojson régénérés ({len(recs)} entrées)")
     ecrire_cartes(js)
-    copier_vignettes()
+    ecrire_atelier(js, narr, liens, recs)
+    copier_vignettes(recs)
     planche_contact(recs)
     print("Terminé.")
 

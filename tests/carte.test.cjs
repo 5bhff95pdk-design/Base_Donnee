@@ -13,6 +13,14 @@ function extrait(debut, fin) {
   return html.slice(a, b);
 }
 
+test('Le zoom arrière regroupe les personnages sans dépendance externe', () => {
+  assert.match(html, /const CLUSTER_ZOOM=13, CLUSTER_CELL=64;/);
+  assert.match(html, /const clusterLayer=L\.layerGroup\(\)\.addTo\(map\);/);
+  assert.match(html, /function actualiserClusters\(\)/);
+  assert.match(html, /groupe\.length<2/);
+  assert.match(html, /map\.flyToBounds\(/);
+});
+
 test('Les événements Leaflet affichent latitude et longitude sans erreur', () => {
   const handlers = {};
   const coords = {textContent: ''};
@@ -23,12 +31,52 @@ test('Les événements Leaflet affichent latitude et longitude sans erreur', () 
       getZoom: () => 15,
       getCenter: () => ({lat: 48.34, lng: -70.88}),
     },
+    actualiserClusters: () => {},
+    dessinerLiens: () => {},
   });
   vm.runInContext(extrait("map.on('mousemove',e=>{", "document.getElementById('home')"), contexte);
   handlers.mousemove({latlng: {lat: 48.33, lng: -70.89}});
   assert.equal(coords.textContent, '48.33000, -70.89000  ·  z15');
   handlers.zoomend();
   assert.equal(coords.textContent, '48.34000, -70.88000  ·  z15');
+});
+
+test('Les repères locaux corrompus sont ignorés sans exception', () => {
+  const bloc = extrait("const KEY='mes_reperes_labaie';", 'function saveMine');
+  const contexte = vm.createContext({
+    localStorage: {getItem: () => JSON.stringify([
+      {n: '  Point conservé  ', la: '48.33', lo: '-70.89'},
+      {n: '', la: 48.3, lo: -70.8},
+      {n: 'Coordonnée invalide', la: 999, lo: -70.8},
+    ])},
+    console: {warn: () => {}},
+  });
+  vm.runInContext(bloc, contexte);
+  assert.equal(vm.runInContext('mine.length', contexte), 1);
+  assert.equal(vm.runInContext('mine[0].n', contexte), 'Point conservé');
+  assert.equal(vm.runInContext('mine[0].la', contexte), 48.33);
+
+  const corrompu = vm.createContext({
+    localStorage: {getItem: () => '{pas du JSON'},
+    console: {warn: () => {}},
+  });
+  vm.runInContext(bloc, corrompu);
+  assert.equal(vm.runInContext('mine.length', corrompu), 0);
+});
+
+test('Un échec de stockage des repères ne fait pas planter la carte', () => {
+  const bloc = extrait('function saveMine(){', 'function renderCount(){');
+  let alertes = 0;
+  const contexte = vm.createContext({
+    localStorage: {setItem: () => { throw new Error('quota'); }},
+    console: {warn: () => {}},
+    alert: () => { alertes++; },
+    renderCount: () => {},
+    mine: [{n: 'Point', la: 48.3, lo: -70.8}],
+  });
+  vm.runInContext(bloc, contexte);
+  assert.equal(vm.runInContext('saveMine()', contexte), false);
+  assert.equal(alertes, 1);
 });
 
 for (const categorie of ['p', 'a']) {
@@ -44,6 +92,7 @@ for (const categorie of ['p', 'a']) {
     let applications = 0;
     const contexte = vm.createContext({
       PERSOS: [p], FILTRES, catOn, sel,
+      visible: () => true,
       grp: Object.fromEntries(['p', 'a'].map(k => [k, {
         hasLayer: m => couches[k].has(m),
         removeLayer: m => couches[k].delete(m),

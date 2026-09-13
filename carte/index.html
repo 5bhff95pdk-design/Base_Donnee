@@ -59,6 +59,11 @@
   .mk-q .pin{background:#e0793a}.mk-r .pin{background:#3f9bd6}.mk-v .pin{background:#7a8b99}.mk-u .pin{background:#c0455e}.mk-p .pin{background:#3fa96a;width:30px;height:30px;border-radius:50% 50% 50% 0}.mk-p .pin b{font-size:14px}
   .mk-a .pin{background:#9b6b3f;width:30px;height:30px;border-radius:50% 50% 50% 0}
   .mk-a .pin b{font-size:13px}
+  .character-cluster{background:transparent;border:0}
+  .character-cluster div{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;
+                          background:#b07cc6;color:#fff;border:3px solid rgba(255,255,255,.9);
+                          box-shadow:0 2px 8px rgba(0,0,0,.5);font-size:12px;font-weight:750}
+  .character-cluster:hover div{background:#c18ddd;transform:scale(1.08)}
   .place.sous{padding-left:20px;font-size:11.5px}
   select.sel{display:block;width:100%;padding:6px 8px;margin-top:8px;border-radius:6px;
              border:1px solid #2c4459;background:#0d1822;color:#e8eef5;font-size:12px;
@@ -145,7 +150,8 @@
       <div class="panel">
         <h2>Navigation</h2>
         <div style="font-size:11.5px;color:#8fa9bd;line-height:1.5">
-          Clic droit (ou appui long) sur la carte pour épingler un point.
+          Clic droit (ou appui long) sur la carte pour épingler un point.<br>
+          Les personnages se regroupent au zoom arrière ; cliquez un groupe pour zoomer.
         </div>
         <button class="btn" id="allp">👥 Cadrer les personnages</button>
         <button class="btn" id="geo">📍 Ma position</button>
@@ -275,6 +281,10 @@ const icon=c=>L.divIcon({className:CATS[c].cls,iconSize:[26,26],iconAnchor:[13,2
 /* --- groupes de marqueurs --- */
 const grp={};
 Object.keys(CATS).forEach(k=>{grp[k]=L.layerGroup().addTo(map);});
+const clusterLayer=L.layerGroup().addTo(map);
+const CLUSTER_ZOOM=13, CLUSTER_CELL=64;
+const clusterIcon=n=>L.divIcon({className:'character-cluster',iconSize:[38,38],iconAnchor:[19,19],
+  html:`<div aria-label="${n} personnages regroupés">${n}</div>`});
 
 function popup(o){
   if(!o.p) return `<b>${esc(o.n)}</b><br>${esc(o.d||'')}<span class="lat">${o.la.toFixed(6)}, ${o.lo.toFixed(6)}</span>`;
@@ -323,12 +333,40 @@ const trancheOk=p=>{
 const visible=p=>FILTRES.secteurs.has(p.secteur)&&FILTRES.types.has(p.type)&&trancheOk(p);
 const visibles=liste=>liste.filter(visible);
 
+function actualiserClusters(){
+  clusterLayer.clearLayers();
+  MARQUEURS_PERSOS.forEach(o=>{
+    const ok=visible(o.p)&&catOn[o.c];
+    if(ok&&!grp[o.c].hasLayer(o.m))o.m.addTo(grp[o.c]);
+    if(!ok&&grp[o.c].hasLayer(o.m))grp[o.c].removeLayer(o.m);
+  });
+  if(map.getZoom()>CLUSTER_ZOOM)return;
+  const cellules=new Map(), pointZoom=map.getZoom();
+  MARQUEURS_PERSOS.filter(o=>visible(o.p)&&catOn[o.c]).forEach(o=>{
+    const point=map.project([o.p.latitude,o.p.longitude],pointZoom);
+    const cle=Math.floor(point.x/CLUSTER_CELL)+':'+Math.floor(point.y/CLUSTER_CELL);
+    const groupe=cellules.get(cle)||[]; groupe.push(o); cellules.set(cle,groupe);
+  });
+  cellules.forEach(groupe=>{
+    if(groupe.length<2)return;
+    const lat=groupe.reduce((s,o)=>s+o.p.latitude,0)/groupe.length;
+    const lon=groupe.reduce((s,o)=>s+o.p.longitude,0)/groupe.length;
+    groupe.forEach(o=>grp[o.c].removeLayer(o.m));
+    const cluster=L.marker([lat,lon],{icon:clusterIcon(groupe.length),title:groupe.length+' personnages regroupés'});
+    cluster.on('click',()=>map.flyToBounds(
+      L.latLngBounds(groupe.map(o=>[o.p.latitude,o.p.longitude])).pad(.25),
+      {maxZoom:Math.min(16,map.getZoom()+3),duration:.5}));
+    clusterLayer.addLayer(cluster);
+  });
+}
+
 const famLayer=L.layerGroup().addTo(map);
 const FCOL=['#6fb3e0','#e0793a','#5fd39a','#c0455e','#c9b27a','#9b6b3f','#3f9bd6','#b07cc6'];
 let fi=0;
 
 function dessinerLiens(){
   famLayer.clearLayers(); fi=0;
+  if(map.getZoom()<=CLUSTER_ZOOM)return;
   Object.keys(FAMILLES).sort((a,b)=>a.localeCompare(b,'fr')).forEach(nom=>{
     Object.keys(FAMILLES[nom]).sort((a,b)=>a.localeCompare(b,'fr')).forEach(br=>{
       const v=visibles(FAMILLES[nom][br]);
@@ -348,6 +386,7 @@ function appliquerFiltres(){
   const c=document.getElementById('nvis');
   if(c) c.textContent=n+' / '+PERSOS.length+' personnages affichés';
   dessinerLiens();
+  actualiserClusters();
 }
 function cadrer(liste){
   const v=visibles(liste);
@@ -429,8 +468,34 @@ appliquerFiltres();
 
 /* ================= MES REPÈRES (persistés localement) ================= */
 const KEY='mes_reperes_labaie';
-let mine=JSON.parse(localStorage.getItem(KEY)||'[]');
-function saveMine(){localStorage.setItem(KEY,JSON.stringify(mine));renderCount();}
+const repereValide=o=>o&&typeof o.n==='string'&&o.n.trim().length>0&&o.n.length<=200
+  &&Number.isFinite(Number(o.la))&&Number(o.la)>=-90&&Number(o.la)<=90
+  &&Number.isFinite(Number(o.lo))&&Number(o.lo)>=-180&&Number(o.lo)<=180;
+function chargerMesReperes(){
+  try{
+    const brut=localStorage.getItem(KEY);
+    if(!brut)return [];
+    const valeurs=JSON.parse(brut);
+    if(!Array.isArray(valeurs))throw new TypeError('format inattendu');
+    return valeurs.filter(repereValide).map(o=>({n:o.n.trim(),la:Number(o.la),lo:Number(o.lo)}));
+  }catch(e){
+    console.warn('Repères locaux illisibles : réinitialisation en mémoire.',e);
+    return [];
+  }
+}
+let mine=chargerMesReperes();
+function saveMine(){
+  try{
+    localStorage.setItem(KEY,JSON.stringify(mine));
+    renderCount();
+    return true;
+  }catch(e){
+    console.warn('Impossible d’enregistrer les repères dans ce navigateur.',e);
+    renderCount();
+    alert('Les repères restent visibles pour cette session, mais ne peuvent pas être enregistrés dans ce navigateur.');
+    return false;
+  }
+}
 function renderCount(){
   const n=mine.length;
   document.getElementById('count').textContent=n?`${n} repère${n>1?'s':''} enregistré${n>1?'s':''} dans ce navigateur.`:'';
@@ -442,17 +507,28 @@ function drawMine(){
      .addTo(grp.u)
      .bindPopup(`<b>${esc(o.n)}</b><span class="lat">${o.la.toFixed(6)}, ${o.lo.toFixed(6)}</span>
        <br><button class="btn warn" style="margin-top:8px" onclick="delMine(${i})">Supprimer</button>`)
-     .on('dragend',e=>{const p=e.target.getLatLng();o.la=p.lat;o.lo=p.lng;saveMine();});
+     .on('dragend',e=>{
+       const avant={la:o.la,lo:o.lo}, p=e.target.getLatLng();
+       o.la=p.lat;o.lo=p.lng;
+       if(!saveMine()){o.la=avant.la;o.lo=avant.lo;e.target.setLatLng([o.la,o.lo]);}
+     });
   });
   renderCount();
 }
-window.delMine=i=>{mine.splice(i,1);saveMine();drawMine();};
+window.delMine=i=>{
+  const supprime=mine.splice(i,1)[0];
+  if(!saveMine())mine.splice(i,0,supprime);
+  drawMine();
+};
 drawMine();
 
 function addMine(la,lo){
   const n=prompt('Nom de ce repère :','Repère '+(mine.length+1));
   if(n===null)return;
-  mine.push({n:n||'Sans nom',la,lo});saveMine();drawMine();
+  const repere={n:n.trim()||'Sans nom',la:Number(la),lo:Number(lo)};
+  mine.push(repere);
+  if(!saveMine())mine.pop();
+  drawMine();
 }
 map.on('contextmenu',e=>addMine(e.latlng.lat,e.latlng.lng));
 let lpT;map.on('mousedown',e=>{lpT=setTimeout(()=>addMine(e.latlng.lat,e.latlng.lng),600);});
@@ -475,7 +551,10 @@ function dl(name,txt,mime){
   a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),3000);
 }
 document.getElementById('clr').onclick=()=>{
-  if(mine.length&&confirm('Effacer vos '+mine.length+' repère(s) ?')){mine=[];saveMine();drawMine();}
+  if(!mine.length||!confirm('Effacer vos '+mine.length+' repère(s) ?'))return;
+  const anciens=mine; mine=[];
+  if(!saveMine())mine=anciens;
+  drawMine();
 };
 
 /* ============ RECHERCHE : personnages (locale) + lieux (Nominatim) ============ */
@@ -507,8 +586,9 @@ function ligne(html, onclick){
   return d;
 }
 function reveler(o){
-  /* Si le filtre courant masque ce personnage, on relâche les filtres. */
-  if(!grp[o.c].hasLayer(o.m)){
+  /* Un cluster peut masquer visuellement le marqueur sans que les filtres
+     soient actifs : on ne les relâche que s’ils excluent réellement le résultat. */
+  if(!catOn[o.c]||!visible(o.p)){
     FILTRES.secteurs=new Set(PERSOS.map(p=>p.secteur));
     FILTRES.types=new Set(PERSOS.map(p=>p.type));
     FILTRES.tranche=''; if(typeof sel!=='undefined') sel.value='';
@@ -592,6 +672,8 @@ map.on('mousemove',e=>{
     `${e.latlng.lat.toFixed(5)}, ${e.latlng.lng.toFixed(5)}  ·  z${map.getZoom()}`;
 });
 map.on('zoomend',()=>{
+  actualiserClusters();
+  dessinerLiens();
   const c=map.getCenter();
   document.getElementById('coords').textContent=
     `${c.lat.toFixed(5)}, ${c.lng.toFixed(5)}  ·  z${map.getZoom()}`;

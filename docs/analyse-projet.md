@@ -1,7 +1,7 @@
 # Analyse du projet — état actuel
 
 **Mise à jour : 2026-09-13.** Cette synthèse décrit les fichiers de la branche
-`arena/01a09c0e-base-donnee`, après les cinq priorités de consolidation.
+`arena/01a09c22-base-donnee`, après les cinq priorités de consolidation.
 Les modifications de cette session ne constituent pas une version publiée.
 
 L’[analyse initiale à 173 personnages et ses suivis](historique/analyse-173-personnages.md)
@@ -51,11 +51,13 @@ Les nombres de lignes excluent les en-têtes.
 - `data/narration.csv` : source **publique et versionnée**, jointe par ID. Ses
   noms/surnoms servent de repères de lecture ; ceux du classeur suivent la base.
 - `data/factions.txt` : vocabulaire contrôlé des factions.
+- `data/ids-retires.txt` : registre versionné des IDs ne pouvant plus être réutilisés.
 - `data/relations.csv` : liens relus et saisis explicitement, accompagnés du texte
   de preuve provenant de Parenté. Extraction partielle, sans inférence de liens.
 - `construire_base.py` et `relations.py` : génération du classeur unique
   (**Personnages, Lisez-moi, Narration, Relations**), des exports personnages,
-  de `relations_personnages.json`, des deux cartes et de la planche contact.
+  de `relations_personnages.json`, des deux cartes, de l’atelier de scènes et
+  de la planche contact.
 - `docs/propositions-personnages-centraux.md` : atelier **non canonique**, non lu
   par le générateur, soumis à validation de l’auteur.
 
@@ -85,8 +87,8 @@ Ces traits ne représentent pas la nouvelle table de relations.
 
 | Suite | Nombre | Portée |
 |---|---|---|
-| Python | 60 | Données, exports, IDs, relations, portraits, conventions et documentation |
-| JavaScript ciblé | 3 | Coordonnées Leaflet et révélation des catégories humain/animal avec objets simulés |
+| Python | 62 | Données, exports, IDs, relations, portraits, conventions et documentation |
+| JavaScript ciblé | 6 | Coordonnées Leaflet, révélation des catégories humain/animal et robustesse des repères locaux avec objets simulés |
 | Navigateur Chromium | 14 | Recherche/portrait, filtres, catégories masquées, zoom, repères et menu mobile sur les deux cartes |
 
 Commandes et prérequis : [README — démarrage rapide](../README.md#démarrage-rapide)
@@ -112,15 +114,15 @@ cette analyse ni un indicateur de fraîcheur des données.
 
 ### Fonctionnement et couverture
 
-- Pas de clustering des marqueurs ; leur densité reste forte au zoom arrière.
 - Pas de test Firefox/Safari ou d’appareil tactile réel. Les services de tuiles,
   Nominatim et la géolocalisation ne sont pas validés par les parcours simulés.
-- Le chargement de repères par `JSON.parse(localStorage…)` n’est pas protégé
-  contre un stockage corrompu. Les tests couvrent le cycle normal, pas ce défaut.
-- Certaines erreurs de génération des cartes sont encore signalées par un
-  message et un retour de fonction plutôt que par un échec explicite du processus.
 - Le rythme et le déclenchement de la recherche distante restent à revoir au
   regard des politiques d’usage du fournisseur avant un déploiement public large.
+- Le stockage local est maintenant validé et protégé contre le JSON corrompu et
+  les quotas d’écriture ; il reste propre à chaque navigateur et n’est pas une
+  sauvegarde distante.
+- La construction échoue maintenant explicitement si l’injection de la carte ou
+  la synchronisation des vignettes ne peut pas produire les livrables attendus.
 - Pas d’interface d’édition multiutilisateur, d’authentification ou de serveur API.
 
 ### Données et narration
@@ -128,8 +130,9 @@ cette analyse ni un indicateur de fraîcheur des données.
 - Les coordonnées sont approximatives. Les tests d’arrondissement utilisent des
   boîtes géographiques, pas les limites administratives exactes ni une nouvelle
   vérification des rues auprès d’OpenStreetMap.
-- Les IDs sont permanents par convention et validés dans l’état courant ; aucun
-  registre de suppression ne garantit automatiquement leur non-réutilisation.
+- Les IDs sont permanents et contrôlés par `data/ids-retires.txt`. La garantie
+  dépend encore de l’ajout manuel d’un ID au registre au moment d’un retrait ;
+  l’historique des suppressions anciennes n’est pas reconstruit automatiquement.
 - Les preuves des relations sont comparées au texte source, mais le programme ne
   valide pas leur interprétation sémantique. L’extraction n’est pas exhaustive.
 - Pas encore de temporalité, de statut « rumeur/perception », ni de distinction
@@ -155,7 +158,8 @@ narration est publique dans le dépôt et le classeur.
 Conserver l’architecture actuelle. Avant d’ajouter des personnages ou de changer
 la pile technique, privilégier :
 
-1. La validation éditoriale des [treize propositions](propositions-personnages-centraux.md).
+1. La validation éditoriale des [treize propositions](propositions-personnages-centraux.md)
+   et du [noyau de saison 1 proposé](atelier-saison-1.md).
 2. L’enrichissement progressif des [relations sourcées](relations-personnages.md),
    avec un modèle temporel seulement lorsque les scènes en ont besoin.
 3. Le traitement des erreurs de stockage et de construction signalées plus haut,

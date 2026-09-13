@@ -209,6 +209,14 @@ class TestIdentifiants(unittest.TestCase):
             with self.assertRaisesRegex(SystemExit, 'Portrait introuvable'):
                 cb.charger_personnages()
 
+    def test_id_retire_ne_peut_pas_etre_reutilise(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            registre = Path(tmp) / 'ids-retires.txt'
+            registre.write_text('# historique\nP999\n', encoding='utf-8')
+            with patch.object(cb, 'SRC_IDS_RETIRES', str(registre)):
+                with self.assertRaisesRegex(SystemExit, 'définitivement retiré'):
+                    cb.valider_ids([{'ID': 'P999', 'Nom': 'Personnage test'}], 'test')
+
 
 class TestRelations(unittest.TestCase):
     @classmethod
@@ -621,6 +629,20 @@ class TestCarte(unittest.TestCase):
             m = re.search(r'const PERSOS=(\[.*?\]);', h, flags=re.S)
             self.assertIsNotNone(m, 'PERSOS introuvable')
             self.assertEqual(len(json.loads(m.group(1))), N, 'effectif PERSOS')
+
+    def test_atelier_de_scenes_recoit_les_donnees_sans_devenir_un_export(self):
+        h = Path('atelier/index.html').read_text(encoding='utf-8')
+        persos = re.search(r'const PERSOS=(\[.*?\]);', h, flags=re.S)
+        narr = re.search(r'const NARRATION=(\[.*?\]);', h, flags=re.S)
+        relations = re.search(r'const RELATIONS=(\{.*?\});', h, flags=re.S)
+        self.assertIsNotNone(persos)
+        self.assertIsNotNone(narr)
+        self.assertIsNotNone(relations)
+        self.assertEqual(len(json.loads(persos.group(1))), N)
+        self.assertEqual(len(json.loads(narr.group(1))), N)
+        self.assertEqual(len(json.loads(relations.group(1))['relations']), 114)
+        self.assertIn('Exercice non canonique', h)
+        self.assertNotIn('atelier/index.html', Path('base_personnages_fictifs.json').read_text(encoding='utf-8'))
 
     def test_la_carte_de_racine_est_derivee_de_la_canonique(self):
         """Une seule source HTML : la copie de racine ne doit pas diverger."""

@@ -1,6 +1,40 @@
 # Journal des changements
 
 Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
+
+## [2026-09-13] — Atelier interactif de scènes
+
+- Ajout de `atelier/index.html`, une machine à faire apparaître des tensions à
+  partir des personnages, narrations et relations existants.
+- L’atelier propose plusieurs moteurs de scène, un point de vue, une pression,
+  un témoin, des questions de jeu et une consigne de conséquence.
+- Toutes les situations générées sont explicitement non canoniques ; l’atelier
+  est réinjecté par la construction mais ne modifie aucune source éditoriale.
+
+## [2026-09-13] — Lisibilité de la carte et IDs retirés
+
+- Ajout d’un regroupement natif des personnages au zoom arrière, sans plugin
+  externe : les groupes sont cliquables et les traits de familles restent
+  réservés aux niveaux de zoom détaillés.
+- Ajout de `data/ids-retires.txt`, registre versionné empêchant la réutilisation
+  accidentelle d’un identifiant supprimé.
+- Ajout de tests ciblés pour le regroupement et le registre d’identifiants.
+- Ajout de deux documents de travail non générateurs : provenance géographique
+  explicitée et noyau de saison 1 proposé, sans modification du canon.
+
+## [2026-09-13] — Robustesse de la carte et de la génération
+
+- Le chargement des repères locaux ignore désormais proprement un JSON corrompu,
+  les coordonnées invalides et les noms vides ; les erreurs de quota de
+  `localStorage` sont signalées sans faire planter la carte et les modifications
+  non persistées sont annulées.
+- La construction échoue explicitement si l’injection des personnages dans la
+  carte échoue ou si une vignette référencée ne peut pas être synchronisée.
+  Les vignettes copiées sont limitées à celles réellement référencées par la
+  source personnages.
+- Deux tests JavaScript ciblés portent le total à cinq ; l’analyse actuelle et
+  le README décrivent désormais la nouvelle couverture.
+
 Ce projet n'a pas de version publiée : les entrées datent les bascules
 structurantes.
 
