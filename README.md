@@ -52,12 +52,13 @@ les toponymes sont réels (OpenStreetMap).
 | `carte/vendor/leaflet/` | **Leaflet 1.9.4 en copie locale (BSD-2)** : aucun CDN. |
 | `carte/portraits/` | Vignettes 400 px servies par la carte (synchronisées par le script). |
 | `atelier/index.html` | Atelier interactif de génération de scènes, non canonique et réinjecté par le script. Les mineurs n’y occupent jamais la « pression » des moteurs de dette et de refus. |
-| `portraits/` | Deux gabarits WebP par personnage : `-web.webp` et `-vignette.webp`, plus la planche contact. |
+| `portraits/` | Deux gabarits WebP par personnage : `-web.webp` et `-vignette.webp`, plus la planche contact. Chaque image porte son étiquette « généré par IA » (XMP). |
 | `construire_base.py` | Générateur **idempotent et reproductible** de tous les livrables. |
 | `scripts/init_source_csv.py` | Migration unique : ancien classeur maître → `data/*.csv`. |
 | `scripts/retirer_archives_git.sh` | Purge optionnelle de l'ancien gabarit « archive » dans l'historique Git. |
+| `scripts/etiqueter_portraits_ia.py` | Insère l'étiquette IA (XMP) dans les WebP **sans réencodage** ; `--verifier` en contrôle la présence. |
 | `scripts/historique/` | Scripts de migration passés, conservés pour mémoire. |
-| `tests/test_base.py` | **66 garde-fous** couvrant les conventions et la documentation, lancés en CI. |
+| `tests/test_base.py` | **70 garde-fous** couvrant les conventions et la documentation, lancés en CI. |
 | `tests/carte.test.cjs` · `tests/atelier.test.cjs` | **10 régressions JavaScript** ciblées (carte et règles de l'atelier), sans dépendance npm. |
 | `.github/workflows/validation.yml` | CI : lint + régénération + contrôle de reproductibilité + tests. |
 | `docs/relations-personnages.md` | Conventions, périmètre partiel et liens restant à qualifier. |
@@ -186,18 +187,25 @@ python3 construire_base.py
 #    carte-la-baie-saguenay.html, synchronise les vignettes et reconstruit
 #    la planche contact.
 
+# 3 bis. après l'ajout d'un portrait (facultatif, une fois par nouvelle image)
+python3 scripts/etiqueter_portraits_ia.py             # étiquette IA (XMP), sans réencodage
+python3 scripts/etiqueter_portraits_ia.py --verifier  # contrôle, ne modifie rien
+
 # 4. contrôler la base
-python3 -m unittest discover -s tests -v   # 66 garde-fous
+python3 -m unittest discover -s tests -v   # 70 garde-fous
 ruff check .                               # lint
 node --test tests/*.test.cjs               # régressions JS ciblées (Node.js 22)
 ```
+
+L'étape 3 bis marque le portrait comme **image générée par IA** dans le fichier
+lui-même : un test échoue si une image nouvellement ajoutée n'est pas étiquetée.
 
 La source se modifie dans un tableur comme n'importe quel CSV (`;` et UTF-8) ;
 à défaut, un éditeur de texte suffit, et le diff Git reste lisible ligne à ligne.
 
 ### Tests navigateur (Chromium)
 
-Les **14 tests Playwright** complètent les 66 garde-fous Python et les
+Les **14 tests Playwright** complètent les 70 garde-fous Python et les
 10 tests JavaScript ciblés. Sept parcours sont joués sur chacune des deux
 cartes : recherche sans accents et portrait, filtres combinés,
 révélation des humains et de l’animal masqués, coordonnées/zoom,
@@ -249,8 +257,9 @@ La **recherche de personnages**, elle, est locale et fonctionne sans réseau.
   **planche contact WebP** dépend du codec `libwebp` natif : son idempotence
   est garantie sur un même runner, sans comparaison binaire
   inter-environnements (la fonte, elle, est vendoriée dans `assets/fonts/`).
-- Les **66 garde-fous** vérifient notamment : effectifs et cohérence des 4
-  exports, conformité de la source texte, **unicité et absence de `];`** dans
+- Les **70 garde-fous** vérifient notamment : effectifs et cohérence des 4
+  exports, conformité de la source texte, étiquette IA présente dans chaque
+  portrait et dans la planche, mentions de fiction dans le classeur, **unicité et absence de `];`** dans
   les valeurs, adresses avec numéro ou `Lieu-dit :`, rôles sans clan,
   **Famille/Branche sans parenthèses**, coordonnées dans une boîte approximative de l’arrondissement,
   mineurs présents, **narration versionnée, complète dans le classeur et

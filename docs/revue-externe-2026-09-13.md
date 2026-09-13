@@ -200,10 +200,10 @@ renforcer :
 - **Imagerie datée** : les portraits « web » sont bien dimensionnés, mais un
   encodage AVIF ou une qualité WebP plus basse (moyenne 101 Ko pour 1200 px)
   diviserait le poids par deux sans perte visible.
-- **Métadonnées d'IA** : l'étiquetage « généré par IA » vit dans le README, la
-  licence et l'interface, mais **pas dans les fichiers d'image** (pas de bloc
-  XMP/IPTC `digitalSourceType = trainedAlgorithmicMedia`). Exigé par plusieurs
-  plateformes, absent ici.
+- **Métadonnées d'IA** — *corrigé depuis* : l'étiquetage « généré par IA » vit
+  désormais **dans les fichiers d'image** (paquet XMP avec
+  `digitalSourceType = trainedAlgorithmicMedia`, titre nommé, CC BY 4.0), et non
+  plus seulement dans le README, la licence et l'interface.
 - **Le `.xlsx` ne porte aucune mention de fiction** dans ses propriétés
   (auteur « Luc », titre). Le classeur va pourtant circuler plus loin que le
   dépôt : une ligne `description` dans `docProps/core.xml` (déjà maîtrisé par
@@ -219,7 +219,7 @@ renforcer :
 | 2 | Étendre `data/relations.csv` aux ~28 liens déjà écrits dans `Parenté` | 1 h éditoriale | 141 → ~169 personnages reliés ; corrige l'incohérence d'extraction |
 | 3 | Garde-fou « mineurs » dans l'atelier (jamais « pression » sur dette/limite) | ~15 lignes | Aligne l'outil sur la règle déjà écrite dans `docs/atelier-saison-1.md` |
 | 4 | Phrase de non-ressemblance (personnes, entreprises) + mention « adresse fictive » dans le popup + coordonnées à 4 décimales | ~30 min | Ferme les trois risques juridiques les moins couverts |
-| 5 | Métadonnées d'IA dans les WebP et une description dans le classeur | ~1 h | Étiquetage automatique, portable hors du dépôt |
+| 5 | ~~Métadonnées d'IA dans les WebP et une description dans le classeur~~ (fait) | ~1 h | Étiquetage automatique, portable hors du dépôt |
 | 6 | `relations.csv` : élargir aux liens non familiaux (voisinage, dette, emploi) issus des champs `Lien Spot` / `Arc S1`, en conservant la preuve | plus lourd | Donne à l'atelier une matière qui ne soit pas seulement généalogique |
 | 7 | Décider du sort de `Sous-sol`, `Neutre`, `Propre` et du sens de `Branche` | décision, pas code | Vocabulaire stable avant la saison 1 |
 
@@ -281,8 +281,9 @@ adresse, un objet et une dette. Le reste du dépôt est prêt depuis longtemps.
 | 3.1 Relations incomplètes | **Corrigé en partie** | 41 liens déclarés en prose ajoutés après résolution des prénoms ambigus : 155 relations, 176 personnages reliés. Trois types documentés (`oncle_de`, `grand_parent_de`, `parrain_de`). Reste : les liens d’intrigue (dettes, voisinage, influence) décrits hors de `Parenté`. |
 | 3.3 Mineurs | **Corrigé** | `MODES_SANS_MINEUR=['dette','limite']` et `pressionAutorisee()` dans l’atelier, repère « mineur, à protéger » dans les faits de scène, mention dans la légende. 4 tests JS dédiés. |
 | 3.4 Mentions de fiction | **Corrigé** | Clause de non-ressemblance (personnes, entreprises, organisations) dans `LICENSE-DONNEES.md` et le README ; « Personnage de fiction — adresse inventée » dans chaque fiche ; coordonnées affichées à 4 décimales. Garde-fou Python. |
-| 3.5 Métadonnées d’IA dans les images | **Ouvert** | Aucun bloc XMP/IPTC `trainedAlgorithmicMedia` dans les WebP. |
-| 3.5 Poids du dépôt | **Ouvert** | La planche contact (2,4 Mo dérivés) reste versionnée. |
+| 3.5 Métadonnées d’IA dans les images | **Corrigé** | Paquet XMP (`trainedAlgorithmicMedia`, titre nommé, CC BY 4.0, attribution) dans les 426 portraits, les 213 copies de la carte et la planche ; insertion RIFF sans réencodage, idempotente, testée. 4 garde-fous Python en plus. |
+| 3.5 Mention de fiction dans le classeur | **Corrigé** | `dc:description` des propriétés du `.xlsx` : fiction, IA, non-ressemblance, licences, source. |
+| 3.5 Poids du dépôt | **Ouvert, assumé** | La planche contact (~2,3 Mo, régénérable) reste versionnée : elle sert d’aperçu sans réseau et de filet de secours si le codec du runner change. L’étiquetage a ajouté ≈ 0,7 Mo (426 × ~1,7 Ko), sans réencodage. |
 | 3.5 Factions et `Branche` | **Ouvert** | `Sous-sol`, `Neutre`, `Propre` et les branches auto-référentielles attendent une décision d’auteur. |
 | 5. Gel des ajouts et premier épisode | **Ouvert** | Recommandation éditoriale, hors du périmètre des corrections techniques. |
 

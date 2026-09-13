@@ -23,11 +23,12 @@ collaboratif, ni les propositions narratives en canon validé.**
 Une passe de correction (2026-09-13) a traité quatre points issus d’une revue
 externe : affichage entier des vignettes verticales sur la planche contact,
 structuration de 41 liens de famille déjà écrits en prose, protection des
-mineurs dans les moteurs de l’atelier, et mentions de non-ressemblance dans la
-fiche du personnage et les licences. Les recommandations encore ouvertes
-(étiquetage IA dans les fichiers d’image, élargissement aux liens d’intrigue,
-décisions sur les factions `Sous-sol` / `Neutre` / `Propre` et sur la colonne
-`Branche`) sont consignées dans [la revue](revue-externe-2026-09-13.md).
+mineurs dans les moteurs de l’atelier, mentions de non-ressemblance dans la
+fiche du personnage et les licences, **étiquette « généré par IA » (XMP) dans
+chaque image** et mention de fiction dans les propriétés du classeur. Les
+recommandations encore ouvertes (élargissement aux liens d’intrigue, décisions
+sur les factions `Sous-sol` / `Neutre` / `Propre` et sur la colonne `Branche`)
+sont consignées dans [la revue](revue-externe-2026-09-13.md).
 
 ## 2. État des données
 
@@ -98,7 +99,7 @@ Ces traits ne représentent pas la nouvelle table de relations.
 
 | Suite | Nombre | Portée |
 |---|---|---|
-| Python | 66 | Données, exports, IDs, relations, portraits, protection des mineurs, conventions et documentation |
+| Python | 70 | Données, exports, IDs, relations, portraits, étiquetage IA, protection des mineurs, conventions et documentation |
 | JavaScript ciblé | 10 | Coordonnées Leaflet, révélation des catégories humain/animal, robustesse des repères locaux et protection des mineurs dans l’atelier, avec objets simulés |
 | Navigateur Chromium | 14 | Recherche/portrait, filtres, catégories masquées, zoom, repères et menu mobile sur les deux cartes |
 

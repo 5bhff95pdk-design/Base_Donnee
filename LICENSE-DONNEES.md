@@ -63,6 +63,27 @@ une personne existante serait fortuite.
 - Mention recommandée : *« Portrait généré par IA — projet La Baie, CC BY 4.0 »*.
 - Pour un usage public au Canada, vérifier les obligations d'**étiquetage des
   contenus générés par IA** prévues par la réglementation en vigueur.
+
+### Étiquette IA intégrée aux fichiers (XMP)
+
+L'étiquetage ne dépend pas d'un texte accompagnateur : **il est écrit dans
+chaque image**. Les 426 portraits (`-web.webp` et `-vignette.webp`), leurs copies
+servies par la carte et la planche contact portent un paquet **XMP** contenant :
+
+| Champ | Valeur |
+|---|---|
+| `Iptc4xmpExt:DigitalSourceType` | `trainedAlgorithmicMedia` (valeur normalisée IPTC : média produit par un système entraîné) |
+| `dc:title` | nom du personnage et ID, p. ex. « Chantal Lavoie (P008) — personnage fictif » |
+| `dc:description` | rappel que le portrait est généré par IA, qu'aucune personne réelle n'a été photographiée et que toute ressemblance serait fortuite |
+| `dc:rights` / `xmpRights:WebStatement` | CC BY 4.0 et lien de la licence |
+| `dc:creator` | attribution « Projet La Baie (Saguenay) » |
+
+Une vignette extraite du dépôt (copiée dans un document, un diaporama ou un
+réseau social) garde donc sa mention d'origine. L'insertion se fait au niveau du
+conteneur **RIFF/WebP** (`scripts/etiqueter_portraits_ia.py`) : la donnée image
+n'est jamais réencodée, et un test vérifie qu'un second passage ne change rien.
+Les propriétés du classeur (`base_personnages_fictifs.xlsx`) portent la même
+mention, pour le cas où seul le tableur circule.
 - Les personnes fictives mineures (9 personnages humains de 9 à 17 ans) sont
   traitées comme tous les autres personnages : illustrations générées par IA de
   personnages de fiction, sans aucune donnée personnelle réelle.

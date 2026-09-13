@@ -2,6 +2,27 @@
 
 Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
+## [2026-09-13] — Étiquette IA dans les fichiers eux-mêmes
+
+- **Étiquetage intégré aux images** : les 426 portraits, leurs 213 copies
+  servies par la carte et la planche contact portent désormais un paquet **XMP**
+  (`Iptc4xmpExt:DigitalSourceType = trainedAlgorithmicMedia`, titre nommant le
+  personnage et son ID, description « fiction / aucune personne réelle »,
+  CC BY 4.0, attribution). Une image extraite du dépôt garde donc sa mention.
+- Nouveau `scripts/etiqueter_portraits_ia.py` : insertion **au niveau du
+  conteneur RIFF/WebP**, sans réencodage de la donnée image (vérifié : les
+  pixels des 426 fichiers sont inchangés, octet pour octet pour le chunk
+  `VP8 `) ; idempotent, avec un mode `--verifier`.
+- **Classeur** : les propriétés du fichier (`docProps/core.xml`) portent la
+  mention de fiction, d’IA, de non-ressemblance et de licences, pour le cas où
+  seul le `.xlsx` circule.
+- Quatre garde-fous Python supplémentaires (**70** au total) : étiquette
+  présente et nommée sur chaque image, insertion sans réencodage et idempotente,
+  étiquette de la planche, mentions du classeur ; `test_outillage_present` suit
+  le nouveau script.
+- Documentation : `LICENSE-DONNEES.md` documente les champs XMP, le README
+  décrit le script et la mention intégrée.
+
 ## [2026-09-13] — Corrections issues d’une revue externe
 
 - **Planche contact** : les 12 vignettes verticales (400 × 600) sont désormais
