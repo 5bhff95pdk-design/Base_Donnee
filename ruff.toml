@@ -1,0 +1,16 @@
+# ruff — linter du dépôt (rien de cosmétique : uniquement les règles qui
+# attrapent un vrai bug : imports cassés, noms indéfinis, comparaisons
+# suspectes, warnings pycodestyle). Le formateur n'est PAS activé : inutile de
+# réécrire l'historique du code pour une question de style.
+#
+#   pip install -r requirements-dev.txt && ruff check .
+line-length = 100
+target-version = "py311"
+exclude = [".git", ".venv", "__pycache__", "carte/vendor", "carte/portraits"]
+
+[lint]
+select = ["E4", "E7", "E9", "F", "W"]
+ignore = ["E731"]          # les petites lambdas locales restent lisibles
+
+[lint.per-file-ignores]
+"scripts/historique/*" = ["E501", "W291", "F401"]   # figé : témoin d'une migration passée

@@ -7,6 +7,10 @@
 *.txt  text eol=lf
 # CSV Excel FR : généré par Python avec des fins de ligne CRLF (convention Excel)
 *.csv  text eol=crlf
+# … mais la SOURCE de vérité, elle, reste en LF pour garder un diff lisible
+# (règle plus spécifique : la dernière qui correspond gagne).
+data/*.csv text eol=lf
+*.toml text eol=lf
 *.json text eol=lf
 *.geojson text eol=lf
 *.html text eol=lf

@@ -11,6 +11,24 @@ code, outillage, reproductibilité, licences et carte interactive.
 > Les chiffres ci-dessous sont issus de ces exécutions, pas de la documentation.
 > Commandes rejouables : voir [Annexe A](#annexe-a--ce-qui-a-été-vérifié).
 
+> **🟢 Suivi au 2026-09-13 — recommandations appliquées.**
+> Le plan d'action du § 8 a été exécuté (détail dans [`CHANGELOG.md`](../CHANGELOG.md)) :
+> **P1** narration privée (hors dépôt, vérifiée par test + CI) ; workflow
+> `relay-drive-archive.yml` supprimé ; README corrigé (nombre de garde-fous
+> désormais vérifié par un test). **P2** source de vérité sortie du binaire
+> (`data/personnages.csv`) ; `ruff` + crochets pre-commit + job de lint ;
+> `ecrire_xlsx()` découpé ; test de date figée découplé de `SOURCE_DATE_EPOCH` ;
+> CI programmée ; échappement HTML des popups ; carte de racine dérivée.
+> **P3** factions normalisées (128 → 17 valeurs contrôlées) ; `Famille` scindée
+> en `Famille` + `Branche` (16 colonnes). **P4** recherche par personnage,
+> filtres secteur / type / âge, panneau familles hiérarchique, portrait
+> cliquable.
+> **Restent ouverts** (§ 8, P3-P4) : le rajeunissement de la population
+> (4 personnes de moins de 20 ans), la diversification des rues de Chicoutimi et
+> Jonquière, l'uniformisation du ratio des portraits, et le clustering des
+> marqueurs — quatre chantiers éditoriaux qui demandent de nouvelles données
+> (personnages, rues OSM, portraits) plutôt que du code.
+
 ---
 
 ## 1. Verdict en une page
@@ -317,7 +335,7 @@ métrique, responsive jusqu'au mobile (sidebar en tiroir).
 | Pas de filtre par âge, secteur, type ou faction | La base est riche, la carte n'en expose qu'une partie | Réutiliser la mécanique des cases à cocher déjà en place |
 | Popup construite par concaténation dans `innerHTML` | Autos-XSS possible via le nom d'un repère saisi (`prompt`) — risque **faible** (données locales, attaquant = utilisateur) mais gratuit à corriger | Échapper les valeurs (ou `textContent`) avant injection |
 | Aucun lien vers le portrait `-web` (seule la vignette s'affiche) | On ne peut pas voir le portrait en grand depuis la carte | Rendre la vignette cliquable |
-| Le bandeau d'avertissement est `display:none` sur grand écran | Le message « fiction / IA / adresses inventées » n'apparaît qu'en mobile | L'afficher en pied de sidebar plutôt que de le masquer |
+| Le bandeau d'avertissement de l'en-tête est `display:none` sur grand écran (seule la copie de la barre latérale reste visible) | Le message « fiction / IA / adresses inventées » tient à un unique sélecteur CSS : un simple `display:none` sur `.banner` le ferait disparaître partout | Sortir le bandeau de la classe `.banner` (ou le dupliquer dans le pied de carte) pour qu'aucune règle CSS ne puisse le masquer |
 
 ---
 

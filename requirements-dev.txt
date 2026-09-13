@@ -1,0 +1,3 @@
+# Dépendances de DÉVELOPPEMENT (qualité de code) — pas nécessaires pour
+# construire la base. Installation : python3 -m pip install -r requirements-dev.txt
+ruff==0.16.7

@@ -1,6 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+⚠ SCRIPT HISTORIQUE — conservé pour mémoire, il n'est plus exécutable en l'état.
+
+Il documente les 13 correctifs appliqués le 2026-09-12, à une époque où la
+source de vérité était le classeur base_personnages_fictifs.xlsx. Depuis le
+2026-09-13 la source est data/personnages.csv (texte) : la migration a été
+faite par scripts/init_source_csv.py et ce fichier n'a plus vocation à tourner.
+Il est rangé dans scripts/historique/ pour ne pas laisser croire qu'il fait
+partie de la chaîne de construction.
+
+---- description d'origine ----
 scripts/migrer_corrections.py — application UNE FOIS des corrections de la révision
 du 2026-09-12 dans le classeur maître base_personnages_fictifs.xlsx.
 
